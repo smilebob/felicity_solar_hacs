@@ -1,11 +1,11 @@
 {
   "domain": "felicity_solar",
-  "name": "Felicity Solar",
+  "name": "Felicity Solar (Smilebob Edition)",
   "version": "1.0.2",
-  "documentation": "https://github.com/matheustavarestrindade/felicity_solar_hacs",
-  "issue_tracker": "https://github.com/matheustavarestrindade/felicity_solar_hacs/issues",
+  "documentation": "https://github.com/smilebob/felicity_solar_hacs",
+  "issue_tracker": "https://github.com/smilebob/felicity_solar_hacs/issues",
   "dependencies": [],
-  "codeowners": ["@matheustavarestrindade"],
+  "codeowners": ["@smilebob"],
   "requirements": ["pycryptodome>=3.18.0", "PyJWT>=2.8.0"],
   "iot_class": "cloud_polling",
   "config_flow": true

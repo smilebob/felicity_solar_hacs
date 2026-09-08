@@ -2,6 +2,7 @@ from homeassistant.components.sensor import (
     SensorEntity,
     SensorEntityDescription,
     SensorDeviceClass,
+    SensorStateClass,
 )
 from homeassistant.const import (
     UnitOfElectricPotential,
@@ -13,13 +14,13 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 # Define all the data points from your BatteryData type
 BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
     SensorEntityDescription(key="voltage", name="Voltage",
-                            native_unit_of_measurement=UnitOfElectricPotential.VOLT, device_class=SensorDeviceClass.VOLTAGE),
+                            native_unit_of_measurement=UnitOfElectricPotential.VOLT, device_class=SensorDeviceClass.VOLTAGE, state_class=SensorStateClass.MEASUREMENT),
     SensorEntityDescription(key="current", name="Current",
-                            native_unit_of_measurement=UnitOfElectricCurrent.AMPERE, device_class=SensorDeviceClass.CURRENT),
+                            native_unit_of_measurement=UnitOfElectricCurrent.AMPERE, device_class=SensorDeviceClass.CURRENT, state_class=SensorStateClass.MEASUREMENT),
     SensorEntityDescription(key="soc", name="State of Charge",
-                            native_unit_of_measurement=PERCENTAGE, device_class=SensorDeviceClass.BATTERY),
+                            native_unit_of_measurement=PERCENTAGE, device_class=SensorDeviceClass.BATTERY, state_class=SensorStateClass.MEASUREMENT),
     SensorEntityDescription(key="soh", name="State of Health",
-                            native_unit_of_measurement=PERCENTAGE),
+                            native_unit_of_measurement=PERCENTAGE, state_class=SensorStateClass.MEASUREMENT),
 )
 
 

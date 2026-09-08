@@ -1,8 +1,9 @@
-# ☀️ Felicity Solar for Home Assistant
+# ☀️ Felicity Solar for Home Assistant (Smilebob Edition)
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/smilebob/felicity_solar_hacs)
 
-A custom integration for Home Assistant to monitor your Felicity Solar setup. This integration securely connects to the Shine Felicity Solar API to fetch real-time data for your High Frequency Inverters and Lithium Battery Packs, automatically creating native Home Assistant sensors and supporting the built-in Energy Dashboard.
+A custom integration for Home Assistant to monitor your Felicity Solar setup (including Felicity T-REX and Hybrid Inverters). This integration securely connects to the Shine Felicity Solar API to fetch real-time data for your High Frequency / Low Frequency / Hybrid / T-REX Inverters and Lithium Battery Packs, automatically creating native Home Assistant sensors and supporting the built-in Energy Dashboard.
+
 
 > **Note:** This integration was _VibeTranslated_ to Python directly from my original NodeJS FelicityAPI implementation! ⚡️
 

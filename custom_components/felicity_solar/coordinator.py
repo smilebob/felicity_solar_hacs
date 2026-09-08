@@ -1,4 +1,5 @@
 import logging
+import re
 from datetime import timedelta
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.core import HomeAssistant
@@ -64,9 +65,49 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                     snapshot = await self.api.get_device_snapshot(device_sn)
                     device_type = snapshot.get("productTypeEnum")
 
-                    if device_type == DeviceTypeEnum.HIGH_FREQUENCY_INVERTER:
+                    _LOGGER.info("Snapshot received for device %s with productTypeEnum='%s'", device_sn, device_type)
+
+                    is_battery = (
+                        device_type == DeviceTypeEnum.LITHIUM_BATTERY_PACK
+                        or (isinstance(device_type, str) and "BATTERY" in device_type.upper())
+                    )
+
+                    if is_battery:
                         devices_data[device_sn] = {
-                            "type": device_type,
+                            "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
+                            "serialNumber": device_sn,
+                            "data": {
+                                "voltage": _safe_float(snapshot.get("battVolt")),
+                                "current": _safe_float(snapshot.get("battCurr")),
+                                "soc": _safe_int(snapshot.get("battSoc")),
+                                "soh": _safe_int(snapshot.get("battSoh")),
+                                "ratedEnergy": _safe_float(snapshot.get("ratedEnergy")),
+                                "energyUnit": str(snapshot.get("energyUnit", "")),
+                                "nameplateRatedPower": str(snapshot.get("nameplateRatedPower", "")),
+                            }
+                        }
+                    else:
+                        raw_model = snapshot.get("deviceModel") or snapshot.get("model") or snapshot.get("productTypeEnum") or "Solar Inverter"
+                        model_display = str(raw_model).replace("_", " ").title()
+                        if "Felicity" not in model_display:
+                            model_display = f"Felicity {model_display}"
+
+                        # Handle rated power calculation (stored in kW)
+                        raw_rated = _safe_float(snapshot.get("ratedPower") or snapshot.get("nameplateRatedPower") or snapshot.get("ratePower"))
+                        if raw_rated > 100:
+                            # If value is returned in Watts (e.g. 6000), convert to kW
+                            raw_rated = raw_rated / 1000.0
+                        
+                        # Fallback parsing from model name if API returned 0 / missing
+                        if raw_rated == 0:
+                            match = re.search(r"(\d+)\s*K", model_display.upper())
+                            if match:
+                                raw_rated = float(match.group(1))
+
+                        devices_data[device_sn] = {
+                            "type": DeviceTypeEnum.HIGH_FREQUENCY_INVERTER,
+                            "productTypeEnum": device_type,
+                            "modelName": model_display,
                             "serialNumber": device_sn,
                             "data": {
                                 "acInputVoltage": _safe_float(snapshot.get("acRInVolt")),
@@ -81,10 +122,16 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "pvInputCurrent": _safe_float(snapshot.get("pvInCurr")),
                                 "pvPower": _safe_float(snapshot.get("pvPower")),
                                 "pvTotalPower": _safe_float(snapshot.get("pvTotalPower")),
-                                "batteryVoltage": _safe_float(snapshot.get("emsVoltage")),
-                                "batteryCurrent": _safe_float(snapshot.get("emsCurrent")),
+                                "pv1Voltage": _safe_float(snapshot.get("pv1Volt") or snapshot.get("pvVolt1") or snapshot.get("pvVolt")),
+                                "pv1Current": _safe_float(snapshot.get("pv1InCurr") or snapshot.get("pvInCurr1") or snapshot.get("pvInCurr")),
+                                "pv1Power": _safe_float(snapshot.get("pv1Power") or snapshot.get("pvPower1") or snapshot.get("pvPower")),
+                                "pv2Voltage": _safe_float(snapshot.get("pv2Volt") or snapshot.get("pvVolt2")),
+                                "pv2Current": _safe_float(snapshot.get("pv2InCurr") or snapshot.get("pvInCurr2")),
+                                "pv2Power": _safe_float(snapshot.get("pv2Power") or snapshot.get("pvPower2")),
+                                "batteryVoltage": _safe_float(snapshot.get("emsVoltage") or snapshot.get("battVolt")),
+                                "batteryCurrent": _safe_float(snapshot.get("emsCurrent") or snapshot.get("battCurr")),
                                 "batteryPower": _safe_float(snapshot.get("emsPower")),
-                                "batterySoc": _safe_int(snapshot.get("emsSoc")),
+                                "batterySoc": _safe_int(snapshot.get("emsSoc") or snapshot.get("battSoc")),
                                 "tempMax": _safe_float(snapshot.get("tempMax")),
                                 "devTempMax": _safe_float(snapshot.get("devTempMax")),
                                 "energyPvToday": _safe_float(snapshot.get("ePvToday")),
@@ -92,28 +139,9 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "energyLoadToday": _safe_float(snapshot.get("eLoadToday")),
                                 "energyLoadTotal": _safe_float(snapshot.get("eLoadTotal")),
                                 "totalEnergy": _safe_float(snapshot.get("totalEnergy")),
+                                "ratedPower": raw_rated,
                             }
                         }
-                    elif device_type == DeviceTypeEnum.LITHIUM_BATTERY_PACK:
-                        devices_data[device_sn] = {
-                            "type": device_type,
-                            "serialNumber": device_sn,
-                            "data": {
-                                "voltage": _safe_float(snapshot.get("battVolt")),
-                                "current": _safe_float(snapshot.get("battCurr")),
-                                "soc": _safe_int(snapshot.get("battSoc")),
-                                "soh": _safe_int(snapshot.get("battSoh")),
-                                "ratedEnergy": _safe_float(snapshot.get("ratedEnergy")),
-                                "energyUnit": str(snapshot.get("energyUnit", "")),
-                                "nameplateRatedPower": str(snapshot.get("nameplateRatedPower", "")),
-                            }
-                        }
-                    else:
-                        _LOGGER.warning(
-                            "Unknown device type '%s' for %s, skipping",
-                            device_type, device_sn
-                        )
-                        continue
 
                     _LOGGER.debug("Data fetched successfully for %s (%s)", device_sn, device_type)
 
