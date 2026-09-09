@@ -40,7 +40,13 @@
   - **`switch` Platform (10 entities)**: `gridChargeEnable`, `buzzerEnable`, `lcdBacklightEnable`, `remoteOnOffEnable`, `remoteOutputOnOffControl`, `antiIslandingDetectionEnable`, `gridPeakShavingEnable`, `timeOfUseEnable`, `genChargeEnable`, `overLoadProtectionResetEnable`.
   - **Home Assistant Custom Services (`services.yaml`)**: `set_device_setting`, `set_eco_rule`, `query_energy_data`, `query_history_data`.
   - **Historical & Energy API Methods (`api.py`)**: `get_device_energy_data()` and `get_device_history_data()`.
-- [x] **100% Home Assistant Energy Dashboard Compatibility** (`device_class: power`, `state_class: measurement`).
+- [x] **Phase 4 Telemetry Expansion & UI Controls Config**:
+  - **Inverter Battery Telemetry**: `batteryPower` ($W$), `batteryChargingPower` ($W$, $\ge 0$), `batteryDischargingPower` ($W$, $\ge 0$), `batteryVoltage` ($V$), `batteryCurrent` ($A$), `bmsCommunicationStatus` ("Connected" / "Disconnected"), and Battery Port 2 metrics.
+  - **HA Energy Dashboard Integration**: `energyBatteryChargeTotal` ($kWh$), `energyBatteryDischargeTotal` ($kWh$), `energyLoadToday` ($kWh$), `energyLoadTotal` ($kWh$), `energyPvToday`, and `energyPvTotal` ($kWh$) with `state_class: total_increasing`.
+  - **Full Grid & Backup EPS Currents/Voltages**: L1-L3 currents, L2-L3 backup voltages, backup output frequency, and apparent power ($VA$).
+  - **Configurable Polling Interval**: UI Options Flow (10-600s, default 120s) with immediate first query upon HA boot.
+  - **Graceful Permission Degradation**: Code 2001528 handling to prevent log spam and skip unpermitted controls for standard accounts.
+  - **README Attribution**: Updated to acknowledge vibe coding by Google Antigravity.
 - [x] Publication and hosting on GitHub public repository `https://github.com/smilebob/felicity_solar_hacs`.
 
 ---
@@ -49,4 +55,6 @@
 - **SSL Certificate Chain**: Felicity Solar servers omit intermediate CAs; all sessions use `create_felicity_client_session()` with SSL verification disabled for Felicity domains only.
 - **Dynamic Device Model**: `modelName` is dynamically parsed from `deviceModel`, `model` or `productTypeEnum`.
 - **HA Energy Rules**: To appear in the HA Energy Dashboard power dropdown, an entity MUST have both `device_class: power` AND `state_class: measurement`.
-- **Remote Setting Targets**: All remote parameter controls and custom services target inverter serial numbers, not standalone battery pack serial numbers.
+- **Remote Setting Targets**: All remote parameter controls and custom services target inverter serial numbers, not standalone battery pack serial numbers. Control entities are instantiated only when settings are permitted and available.
+- **OpenAPI Permission 2001528**: Standard end-user accounts lack OpenAPI access; unpermitted queries are automatically silenced after one notification to avoid log spam.
+- **Update Interval**: Default is 120s with immediate query upon integration boot; configurable via Home Assistant Options Flow.

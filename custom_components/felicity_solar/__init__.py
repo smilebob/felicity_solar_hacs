@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from homeassistant.core import HomeAssistant, ServiceCall, SupportsResponse
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -40,10 +41,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Setting up Felicity Solar integration for %s", entry.data.get(CONF_EMAIL, "unknown"))
     hass.data.setdefault(DOMAIN, {})
 
-    # Extract the data saved by config_flow.py
+    # Extract the data saved by config_flow.py (prioritizing options flow for update_interval)
     email = entry.data[CONF_EMAIL]
     password = entry.data[CONF_PASSWORD]
-    update_interval = entry.data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)
+    update_interval = int(entry.options.get(CONF_UPDATE_INTERVAL, entry.data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)))
 
     _LOGGER.info("Update interval set to %d seconds", update_interval)
 
@@ -54,6 +55,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         password=password,
         update_interval=update_interval,
     )
+
+    # Listen for options changes (update interval adjustment)
+    entry.async_on_unload(entry.add_update_listener(async_update_options))
 
     # Fetch the very first batch of data before creating the entities
     await coordinator.async_config_entry_first_refresh()
@@ -94,7 +98,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         for field in ["rule_mode", "start_time", "stop_time", "power", "soc", "voltage", "start_day", "stop_day", "days_of_effective_week"]:
             if field in call.data:
                 camel_field = "".join(word.capitalize() if i > 0 else word for i, word in enumerate(field.split("_")))
-                rule_dict[camel_field] = call.data[field]
+                if field == "rule_mode":
+                    try:
+                        rule_dict[camel_field] = int(call.data[field])
+                    except (ValueError, TypeError):
+                        rule_dict[camel_field] = call.data[field]
+                else:
+                    rule_dict[camel_field] = call.data[field]
 
         success = await coord.api.set_device_setting(device_sn, {f"ecoRule{rule_index}": rule_dict})
         if success:
@@ -151,6 +161,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     _LOGGER.info("Felicity Solar integration setup complete with services registered")
     return True
+
+
+async def async_update_options(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Update coordinator update interval when options change."""
+    coordinator = hass.data.get(DOMAIN, {}).get(entry.entry_id)
+    if coordinator and isinstance(coordinator, FelicitySolarCoordinator):
+        new_interval = int(entry.options.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL))
+        coordinator.update_interval = timedelta(seconds=new_interval)
+        _LOGGER.info("Felicity Solar update interval dynamically changed to %d seconds", new_interval)
+        await coordinator.async_request_refresh()
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

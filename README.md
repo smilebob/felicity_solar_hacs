@@ -6,7 +6,7 @@
 > [!NOTE]
 > **Community Extended Fork & Original Author Attribution**  
 > This integration is an extended community fork based on the original work created by **[Matheus Tavares Trindade](https://github.com/matheustavarestrindade/felicity_solar_hacs)**.  
-> All core architectural credits belong to the original author. This edition adds community enhancements: OpenAPI hardening, dynamic model & firmware identification, Dual/Quad MPPT, 3-phase telemetry, and lithium battery telemetry from PR #1 by Fábio Matavelli.
+> All core architectural credits belong to the original author. This Smilebob edition adds extensive community enhancements and was largely **vibe coded with [Antigravity](https://deepmind.google/) (Google DeepMind's agentic AI coding assistant)**: OpenAPI hardening, dynamic model & firmware identification, Dual/Quad MPPT, 3-phase telemetry, battery charge/discharge decomposition, configurable update polling, and extended battery telemetry.
 
 A comprehensive custom integration for Home Assistant to monitor your Felicity Solar setup. This integration securely connects to the Shine Felicity Solar OpenAPI to fetch real-time telemetry for your **T-REX hybrid inverters**, **High Frequency (HF) / Low Frequency (LF) / IVGM inverters**, and **Lithium Battery Packs (BMS)**, automatically creating native Home Assistant sensors and supporting the built-in Energy Dashboard.
 
@@ -90,6 +90,7 @@ This integration was originally conceived, designed, and created by **Matheus Ta
 - **Original Repository:** [matheustavarestrindade/felicity_solar_hacs](https://github.com/matheustavarestrindade/felicity_solar_hacs)
 
 ### 🤝 Extended Fork Maintainers & Contributors
-- **[Pierre / @smilebob](https://github.com/smilebob)** (Smilebob Edition): Maintenance, OpenAPI hardening, dynamic model & firmware identification, Dual/Quad MPPT, 3-phase, CT clamp, and work mode support.
+- **[Pierre / @smilebob](https://github.com/smilebob)** (Smilebob Edition): Maintenance, design, architectural extensions, and testing.
+- **Google Antigravity**: Agentic AI pair programmer that vibe coded the major extensions, diagnostics, OpenAPI refactoring, and sensors of this edition.
 - **[Fábio Matavelli / @fabiomatavelli](https://github.com/fabiomatavelli)**: Additional lithium battery telemetry enhancements (PR #1).
 

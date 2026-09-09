@@ -42,18 +42,18 @@ set_eco_rule:
       name: Rule Mode
       description: 0 for Disable, 1 for Grid Charge, 2 for Discharge to Grid, 3 for AC Couple.
       required: true
-      default: 1
+      default: "1"
       selector:
         select:
           options:
             - label: Disable
-              value: 0
+              value: "0"
             - label: Grid Charge
-              value: 1
+              value: "1"
             - label: Discharge to Grid
-              value: 2
+              value: "2"
             - label: AC Couple
-              value: 3
+              value: "3"
     start_time:
       name: Start Time
       description: Schedule start time in HH:mm format.

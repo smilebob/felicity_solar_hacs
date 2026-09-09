@@ -61,6 +61,7 @@ class FelicitySolarAPI:
         self.token_expiration: datetime | None = None
         self.refresh_token: str | None = None
         self.devices_serial_numbers: list[str] = []
+        self.has_openapi_permissions: bool | None = None
 
     async def initialize(self) -> None:
         _LOGGER.info("Initializing Felicity Solar API for %s", self.email)
@@ -102,8 +103,20 @@ class FelicitySolarAPI:
             if not refreshed:
                 await self._login()
 
+    def _handle_permission_denied(self, device_sn: str, endpoint_name: str) -> None:
+        """Handle 2001528 permission denied response and silence future OpenAPI calls."""
+        if self.has_openapi_permissions is not False:
+            self.has_openapi_permissions = False
+            _LOGGER.warning(
+                "Felicity Cloud account %s does not have OpenAPI privileges (code 2001528). "
+                "Standard telemetry is 100%% functional, but remote controls and OpenAPI endpoints are disabled.",
+                self.email,
+            )
+
     async def get_device_basic_info(self, device_sn: str) -> dict:
         """Fetch basic device info (firmware version, collector SN, status) from OpenAPI."""
+        if self.has_openapi_permissions is False:
+            return {}
         await self._ensure_authenticated()
 
         _LOGGER.debug("Fetching basic device info for %s", device_sn)
@@ -126,6 +139,9 @@ class FelicitySolarAPI:
                         _LOGGER.warning("Token expired during basic info fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_basic_info(device_sn)
+                    elif code == 2001528:
+                        self._handle_permission_denied(device_sn, "basic info")
+                        return {}
                     else:
                         _LOGGER.warning("Basic info query returned code %s for %s: %s", code, device_sn, data.get("message"))
                 else:
@@ -137,6 +153,8 @@ class FelicitySolarAPI:
 
     async def get_device_warnings(self, device_sn: str) -> list[dict]:
         """Fetch active alarms and warnings for a device from OpenAPI."""
+        if self.has_openapi_permissions is False:
+            return []
         await self._ensure_authenticated()
 
         _LOGGER.debug("Fetching warnings for device %s", device_sn)
@@ -162,6 +180,9 @@ class FelicitySolarAPI:
                         _LOGGER.warning("Token expired during warning fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_warnings(device_sn)
+                    elif code == 2001528:
+                        self._handle_permission_denied(device_sn, "warnings")
+                        return []
                     else:
                         _LOGGER.warning("Warning query returned code %s for %s: %s", code, device_sn, data.get("message"))
                 else:
@@ -173,6 +194,8 @@ class FelicitySolarAPI:
 
     async def get_device_settings(self, device_sn: str) -> dict:
         """Fetch remote control settings for an inverter device from OpenAPI."""
+        if self.has_openapi_permissions is False:
+            return {}
         await self._ensure_authenticated()
 
         _LOGGER.info("Fetching remote settings for inverter %s", device_sn)
@@ -191,17 +214,15 @@ class FelicitySolarAPI:
                     code = data.get("code")
                     if code in (200, 0) and "data" in data and isinstance(data["data"], dict) and data["data"]:
                         _LOGGER.info("Settings successfully retrieved for %s (%d parameter(s))", device_sn, len(data["data"]))
+                        self.has_openapi_permissions = True
                         return data["data"]
                     elif code in (999, 998):
                         _LOGGER.warning("Token expired during settings fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_settings(device_sn)
                     elif code == 2001528:
-                        _LOGGER.warning(
-                            "Settings query for %s failed with code 2001528 (Insufficient permissions): "
-                            "Felicity Cloud account %s does not have remote control / installer privileges on this device.",
-                            device_sn, self.email
-                        )
+                        self._handle_permission_denied(device_sn, "settings")
+                        return {}
                     elif code == 1006051:
                         _LOGGER.warning(
                             "Settings query for %s failed with code 1006051 (Failed to send command): "
@@ -223,7 +244,11 @@ class FelicitySolarAPI:
                             alt_code = alt_data.get("code")
                             if alt_code in (200, 0) and "data" in alt_data and isinstance(alt_data["data"], dict) and alt_data["data"]:
                                 _LOGGER.info("Settings retrieved via fallback query for %s (%d parameter(s))", device_sn, len(alt_data["data"]))
+                                self.has_openapi_permissions = True
                                 return alt_data["data"]
+                            elif alt_code == 2001528:
+                                self._handle_permission_denied(device_sn, "fallback settings")
+                                return {}
                             else:
                                 _LOGGER.warning("Fallback settings query returned code %s for %s: %s", alt_code, device_sn, alt_data.get("message"))
                         else:
@@ -238,6 +263,9 @@ class FelicitySolarAPI:
 
     async def set_device_setting(self, device_sn: str, content: dict) -> bool:
         """Send remote control settings for an inverter device to OpenAPI."""
+        if self.has_openapi_permissions is False:
+            _LOGGER.error("Cannot set parameter on device %s: account %s lacks OpenAPI permissions (code 2001528)", device_sn, self.email)
+            return False
         await self._ensure_authenticated()
 
         _LOGGER.info("Sending setting command for device %s: %s", device_sn, content)
@@ -285,14 +313,15 @@ class FelicitySolarAPI:
         page_size: int = 10,
     ) -> dict:
         """Fetch historical aggregated energy data (day/month/year/total) from OpenAPI."""
+        if self.has_openapi_permissions is False:
+            return {}
         await self._ensure_authenticated()
 
         _LOGGER.debug("Fetching energy data for device %s (dim=%s)", device_sn, time_dimension)
         headers = {
-            "accept": "application/json, text/plain, */*",
-            "authorization": self.bearer_token,
-            "content-type": "application/x-www-form-urlencoded",
-            "lang": "en_US",
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": self.bearer_token,
+            "Lang": "en_US",
         }
         params = {
             "deviceSn": device_sn,
@@ -316,6 +345,9 @@ class FelicitySolarAPI:
                         return await self.get_device_energy_data(
                             device_sn, time_dimension, date_str, page_num, page_size
                         )
+                    elif code == 2001528:
+                        self._handle_permission_denied(device_sn, "energy data")
+                        return {}
                     else:
                         _LOGGER.debug("Energy data query returned code %s for %s: %s", code, device_sn, data.get("message"))
         except Exception as err:
@@ -330,14 +362,15 @@ class FelicitySolarAPI:
         page_size: int = 10,
     ) -> dict:
         """Fetch historical real-time snapshot records for a device from OpenAPI."""
+        if self.has_openapi_permissions is False:
+            return {}
         await self._ensure_authenticated()
 
         _LOGGER.debug("Fetching history data for device %s", device_sn)
         headers = {
-            "accept": "application/json, text/plain, */*",
-            "authorization": self.bearer_token,
-            "content-type": "application/x-www-form-urlencoded",
-            "lang": "en_US",
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": self.bearer_token,
+            "Lang": "en_US",
         }
         url = f"{self.API_URL_DEVICE_HISTORY}{device_sn}"
         params = {
@@ -358,6 +391,9 @@ class FelicitySolarAPI:
                         _LOGGER.warning("Token expired during history data fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_history_data(device_sn, date_str, page_num, page_size)
+                    elif code == 2001528:
+                        self._handle_permission_denied(device_sn, "history data")
+                        return {}
                     else:
                         _LOGGER.debug("History data query returned code %s for %s: %s", code, device_sn, data.get("message"))
         except Exception as err:

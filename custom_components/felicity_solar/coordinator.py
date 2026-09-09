@@ -148,7 +148,7 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 device_sn,
                             )
                             settings = previous_settings
-                        elif not settings:
+                        elif not settings and self.api.has_openapi_permissions is not False:
                             _LOGGER.warning(
                                 "Inverter %s settings are empty — remote control entities (select, number, switch) will show 'unknown'",
                                 device_sn,
@@ -182,6 +182,28 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         if total_pv_power == 0 and (pv1_power > 0 or pv2_power > 0 or pv3_power > 0 or pv4_power > 0):
                             total_pv_power = pv1_power + pv2_power + pv3_power + pv4_power
 
+                        # Battery charge / discharge powers calculation
+                        ems_power = _safe_float(snapshot.get("emsPower"))
+                        bms_state = _safe_int(snapshot.get("bmsChargingState"), -1)
+                        if bms_state == 1:
+                            battery_charging_power = abs(ems_power)
+                            battery_discharging_power = 0.0
+                        elif bms_state == 2:
+                            battery_charging_power = 0.0
+                            battery_discharging_power = abs(ems_power)
+                        else:
+                            battery_charging_power = ems_power if ems_power > 0 else 0.0
+                            battery_discharging_power = abs(ems_power) if ems_power < 0 else 0.0
+
+                        # BMS Communication Status
+                        bms_flag_val = snapshot.get("bmsFlag")
+                        if bms_flag_val is True or bms_flag_val == "true" or bms_flag_val == 1:
+                            bms_status = "Connected"
+                        elif bms_flag_val is False or bms_flag_val == "false" or bms_flag_val == 0:
+                            bms_status = "Disconnected"
+                        else:
+                            bms_status = None
+
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.HIGH_FREQUENCY_INVERTER,
                             "productTypeEnum": device_type,
@@ -194,10 +216,30 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "acInputVoltage": _safe_float(snapshot.get("acRInVolt")),
                                 "acInputFrequency": _safe_float(snapshot.get("acRInFreq")),
                                 "acInputPower": _safe_float(snapshot.get("acRInPower")),
+                                "acGridCurrentL1": _safe_float(snapshot.get("acRInCurr")),
+                                "acGridCurrentL2": _safe_float(snapshot.get("acSInCurr")),
+                                "acGridCurrentL3": _safe_float(snapshot.get("acTInCurr")),
+                                "acGridVoltageL2": _safe_float(snapshot.get("acSInVolt")),
+                                "acGridVoltageL3": _safe_float(snapshot.get("acTInVolt")),
+                                "acGridFrequencyL2": _safe_float(snapshot.get("acSInFreq")),
+                                "acGridFrequencyL3": _safe_float(snapshot.get("acTInFreq")),
+                                "acGridPowerL1": _safe_float(snapshot.get("acRInPower")),
+                                "acGridPowerL2": _safe_float(snapshot.get("acSInPower")),
+                                "acGridPowerL3": _safe_float(snapshot.get("acTInPower")),
+                                "acTotalGridPower": _safe_float(snapshot.get("acTtlInpower") or snapshot.get("acRInPower")),
                                 "acOutputVoltage": _safe_float(snapshot.get("acROutVolt")),
                                 "acOutputCurrent": _safe_float(snapshot.get("acROutCurr")),
                                 "acOutputFrequency": _safe_float(snapshot.get("acROutFreq")),
                                 "acTotalOutputActivePower": _safe_float(snapshot.get("acTotalOutActPower")),
+                                "acTotalBackupApparentPower": _safe_float(snapshot.get("acTotalOutAppaPower")),
+                                "acBackupVoltageL2": _safe_float(snapshot.get("acSOutVolt")),
+                                "acBackupVoltageL3": _safe_float(snapshot.get("acTOutVolt")),
+                                "acBackupCurrentL1": _safe_float(snapshot.get("acROutCurr")),
+                                "acBackupCurrentL2": _safe_float(snapshot.get("acSOutCurr")),
+                                "acBackupCurrentL3": _safe_float(snapshot.get("acTOutCurr")),
+                                "acBackupPowerL1": _safe_float(snapshot.get("acROutPower")),
+                                "acBackupPowerL2": _safe_float(snapshot.get("acSOutPower")),
+                                "acBackupPowerL3": _safe_float(snapshot.get("acTOutPower")),
                                 "loadPercentage": _safe_float(snapshot.get("loadPercent")),
                                 "pvVoltage": _safe_float(snapshot.get("pvVolt")),
                                 "pvInputCurrent": _safe_float(snapshot.get("pvInCurr")),
@@ -215,30 +257,33 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "pv4Voltage": _safe_float(snapshot.get("pv4Volt") or snapshot.get("pvVolt4")),
                                 "pv4Current": _safe_float(snapshot.get("pv4InCurr") or snapshot.get("pvInCurr4")),
                                 "pv4Power": pv4_power,
-                                "acGridPowerL1": _safe_float(snapshot.get("acRInPower")),
-                                "acGridPowerL2": _safe_float(snapshot.get("acSInPower")),
-                                "acGridPowerL3": _safe_float(snapshot.get("acTInPower")),
-                                "acGridVoltageL2": _safe_float(snapshot.get("acSInVolt")),
-                                "acGridVoltageL3": _safe_float(snapshot.get("acTInVolt")),
-                                "acTotalGridPower": _safe_float(snapshot.get("acTtlInpower") or snapshot.get("acRInPower")),
-                                "acBackupPowerL1": _safe_float(snapshot.get("acROutPower")),
-                                "acBackupPowerL2": _safe_float(snapshot.get("acSOutPower")),
-                                "acBackupPowerL3": _safe_float(snapshot.get("acTOutPower")),
                                 "ctPower": _safe_float(snapshot.get("ctPower")),
                                 "meterPower": _safe_float(snapshot.get("meterPower")),
+                                "totalConsumptionPower": _safe_float(snapshot.get("totalConsumPower")),
                                 "genPower": _safe_float(snapshot.get("genTotalPower") or snapshot.get("genPower")),
                                 "genVoltage": _safe_float(snapshot.get("genVoltage")),
+                                "genCurrent": _safe_float(snapshot.get("genCurrent")),
                                 "genFrequency": _safe_float(snapshot.get("genFrequency")),
                                 "batteryVoltage": _safe_float(snapshot.get("emsVoltage") or snapshot.get("battVolt")),
                                 "batteryCurrent": _safe_float(snapshot.get("emsCurrent") or snapshot.get("battCurr")),
-                                "batteryPower": _safe_float(snapshot.get("emsPower")),
+                                "batteryPower": ems_power,
+                                "batteryChargingPower": round(battery_charging_power, 2),
+                                "batteryDischargingPower": round(battery_discharging_power, 2),
                                 "batterySoc": _safe_int(snapshot.get("emsSoc") or snapshot.get("battSoc")),
+                                "bmsCommunicationStatus": bms_status,
+                                "battery2Voltage": _safe_float(snapshot.get("emsVoltage2")),
+                                "battery2Current": _safe_float(snapshot.get("emsCurrent2")),
+                                "battery2Power": _safe_float(snapshot.get("emsPower2")),
+                                "battery2Soc": _safe_int(snapshot.get("emsSoc2")),
                                 "tempMax": _safe_float(snapshot.get("tempMax")),
                                 "devTempMax": _safe_float(snapshot.get("devTempMax")),
-                                "energyPvToday": _safe_float(snapshot.get("ePvToday")),
+                                "devTempMin": _safe_float(snapshot.get("devTempMin")),
+                                "energyPvToday": _safe_float(snapshot.get("ePvToday") or snapshot.get("epvToday")),
                                 "energyPvTotal": _safe_float(snapshot.get("ePvTotal")),
                                 "energyLoadToday": _safe_float(snapshot.get("eLoadToday")),
                                 "energyLoadTotal": _safe_float(snapshot.get("eLoadTotal")),
+                                "energyBatteryChargeTotal": _safe_float(snapshot.get("ebatCharTotal")),
+                                "energyBatteryDischargeTotal": _safe_float(snapshot.get("ebatDischarTotal")),
                                 "totalEnergy": _safe_float(snapshot.get("totalEnergy")),
                                 "ratedPower": raw_rated,
                                 "workMode": WORK_MODE_MAP.get(

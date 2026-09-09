@@ -140,7 +140,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     if coordinator.data:
         for device_sn, device_info in coordinator.data.items():
             device_type = device_info.get("type")
+            settings = device_info.get("settings", {})
             if device_type == DeviceTypeEnum.HIGH_FREQUENCY_INVERTER:
+                if not settings or coordinator.api.has_openapi_permissions is False:
+                    _LOGGER.info(
+                        "Skipping number entities for inverter %s: remote control not permitted or settings unavailable",
+                        device_sn,
+                    )
+                    continue
                 for desc in NUMBER_DESCRIPTIONS:
                     entities.append(FelicityInverterNumber(coordinator, device_sn, desc))
                 _LOGGER.info(
