@@ -25,14 +25,16 @@
 
 ---
 
+## 📌 Current State & Features Implemented
+### ✅ Implemented & Verified
 - [x] **Phase 1 OpenAPI Hardening Complete**: Refresh token support (`/openApi/sec/refreshToken`), granular API error codes, hardware firmware version (`sw_version`).
 - [x] **Phase 2 Advanced Telemetry Complete**:
   - **Quad MPPT Support**: `pv3` and `pv4` voltage, current, and power.
   - **3-Phase Grid & Backup Telemetry**: L1, L2, L3 voltages and powers (`acGridPowerL1..3`, `acBackupPowerL1..3`).
-  - **Pince CT Externe & Groupe Électrogène**: `ctPower`, `meterPower`, `genPower`, `genVoltage`, `genFrequency`.
-  - **Capteur d'Alarmes & Pannes (`/openApi/data/deviceDataWarn/{deviceSn}`)**: `warnCount` ("Active Warning Count") et `lastWarnMsg` ("Last Warning Message").
+  - **External CT Clamp & Generator**: `ctPower`, `meterPower`, `genPower`, `genVoltage`, `genFrequency`.
+  - **Alarm & Fault Sensors (`/openApi/data/deviceDataWarn/{deviceSn}`)**: `warnCount` ("Active Warning Count") and `lastWarnMsg` ("Last Warning Message").
 - [x] **100% Home Assistant Energy Dashboard Compatibility** (`device_class: power`, `state_class: measurement`).
-- [x] Publication and hosting on GitHub public repo `https://github.com/smilebob/felicity_solar_hacs`.
+- [x] Publication and hosting on GitHub public repository `https://github.com/smilebob/felicity_solar_hacs`.
 
 ---
 

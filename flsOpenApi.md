@@ -1,42 +1,42 @@
-# 全局公共参数
+# Global Common Parameters
 
-**全局Header参数**
+**Global Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**全局Query参数**
+**Global Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**全局Body参数**
+**Global Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**全局认证方式**
+**Global Authentication Method**
 
-> 无需认证
+> No authentication required
 
-# 状态码说明
+# Status Code Description
 
-| 状态码 | 中文描述 |
+| Status Code | Description |
 | --- | ---- |
-| 暂无参数 |
+| No parameters |
 
 # Public Infomation
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-27 05:13:01
+> Created at: 2024-06-27 05:13:01
 
-> 更新时间: 2024-08-20 05:32:48
+> Updated at: 2024-08-20 05:32:48
 
 ## Server URL：
 
@@ -47,51 +47,51 @@
 
 # User-related
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: typhoon
+> Updated by: typhoon
 
-> 创建时间: 2024-06-20 04:26:41
+> Created at: 2024-06-20 04:26:41
 
-> 更新时间: 2024-06-27 03:43:43
+> Updated at: 2024-06-27 03:43:43
 
 ```text
-暂无描述
+No description
 ```
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Refresh Token
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-06-20 04:26:45
+> Created at: 2024-06-20 04:26:45
 
-> 更新时间: 2024-08-20 08:54:43
+> Updated at: 2024-08-20 08:54:43
 
 **This endpoint allows you to refresh the authentication token by passing the refresh token obtained from the login endpoint as a parameter.,If the refresh token expires, you need to log in again.,error code**
 
@@ -100,15 +100,15 @@
 | 999 | You need to log in again. |
 | 1002001 | Account not activated; please contact the administrator. |
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/sec/refreshToken
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -116,7 +116,7 @@
 
 > json
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -124,15 +124,15 @@
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| refreshToken | - | string | 是 | Refresh Token |
+| refreshToken | - | string | Yes | Refresh Token |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -149,7 +149,7 @@
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 200 | number | Response code |
 | message | Success | string | Response message body |
@@ -169,23 +169,23 @@
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
-| code | 998 | number | 响应码 |
-| message | The token has expired, please log in again | string | 响应消息体 |
-| data | The token has expired, please log in again | string | 返回数据 |
+| code | 998 | number | Response Code |
+| message | The token has expired, please log in again | string | Response Message Body |
+| data | The token has expired, please log in again | string | Returned Data |
 
 **Query**
 
 ## login
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 04:08:40
+> Created at: 2024-06-20 04:08:40
 
-> 更新时间: 2025-03-03 13:07:45
+> Updated at: 2025-03-03 13:07:45
 
 **1.First, We need to encrypt the password for transmission using the RSA algorithm.The steps are as follows：,1.1 Use the plaintext password (account password) and the public Key provided by fSolar to compute the encrypted password using the RSA algorithm.
 1.2 Use the encrypted password to fill the password field in the login interface, and provide the correct username. Request the login interface to obtain the token.
@@ -221,15 +221,15 @@ public static void main(String[] args) throws Exception {
 | ---- | -- |
 | 1002006 | Wrong password |
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/sec/login
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -237,7 +237,7 @@ public static void main(String[] args) throws Exception {
 
 > json
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -246,16 +246,16 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| password | - | string | 是 | password |
-| userName | - | string | 是 | username:ps:The account is provided by our company |
+| password | - | string | Yes | password |
+| userName | - | string | Yes | username:ps:The account is provided by our company |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -272,7 +272,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 200 | number | code |
 | message | Success | string | message |
@@ -292,7 +292,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 1002006 | number | code |
 | message | Wrong password | string | message |
@@ -302,63 +302,63 @@ public static void main(String[] args) throws Exception {
 
 # Device Data
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 08:31:59
+> Created at: 2024-06-20 08:31:59
 
-> 更新时间: 2024-06-26 15:38:24
+> Updated at: 2024-06-26 15:38:24
 
 ```text
-暂无描述
+No description
 ```
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Energy data query for year, month, day
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 08:32:45
+> Created at: 2024-06-20 08:32:45
 
-> 更新时间: 2024-06-27 05:07:38
+> Updated at: 2024-06-27 05:07:38
 
 **This endpoint adjusts the response data based on the timeDimension parameter. Depending on whether it's set to day, month, year, or total, the data values in the response vary accordingly.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/data/deviceDataEnergy
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -366,27 +366,27 @@ public static void main(String[] args) throws Exception {
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | string | 是 | authentication token |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | string | Yes | authentication token |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | 020505004822242582 | string | 是 | device Sn |
-| timeDimension | day | string | 是 | Query dimension :day month year total |
-| dateStr | - | string | 否 | Query time: (yyyy-MM-dd HH:mm:ss) |
-| pageNum | 1 | number | 是 | Page number (default 1) |
-| pageSize | 10 | number | 是 | PageSize，The maximum value is 300 |
+| deviceSn | 020505004822242582 | string | Yes | device Sn |
+| timeDimension | day | string | Yes | Query dimension :day month year total |
+| dateStr | - | string | No | Query time: (yyyy-MM-dd HH:mm:ss) |
+| pageNum | 1 | number | Yes | Page number (default 1) |
+| pageSize | 10 | number | Yes | PageSize，The maximum value is 300 |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -629,7 +629,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 200 | number | Code |
 | message | Success | string | Message |
@@ -666,38 +666,38 @@ public static void main(String[] args) throws Exception {
 * Fail(201)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | string | 是 | authentication token |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | string | Yes | authentication token |
 
 **Query**
 
 ## Device Basic Data Query
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:10:36
+> Updated at: 2024-06-27 03:10:36
 
 **The application server can call this interface to query device basic information through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/data/deviceDataBasic/{deviceSn}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -705,31 +705,31 @@ public static void main(String[] args) throws Exception {
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | 1 | string | 是 | Device serial number |
+| deviceSn | 1 | string | Yes | Device serial number |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | Device serial number |
+| deviceSn | - | string | Yes | Device serial number |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -756,7 +756,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Code |
 | message | - | string | Message |
@@ -779,53 +779,53 @@ public static void main(String[] args) throws Exception {
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Historical real-time data query (single device)
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-08-14 11:48:16
+> Updated at: 2024-08-14 11:48:16
 
 **The application server can call this interface to query historical real-time data of a single device on the Fsolar platform.,For detailed explanation of response parameters, please refer to the following link
 https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/data/deviceDataHistory/{deviceSn}?dateStr=&pageNum=&pageSize=
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -833,40 +833,40 @@ https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
-**请求Query参数**
+**Request Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| dateStr | - | string | 是 | Date string, format: yyyy MM dd HH: mm: ss |
-| pageNum | - | string | 是 | Page number (default 1) |
-| pageSize | - | string | 是 | PageSize，The maximum value is 300 |
+| dateStr | - | string | Yes | Date string, format: yyyy MM dd HH: mm: ss |
+| pageNum | - | string | Yes | Page number (default 1) |
+| pageSize | - | string | Yes | PageSize，The maximum value is 300 |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | 设备SN |
+| deviceSn | - | string | Yes | DeviceSN |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| dateStr | - | string | 是 | Date string, format: yyyy MM dd HH: mm: ss |
-| deviceSn | - | string | 是 | Device serial number |
-| pageNum | - | string | 是 | Page number (default 1) |
-| pageSize | - | string | 是 | PageSize，The maximum value is 300 |
+| dateStr | - | string | Yes | Date string, format: yyyy MM dd HH: mm: ss |
+| deviceSn | - | string | Yes | Device serial number |
+| pageNum | - | string | Yes | Page number (default 1) |
+| pageSize | - | string | Yes | PageSize，The maximum value is 300 |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -874,7 +874,7 @@ https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 Could you provide the link or specify what you're referring to：https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | data | - | object | Data |
 | total | - | integer | Total number of records |
@@ -943,51 +943,51 @@ Could you provide the link or specify what you're referring to：https://doc.api
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
 **Query**
 
 ## Historical real-time data query (batch device)
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-08-14 11:48:25
+> Updated at: 2024-08-14 11:48:25
 
 **The application server can call this interface to query (batch devices) historical real-time data on the Fsolar platform.,For detailed explanation of response parameters, please refer to the following link.
 https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/data/devicesDataHistory?deviceSnList=100202000624170143,123123&endTime=&pageNum=&pageSize=&queryType=&startTime=
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -995,28 +995,28 @@ https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 
 > none
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
-**请求Query参数**
+**Request Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSnList | 100202000624170143,123123 | string | 是 | Device serial number list, up to 50 |
-| endTime | - | string | 否 | End time string, format: yyyy-MM-dd HH:mm:ss, required when queryType=1 |
-| pageNum | - | string | 否 | Page number, starting from 1, mandatory when queryType=1 |
-| pageSize | - | string | 否 | Number of entries per page, maximum value is 300, mandatory when queryType=1 |
-| queryType | - | string | 是 | Query type, 0: Latest entry, 1: Page within half an hour |
-| startTime | - | string | 否 | Starting time string, format: yyyy-MM-dd HH:mm:ss, required when queryType=1 |
+| deviceSnList | 100202000624170143,123123 | string | Yes | Device serial number list, up to 50 |
+| endTime | - | string | No | End time string, format: yyyy-MM-dd HH:mm:ss, required when queryType=1 |
+| pageNum | - | string | No | Page number, starting from 1, mandatory when queryType=1 |
+| pageSize | - | string | No | Number of entries per page, maximum value is 300, mandatory when queryType=1 |
+| queryType | - | string | Yes | Query type, 0: Latest entry, 1: Page within half an hour |
+| startTime | - | string | No | Starting time string, format: yyyy-MM-dd HH:mm:ss, required when queryType=1 |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -1024,7 +1024,7 @@ https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f**
 Could you provide the link or specify what you're referring to：https://doc.apipost.net/docs/detail/2c65f6449c64000?target_id=81e8862bde00f
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | data | - | object | Data |
 | total | - | integer | Total number of records |
@@ -1093,50 +1093,50 @@ Could you provide the link or specify what you're referring to：https://doc.api
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
 **Query**
 
 ## Event Query (alarms and faults)
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-08-20 11:57:29
+> Updated at: 2024-08-20 11:57:29
 
 **The application server can call this interface to Query Events (alarms and faults) on the Fsolar platform.,If startTime and endTime are not provided, the default is to query alarm data from the past seven days.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/data/deviceDataWarn/{deviceSn}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -1144,35 +1144,35 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | Device serial number |
+| deviceSn | - | string | Yes | Device serial number |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| startTime | - | string | 否 | with the specified format is "Start Time" or "Beginning Time," formatted as "yyyy-MM-dd HH:mm:ss |
-| endTime | - | string | 否 | with the specified format is "End Time," formatted as "yyyy-MM-dd HH:mm:ss |
-| state | - | string | 否 | with the specified statuses is
+| startTime | - | string | No | with the specified format is "Start Time" or "Beginning Time," formatted as "yyyy-MM-dd HH:mm:ss |
+| endTime | - | string | No | with the specified format is "End Time," formatted as "yyyy-MM-dd HH:mm:ss |
+| state | - | string | No | with the specified statuses is
  0: Unprocessed
 1: Processed
 2: Expired
 3: In Progress |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -1265,7 +1265,7 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Code |
 | message | - | string | Return Message |
@@ -1279,74 +1279,74 @@ Could you provide the link or specify what you're referring to：https://doc.api
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | - | string | 是 | Authorization token |
+| Authorization | - | string | Yes | Authorization token |
 
 **Query**
 
 ## The document provides an explanation of the differences in historical data for devices.
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-08-14 09:53:43
+> Created at: 2024-08-14 09:53:43
 
-> 更新时间: 2024-08-14 11:48:59
+> Updated at: 2024-08-14 11:48:59
 
 **The document provides an explanation of the differences in device response parameters for the following interfaces.,/openApi/data/deviceDataHistory/  (Historical real-time data query (single device)),/openApi/data/devicesDataHistory/ (Historical real-time data query (batch device))**
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ### T-REX
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-08-14 09:55:19
+> Created at: 2024-08-14 09:55:19
 
-> 更新时间: 2024-08-15 07:54:33
+> Updated at: 2024-08-15 07:54:33
 
 ****T-REX General parameters for all types
 ****
@@ -1501,13 +1501,13 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 ### IVGM
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-08-14 09:54:44
+> Created at: 2024-08-14 09:54:44
 
-> 更新时间: 2024-08-16 08:07:22
+> Updated at: 2024-08-16 08:07:22
 
 ****IVGM General parameters for all types
 ****
@@ -1588,65 +1588,65 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 # Device Interface
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: chh
+> Updated by: chh
 
-> 创建时间: 2024-06-20 08:41:44
+> Created at: 2024-06-20 08:41:44
 
-> 更新时间: 2024-06-25 13:31:30
+> Updated at: 2024-06-25 13:31:30
 
 ```text
-暂无描述
+No description
 ```
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Deleting devices in bulk
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 08:48:41
+> Created at: 2024-06-20 08:48:41
 
-> 更新时间: 2024-06-27 05:07:56
+> Updated at: 2024-06-27 05:07:56
 
 ```text
-暂无描述
+No description
 ```
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/devices/del
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -1654,13 +1654,13 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -1670,15 +1670,15 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSns | 020505004823490001 | array | 是 | Device SN collection |
+| deviceSns | 020505004823490001 | array | Yes | Device SN collection |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -1700,37 +1700,37 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
 **Query**
 
 ## Device list
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 08:52:31
+> Created at: 2024-06-20 08:52:31
 
-> 更新时间: 2024-06-27 05:08:03
+> Updated at: 2024-06-27 05:08:03
 
 ```text
-暂无描述
+No description
 ```
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/devices/list
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -1738,25 +1738,25 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | Device Sn |
-| pageNum | 1 | number | 是 | Page number, starting from 1, mandatory. |
-| pageSize | 10 | number | 是 | Number of items per page, maximum value is 300, required. |
+| deviceSn | - | string | Yes | Device Sn |
+| pageNum | 1 | number | Yes | Page number, starting from 1, mandatory. |
+| pageSize | 10 | number | Yes | Number of items per page, maximum value is 300, required. |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -1836,7 +1836,7 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 200 | number | code, 200 successful response |
 | message | Success | string | message |
@@ -1859,40 +1859,40 @@ Could you provide the link or specify what you're referring to：https://doc.api
 * Fail(201)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
 **Query**
 
 ## Bulk device addition
 
-> 创建人: chh
+> Created by: chh
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-20 08:42:52
+> Created at: 2024-06-20 08:42:52
 
-> 更新时间: 2024-06-27 05:08:10
+> Updated at: 2024-06-27 05:08:10
 
 ```text
-暂无描述
+No description
 ```
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/devices/reg
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -1900,13 +1900,13 @@ Could you provide the link or specify what you're referring to：https://doc.api
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -1919,17 +1919,17 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSaveInfoList | - | object | 是 | - |
-| deviceSaveInfoList.checkCode | 0000 | string | 是 | Verification code, located at the device's barcode. |
-| deviceSaveInfoList.deviceSn | 020505004823490001 | string | 是 | Device Sn |
+| deviceSaveInfoList | - | object | Yes | - |
+| deviceSaveInfoList.checkCode | 0000 | string | Yes | Verification code, located at the device's barcode. |
+| deviceSaveInfoList.deviceSn | 020505004823490001 | string | Yes | Device Sn |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * Success(200)
 
@@ -1951,73 +1951,73 @@ Could you provide the link or specify what you're referring to：https://doc.api
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | 是 | User token, which can be obtained from authentication and refreshing tokens. |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6Iui-o-akkiIsImF1ZCI6Ik9UQXlNVEUxTkRBME5EazRPRGc1Tmc9PSIsIm5iZiI6MTcxODg2NDIxOSwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo5MDIxMTU0MDQ0OTg4ODk2LCJleHAiOjE3MjE0NTYyMTksImlhdCI6MTcxODg2NDIxOX0.T_uFdGuJJm2bssgTiHTRuzpRv17q7_sgYkOraAFdXBk | Text | Yes | User token, which can be obtained from authentication and refreshing tokens. |
 
 **Query**
 
 # Remote Control
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-26 13:46:41
+> Updated at: 2024-06-26 13:46:41
 
 **The application server can remotely control devices (inverters, etc.).**
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Remote Control Setting
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2025-03-13 14:18:17
+> Updated at: 2025-03-13 14:18:17
 
 **The application server can call this interface to set parameters for devices (inverters, etc.) through the Fsolar platform. Pay attention to the range of parameters, otherwise the parameters may not be set successfully.
 Default support T-REX-6KLP1G01、T-REX-10KHP3G01、T-REX-5KLP1G01、T-REX-10KLP3G01. 
 More device support see: Remote Control Setting Attachment**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/cmd/deviceSetting
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -2025,15 +2025,15 @@ More device support see: Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -2205,172 +2205,172 @@ More device support see: Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| content.acOutputRatedFrequency | 1 | integer | 否 | AC Output Rated Frequency，0：50Hz, 1：60Hz |
-| content.acOutputRatedVoltage | - | number | 否 | AC Output Rated Voltage，Cannot be set |
-| content.antiIslandingDetectionEnable | 1 | integer | 否 | Anti-Islanding Detection，0：Disable， 1：Enable |
-| content.batteryChargedVoltage | 51.3 | number | 否 | Battery Charged Voltage，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.batteryFloatingChargedVoltage | 52.5 | number | 否 | Battery Floating Charged Voltage，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.batteryMaxChargedCurrent | 160 | number | 否 | Battery Max Charged Current，The range of values is 1~200A |
-| content.batteryMaxDischargeCurrent | 110 | number | 否 | Battery Max Discharge Current，The range of values is 5~200A |
-| content.batteryModel | 1 | integer | 否 | Battery Model，0：User defined，1：Lithium battery(default)，2：FelicitySolar(LPBF series)，3：FelicitySolar(LPBA series) |
-| content.batteryModules | 1 | integer | 否 | Battery Modules，It is related to the "Battery Model", and can be set when the battery type is "User defined" |
-| content.batteryOffGridDischargeDepthSoc | 40 | integer | 否 | Battery Off Grid Discharge Depth Soc，The range of values is 0~100% |
-| content.batteryOffGridRecoveryDepthSoc | 60 | integer | 否 | Battery Off Grid Recovery Depth Soc，The range of values is 0~100% |
-| content.batteryOnGridDischargeDepthSoc | 50 | integer | 否 | Battery On Grid Discharge DepthSoc，The range of values is 10~100% |
-| content.buzzerEnable | 1 | integer | 否 | Buzzer Enable，0：Disable， 1：Enable |
-| content.commOffLineEnable | 0 | integer | 否 | Comm Off Line Enable，0：Disable， 1：Enable |
-| content.deratingByVoltageEnable | 0 | integer | 否 | 110%u Derating By Voltage Enable |
-| content.ecoRule1.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | 否 | ECO Mode Rule 1，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| content.ecoRule1.power | 100 | integer | 否 | ECO Mode Rule 1，Battery charging or discharging power,Unit：W，The range of values is 0~ inverter rated power |
-| content.ecoRule1.ruleMode | 1 | integer | 否 | ECO Mode Rule 1，0：disable, 1: enable charge 2: enable discharge |
-| content.ecoRule1.soc | 50 | integer | 否 | ECO Mode Rule 1，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| content.ecoRule1.startDay | 01:01 | string | 否 | ECO Mode Rule 1，Starting date, Format: mm:dd |
-| content.ecoRule1.startTime | 14:20 | string | 否 | ECO Mode Rule 1，Starting time, Format: HH:ss |
-| content.ecoRule1.stopDay | 12:12 | string | 否 | ECO Mode Rule 1，Stop date, Format: mm:dd |
-| content.ecoRule1.stopTime | 23:59 | string | 否 | ECO Mode Rule 1，Stop time, Format: HH:ss |
-| content.ecoRule1.voltage | 50 | number | 否 | ECO Mode Rule 1，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.ecoRule1 | - | object | 否 | Economic Model Rule 1 Object |
-| content.ecoRule2.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | 否 | ECO Mode Rule 2，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| content.ecoRule2.power | 50 | integer | 否 | ECO Mode Rule 2，Battery charging or discharging power,Unit：W，The range of values is 0~ inverter rated power |
-| content.ecoRule2.ruleMode | 2 | integer | 否 | ECO Mode Rule 2，0：disable, 1: enable charge 2: enable discharge |
-| content.ecoRule2.soc | 60 | integer | 否 | ECO Mode Rule 2，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| content.ecoRule2.startDay | 01:01 | string | 否 | ECO Mode Rule 2，Starting date, Format: mm:dd |
-| content.ecoRule2.startTime | 14:20 | string | 否 | ECO Mode Rule 2，Starting time, Format: HH:ss |
-| content.ecoRule2.stopDay | 12:12 | string | 否 | ECO Mode Rule 2，Stop date, Format: mm:dd |
-| content.ecoRule2.stopTime | 23:59 | string | 否 | ECO Mode Rule 2，Stop time, Format: HH:ss |
-| content.ecoRule2.voltage | 51 | number | 否 | ECO Mode Rule 2，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.ecoRule2 | - | object | 否 | Economic Model Rule 2 Object |
-| content.ecoRule3.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | 否 | ECO Mode Rule 3，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| content.ecoRule3.power | 40 | integer | 否 | ECO Mode Rule 3，Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| content.ecoRule3.ruleMode | 1 | integer | 否 | ECO Mode Rule 3，0：disable, 1: enable charge 2: enable discharge |
-| content.ecoRule3.soc | 50 | integer | 否 | ECO Mode Rule 3，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| content.ecoRule3.startDay | 01:01 | string | 否 | ECO Mode Rule 3，Starting date, Format: mm:dd |
-| content.ecoRule3.startTime | 14:20 | string | 否 | ECO Mode Rule 3，Starting time, Format: HH:ss |
-| content.ecoRule3.stopDay | 12:12 | string | 否 | ECO Mode Rule 3，Stop date, Format: mm:dd |
-| content.ecoRule3.stopTime | 23:59 | string | 否 | ECO Mode Rule 3，Stop time, Format: HH:ss |
-| content.ecoRule3.voltage | 60 | number | 否 | ECO Mode Rule 3，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.ecoRule3 | - | object | 否 | Economic Model Rule 3 Object |
-| content.ecoRule4.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | 否 | ECO Mode Rule 4，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| content.ecoRule4.power | 40 | integer | 否 | ECO Mode Rule 4，Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| content.ecoRule4.ruleMode | 2 | integer | 否 | ECO Mode Rule 4，0：disable, 1: enable charge 2: enable discharge |
-| content.ecoRule4.soc | 60 | integer | 否 | ECO Mode Rule 4，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| content.ecoRule4.startDay | 01:01 | string | 否 | ECO Mode Rule 4，Starting date, Format: mm:dd |
-| content.ecoRule4.startTime | 14:20 | string | 否 | ECO Mode Rule 4，Starting time, Format: HH:ss |
-| content.ecoRule4.stopDay | 12:12 | string | 否 | ECO Mode Rule 4，Stop date, Format: mm:dd |
-| content.ecoRule4.stopTime | 23:59 | string | 否 | ECO Mode Rule 4，Stop time, Format: HH:ss |
-| content.ecoRule4.voltage | 35 | number | 否 | ECO Mode Rule 4，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
-| content.ecoRule4 | - | object | 否 | Economic Mode Rule 4 Object |
-| content.eventLogFunctionEnable | - | integer | 否 | Event Log Function，Cannot be set |
-| content.faultLogFunctionEnable | - | integer | 否 | Fault Log Function，Cannot be set |
-| content.fixQPencent | - | number | 否 | FixQ Pencent, unit：% |
-| content.fpChargeCurveFunctionEnable | - | integer | 否 | Frequency-PoweryCharge Curve Function，0：Disable， 1：Enable |
-| content.fpCurveFunctionEnable | - | integer | 否 | Frequency-Power Curve Function，0：Disable， 1：Enable |
-| content.fpCurveOverFrequencyLowerLimit | - | number | 否 | Over Frequency Start Point |
-| content.fpOverFrequencyPowerSlope | - | number | 否 | Over Frequency Power Slope |
-| content.fpOverFrequencyUpperLimit | - | number | 否 | Over Frequency End Point |
-| content.fpRecoveryPowerSlope | - | number | 否 | Recovery Power Slope |
-| content.fpRestoreFrequencyLowerLimit | - | number | 否 | F(Stop) Lower |
-| content.fpRestoreFrequencyPowerSlope | - | integer | 否 | Reconnection Power Slope |
-| content.fpRestoreFrequencyUperLimit | - | number | 否 | F(Stop) Upper |
-| content.fpRestoreFrequencyWaitingTime | - | integer | 否 | Restore Waiting Time |
-| content.fpUnderFrequencyLowerLimit | - | number | 否 | Under Frequency Start Point |
-| content.fpUnderFrequencyPowerSlope | - | number | 否 | Under Frequency Power Slope |
-| content.fpUnderFrequencyPowerSlopeForCharge | - | number | 否 | Under Frequency Power Slope For Charge |
-| content.fpUnderFrequencyUpperLimit | - | number | 否 | Under Frequency End Point |
-| content.gridPowerUnbalanceEnable | - | integer | 否 | Grid Power Unbalance |
-| content.gridStandardCode | - | integer | 否 | Standard |
-| content.gridWaveformDetectionMode | - | integer | 否 | Detection Mode |
-| content.highVoltageCrossingTripThreshold | - | number | 否 | High Voltage Limit Of Ride Through |
-| content.highVoltageEndPointTripTime | - | number | 否 | End Point Of Protection Time |
-| content.highVoltageEndPointTripValue | - | number | 否 | End Point Of Ride Through |
-| content.highVoltageRideThroughFunctionEnable | - | integer | 否 | High Voltage Ride Through Function |
-| content.highVoltageStartPointTripTime | - | number | 否 | Start Point Of Protection Time |
-| content.highVoltageStartPointTripValue | - | number | 否 | Start Point Of Ride Through |
-| content.isoDetectionEnable | - | integer | 否 | ISO Detection |
-| content.lcdBacklightEnable | - | integer | 否 | LCD Backlight, 0：Disable， 1：Enable |
-| content.lowVoltageCrossingTripThreshold | - | number | 否 | Low Voltage Limit Of Ride Through |
-| content.lowVoltageEndPointTripTime | - | number | 否 | End Point Of Protection Time |
-| content.lowVoltageEndPointTripValue | - | number | 否 | End Point Of Ride Through |
-| content.lowVoltageRideThroughFunctionEnable | - | integer | 否 | Low Voltage Ride Through |
-| content.lowVoltageStartPointTripTime | - | number | 否 | Start Point Of Protection Time |
-| content.lowVoltageStartPointTripValue | - | number | 否 | Start Point Of Ride Through |
-| content.noBmsOffGridBatteryCutOffVoltage | - | number | 否 | Battery Cut-Off Voltage(Off-Grid, No Bms) |
-| content.noBmsOffGridBatteryRestartVoltage | - | number | 否 | Battery Restart Voltage(Off-Grid, No Bms) |
-| content.noBmsOnGridBatteryCutOffVoltage | - | number | 否 | Battery Cut-Off Voltage(On-Grid, No Bms) |
-| content.onGridObservationTime | - | integer | 否 | Observation Time |
-| content.onGridPowerLimit | - | number | 否 | Grid Power Limit |
-| content.onGridPowerSlope | - | integer | 否 | Grid Power Slope |
-| content.operatedMode | - | integer | 否 | Operated Mode, 0:General Mode, 1:Backup Mode, 2:Eco Mode |
-| content.overFrequencyStage1TripTime | - | number | 否 | OF Stage1 Trip Time |
-| content.overFrequencyStage1TripValue | - | number | 否 | OF Stage1 Trip Value |
-| content.overFrequencyStage2TripTime | - | number | 否 | OF Stage2 Trip Time |
-| content.overFrequencyStage2TripValue | - | number | 否 | OF Stage2 Trip Value |
-| content.overLoadProtectionResetEnable | - | integer | 否 | Over Load Protection Reset, 0：Disable， 1：Enable |
-| content.overVoltage10mTriggerValue | - | number | 否 | OV 10Min Mean Value |
-| content.overVoltageStage1TripTime | - | number | 否 | OV Stage1 Trip Time |
-| content.overVoltageStage1TripValue | - | number | 否 | OV Stage1 Trip Value |
-| content.overVoltageStage2TripTime | - | number | 否 | OV Stage2 Trip Time |
-| content.overVoltageStage2TripValue | - | number | 否 | OV Stage2 Trip Value |
-| content.pfPowerCurveFunctionEnable | - | integer | 否 | PF-Power Curve Function |
-| content.pfPowerCurveLockinVoltage | - | number | 否 | Lockin Voltage |
-| content.pfPowerCurveLockoutPower | - | number | 否 | Lockout Power |
-| content.pfPowerCurveLockoutVoltage | - | number | 否 | Lockout Voltage |
-| content.pfPowerCurvePointAPower | - | number | 否 | Point A Power |
-| content.pfPowerCurvePointAPowerFactor | - | number | 否 | Point A Power Factor |
-| content.pfPowerCurvePointBPower | - | number | 否 | Point B Power |
-| content.pfPowerCurvePointBPowerFactor | - | number | 否 | Point B Power Factor |
-| content.pfPowerCurvePointCPower | - | number | 否 | Point C Power |
-| content.pfPowerCurvePointCPowerFactor | - | number | 否 | Point C Power Factor |
-| content.powerFactor | - | number | 否 | Power Factor |
-| content.puCurveFunctionEnable | - | integer | 否 | P(U) Curve Function |
-| content.puCurvePointAActivePower | - | number | 否 | Point A Active Power |
-| content.puCurvePointAVoltage | - | number | 否 | Point A Voltage |
-| content.puCurvePointBActivePower | - | number | 否 | Point B Active Power |
-| content.puCurvePointBVoltage | - | number | 否 | Point B Voltage |
-| content.puCurvePointCActivePower | - | number | 否 | Point C Active Power |
-| content.puCurvePointCVoltage | - | number | 否 | Point C Voltage |
-| content.puCurvePointDActivePower | - | number | 否 | Point D Active Power |
-| content.puCurvePointDVoltage | - | number | 否 | Point D Voltage |
-| content.pvParallelSetting | - | integer | 否 | PV Parallel Set |
-| content.quCurveFunctionEnable | - | integer | 否 | Q(U) Curve Function |
-| content.quCurveLockInPower | - | number | 否 | Lock In Power |
-| content.quCurveLockOutPower | - | number | 否 | Lock Out Power |
-| content.quCurvePointAReactivePower | - | number | 否 | Point A Reactive Power |
-| content.quCurvePointAVoltage | - | number | 否 | Point A Voltage |
-| content.quCurvePointBReactivePower | - | number | 否 | Point B Reactive Power |
-| content.quCurvePointBVoltage | - | number | 否 | Point B Voltage |
-| content.quCurvePointCReactivePower | - | number | 否 | Point C Reactive Power |
-| content.quCurvePointCVoltage | - | number | 否 | Point C Voltage |
-| content.quCurvePointDReactivePower | - | number | 否 | Point D Reactive Power |
-| content.quCurvePointDVoltage | - | number | 否 | Point D Voltage |
-| content.remoteOnOffEnable | - | integer | 否 | Remote ON/OFF, 0：Disable， 1：Enable |
-| content.remoteOutputOnOffControl | - | integer | 否 | AC Output ON/OFF, 0：off, 1: on |
-| content.underFrequencyStage1TripTime | - | number | 否 | UF Stage1 Trip Time |
-| content.underFrequencyStage1TripValue | - | number | 否 | UF Stage1 Trip Value |
-| content.underFrequencyStage2TripTime | - | number | 否 | UF Stage2 Trip Time |
-| content.underFrequencyStage2TripValue | - | number | 否 | UF Stage2 Trip Value |
-| content.underVoltageStage1TripTime | - | number | 否 | UV Stage1 Trip Time |
-| content.underVoltageStage1TripValue | - | number | 否 | UV Stage1 Trip Value |
-| content.underVoltageStage2TripTime | - | number | 否 | UV Stage2 Trip Time |
-| content.underVoltageStage2TripValue | - | number | 否 | UV Stage2 Trip Value |
-| content.zeroExportAdjustmentPower | - | integer | 否 | Zero Export Power |
-| content.zeroExportFunction | - | integer | 否 | Zero Export Mode，1: To load, 2: To CT |
-| content | - | object | 是 | setting content |
-| deviceSn | - | string | 是 | Device serial number |
-| content.ecoRule5 | - | object | 是 | Economic Mode Rule 5 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
-| content.ecoRule6 | - | object | 是 | Economic Mode Rule 6 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
-| content.ecoRule7 | - | object | 是 | Economic Mode Rule 7 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
-| content.ecoRule8 | - | object | 是 | Economic Mode Rule 8 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
-| content.ecoRule9 | - | object | 是 | Economic Mode Rule 9 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
-| content.ecoRule10 | - | object | 是 | Economic Mode Rule 10 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.acOutputRatedFrequency | 1 | integer | No | AC Output Rated Frequency，0：50Hz, 1：60Hz |
+| content.acOutputRatedVoltage | - | number | No | AC Output Rated Voltage，Cannot be set |
+| content.antiIslandingDetectionEnable | 1 | integer | No | Anti-Islanding Detection，0：Disable， 1：Enable |
+| content.batteryChargedVoltage | 51.3 | number | No | Battery Charged Voltage，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.batteryFloatingChargedVoltage | 52.5 | number | No | Battery Floating Charged Voltage，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.batteryMaxChargedCurrent | 160 | number | No | Battery Max Charged Current，The range of values is 1~200A |
+| content.batteryMaxDischargeCurrent | 110 | number | No | Battery Max Discharge Current，The range of values is 5~200A |
+| content.batteryModel | 1 | integer | No | Battery Model，0：User defined，1：Lithium battery(default)，2：FelicitySolar(LPBF series)，3：FelicitySolar(LPBA series) |
+| content.batteryModules | 1 | integer | No | Battery Modules，It is related to the "Battery Model", and can be set when the battery type is "User defined" |
+| content.batteryOffGridDischargeDepthSoc | 40 | integer | No | Battery Off Grid Discharge Depth Soc，The range of values is 0~100% |
+| content.batteryOffGridRecoveryDepthSoc | 60 | integer | No | Battery Off Grid Recovery Depth Soc，The range of values is 0~100% |
+| content.batteryOnGridDischargeDepthSoc | 50 | integer | No | Battery On Grid Discharge DepthSoc，The range of values is 10~100% |
+| content.buzzerEnable | 1 | integer | No | Buzzer Enable，0：Disable， 1：Enable |
+| content.commOffLineEnable | 0 | integer | No | Comm Off Line Enable，0：Disable， 1：Enable |
+| content.deratingByVoltageEnable | 0 | integer | No | 110%u Derating By Voltage Enable |
+| content.ecoRule1.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | No | ECO Mode Rule 1，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| content.ecoRule1.power | 100 | integer | No | ECO Mode Rule 1，Battery charging or discharging power,Unit：W，The range of values is 0~ inverter rated power |
+| content.ecoRule1.ruleMode | 1 | integer | No | ECO Mode Rule 1，0：disable, 1: enable charge 2: enable discharge |
+| content.ecoRule1.soc | 50 | integer | No | ECO Mode Rule 1，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| content.ecoRule1.startDay | 01:01 | string | No | ECO Mode Rule 1，Starting date, Format: mm:dd |
+| content.ecoRule1.startTime | 14:20 | string | No | ECO Mode Rule 1，Starting time, Format: HH:ss |
+| content.ecoRule1.stopDay | 12:12 | string | No | ECO Mode Rule 1，Stop date, Format: mm:dd |
+| content.ecoRule1.stopTime | 23:59 | string | No | ECO Mode Rule 1，Stop time, Format: HH:ss |
+| content.ecoRule1.voltage | 50 | number | No | ECO Mode Rule 1，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.ecoRule1 | - | object | No | Economic Model Rule 1 Object |
+| content.ecoRule2.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | No | ECO Mode Rule 2，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| content.ecoRule2.power | 50 | integer | No | ECO Mode Rule 2，Battery charging or discharging power,Unit：W，The range of values is 0~ inverter rated power |
+| content.ecoRule2.ruleMode | 2 | integer | No | ECO Mode Rule 2，0：disable, 1: enable charge 2: enable discharge |
+| content.ecoRule2.soc | 60 | integer | No | ECO Mode Rule 2，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| content.ecoRule2.startDay | 01:01 | string | No | ECO Mode Rule 2，Starting date, Format: mm:dd |
+| content.ecoRule2.startTime | 14:20 | string | No | ECO Mode Rule 2，Starting time, Format: HH:ss |
+| content.ecoRule2.stopDay | 12:12 | string | No | ECO Mode Rule 2，Stop date, Format: mm:dd |
+| content.ecoRule2.stopTime | 23:59 | string | No | ECO Mode Rule 2，Stop time, Format: HH:ss |
+| content.ecoRule2.voltage | 51 | number | No | ECO Mode Rule 2，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.ecoRule2 | - | object | No | Economic Model Rule 2 Object |
+| content.ecoRule3.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | No | ECO Mode Rule 3，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| content.ecoRule3.power | 40 | integer | No | ECO Mode Rule 3，Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| content.ecoRule3.ruleMode | 1 | integer | No | ECO Mode Rule 3，0：disable, 1: enable charge 2: enable discharge |
+| content.ecoRule3.soc | 50 | integer | No | ECO Mode Rule 3，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| content.ecoRule3.startDay | 01:01 | string | No | ECO Mode Rule 3，Starting date, Format: mm:dd |
+| content.ecoRule3.startTime | 14:20 | string | No | ECO Mode Rule 3，Starting time, Format: HH:ss |
+| content.ecoRule3.stopDay | 12:12 | string | No | ECO Mode Rule 3，Stop date, Format: mm:dd |
+| content.ecoRule3.stopTime | 23:59 | string | No | ECO Mode Rule 3，Stop time, Format: HH:ss |
+| content.ecoRule3.voltage | 60 | number | No | ECO Mode Rule 3，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.ecoRule3 | - | object | No | Economic Model Rule 3 Object |
+| content.ecoRule4.daysOfEffectiveWeek.0 | ["MONDAY", "TUESDAY"] | array | No | ECO Mode Rule 4，Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| content.ecoRule4.power | 40 | integer | No | ECO Mode Rule 4，Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| content.ecoRule4.ruleMode | 2 | integer | No | ECO Mode Rule 4，0：disable, 1: enable charge 2: enable discharge |
+| content.ecoRule4.soc | 60 | integer | No | ECO Mode Rule 4，Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| content.ecoRule4.startDay | 01:01 | string | No | ECO Mode Rule 4，Starting date, Format: mm:dd |
+| content.ecoRule4.startTime | 14:20 | string | No | ECO Mode Rule 4，Starting time, Format: HH:ss |
+| content.ecoRule4.stopDay | 12:12 | string | No | ECO Mode Rule 4，Stop date, Format: mm:dd |
+| content.ecoRule4.stopTime | 23:59 | string | No | ECO Mode Rule 4，Stop time, Format: HH:ss |
+| content.ecoRule4.voltage | 35 | number | No | ECO Mode Rule 4，Battery charging or discharging voltage，Unit：V，It is related to the "Battery Model",Each Model The range of values is 48~60V |
+| content.ecoRule4 | - | object | No | Economic Mode Rule 4 Object |
+| content.eventLogFunctionEnable | - | integer | No | Event Log Function，Cannot be set |
+| content.faultLogFunctionEnable | - | integer | No | Fault Log Function，Cannot be set |
+| content.fixQPencent | - | number | No | FixQ Pencent, unit：% |
+| content.fpChargeCurveFunctionEnable | - | integer | No | Frequency-PoweryCharge Curve Function，0：Disable， 1：Enable |
+| content.fpCurveFunctionEnable | - | integer | No | Frequency-Power Curve Function，0：Disable， 1：Enable |
+| content.fpCurveOverFrequencyLowerLimit | - | number | No | Over Frequency Start Point |
+| content.fpOverFrequencyPowerSlope | - | number | No | Over Frequency Power Slope |
+| content.fpOverFrequencyUpperLimit | - | number | No | Over Frequency End Point |
+| content.fpRecoveryPowerSlope | - | number | No | Recovery Power Slope |
+| content.fpRestoreFrequencyLowerLimit | - | number | No | F(Stop) Lower |
+| content.fpRestoreFrequencyPowerSlope | - | integer | No | Reconnection Power Slope |
+| content.fpRestoreFrequencyUperLimit | - | number | No | F(Stop) Upper |
+| content.fpRestoreFrequencyWaitingTime | - | integer | No | Restore Waiting Time |
+| content.fpUnderFrequencyLowerLimit | - | number | No | Under Frequency Start Point |
+| content.fpUnderFrequencyPowerSlope | - | number | No | Under Frequency Power Slope |
+| content.fpUnderFrequencyPowerSlopeForCharge | - | number | No | Under Frequency Power Slope For Charge |
+| content.fpUnderFrequencyUpperLimit | - | number | No | Under Frequency End Point |
+| content.gridPowerUnbalanceEnable | - | integer | No | Grid Power Unbalance |
+| content.gridStandardCode | - | integer | No | Standard |
+| content.gridWaveformDetectionMode | - | integer | No | Detection Mode |
+| content.highVoltageCrossingTripThreshold | - | number | No | High Voltage Limit Of Ride Through |
+| content.highVoltageEndPointTripTime | - | number | No | End Point Of Protection Time |
+| content.highVoltageEndPointTripValue | - | number | No | End Point Of Ride Through |
+| content.highVoltageRideThroughFunctionEnable | - | integer | No | High Voltage Ride Through Function |
+| content.highVoltageStartPointTripTime | - | number | No | Start Point Of Protection Time |
+| content.highVoltageStartPointTripValue | - | number | No | Start Point Of Ride Through |
+| content.isoDetectionEnable | - | integer | No | ISO Detection |
+| content.lcdBacklightEnable | - | integer | No | LCD Backlight, 0：Disable， 1：Enable |
+| content.lowVoltageCrossingTripThreshold | - | number | No | Low Voltage Limit Of Ride Through |
+| content.lowVoltageEndPointTripTime | - | number | No | End Point Of Protection Time |
+| content.lowVoltageEndPointTripValue | - | number | No | End Point Of Ride Through |
+| content.lowVoltageRideThroughFunctionEnable | - | integer | No | Low Voltage Ride Through |
+| content.lowVoltageStartPointTripTime | - | number | No | Start Point Of Protection Time |
+| content.lowVoltageStartPointTripValue | - | number | No | Start Point Of Ride Through |
+| content.noBmsOffGridBatteryCutOffVoltage | - | number | No | Battery Cut-Off Voltage(Off-Grid, No Bms) |
+| content.noBmsOffGridBatteryRestartVoltage | - | number | No | Battery Restart Voltage(Off-Grid, No Bms) |
+| content.noBmsOnGridBatteryCutOffVoltage | - | number | No | Battery Cut-Off Voltage(On-Grid, No Bms) |
+| content.onGridObservationTime | - | integer | No | Observation Time |
+| content.onGridPowerLimit | - | number | No | Grid Power Limit |
+| content.onGridPowerSlope | - | integer | No | Grid Power Slope |
+| content.operatedMode | - | integer | No | Operated Mode, 0:General Mode, 1:Backup Mode, 2:Eco Mode |
+| content.overFrequencyStage1TripTime | - | number | No | OF Stage1 Trip Time |
+| content.overFrequencyStage1TripValue | - | number | No | OF Stage1 Trip Value |
+| content.overFrequencyStage2TripTime | - | number | No | OF Stage2 Trip Time |
+| content.overFrequencyStage2TripValue | - | number | No | OF Stage2 Trip Value |
+| content.overLoadProtectionResetEnable | - | integer | No | Over Load Protection Reset, 0：Disable， 1：Enable |
+| content.overVoltage10mTriggerValue | - | number | No | OV 10Min Mean Value |
+| content.overVoltageStage1TripTime | - | number | No | OV Stage1 Trip Time |
+| content.overVoltageStage1TripValue | - | number | No | OV Stage1 Trip Value |
+| content.overVoltageStage2TripTime | - | number | No | OV Stage2 Trip Time |
+| content.overVoltageStage2TripValue | - | number | No | OV Stage2 Trip Value |
+| content.pfPowerCurveFunctionEnable | - | integer | No | PF-Power Curve Function |
+| content.pfPowerCurveLockinVoltage | - | number | No | Lockin Voltage |
+| content.pfPowerCurveLockoutPower | - | number | No | Lockout Power |
+| content.pfPowerCurveLockoutVoltage | - | number | No | Lockout Voltage |
+| content.pfPowerCurvePointAPower | - | number | No | Point A Power |
+| content.pfPowerCurvePointAPowerFactor | - | number | No | Point A Power Factor |
+| content.pfPowerCurvePointBPower | - | number | No | Point B Power |
+| content.pfPowerCurvePointBPowerFactor | - | number | No | Point B Power Factor |
+| content.pfPowerCurvePointCPower | - | number | No | Point C Power |
+| content.pfPowerCurvePointCPowerFactor | - | number | No | Point C Power Factor |
+| content.powerFactor | - | number | No | Power Factor |
+| content.puCurveFunctionEnable | - | integer | No | P(U) Curve Function |
+| content.puCurvePointAActivePower | - | number | No | Point A Active Power |
+| content.puCurvePointAVoltage | - | number | No | Point A Voltage |
+| content.puCurvePointBActivePower | - | number | No | Point B Active Power |
+| content.puCurvePointBVoltage | - | number | No | Point B Voltage |
+| content.puCurvePointCActivePower | - | number | No | Point C Active Power |
+| content.puCurvePointCVoltage | - | number | No | Point C Voltage |
+| content.puCurvePointDActivePower | - | number | No | Point D Active Power |
+| content.puCurvePointDVoltage | - | number | No | Point D Voltage |
+| content.pvParallelSetting | - | integer | No | PV Parallel Set |
+| content.quCurveFunctionEnable | - | integer | No | Q(U) Curve Function |
+| content.quCurveLockInPower | - | number | No | Lock In Power |
+| content.quCurveLockOutPower | - | number | No | Lock Out Power |
+| content.quCurvePointAReactivePower | - | number | No | Point A Reactive Power |
+| content.quCurvePointAVoltage | - | number | No | Point A Voltage |
+| content.quCurvePointBReactivePower | - | number | No | Point B Reactive Power |
+| content.quCurvePointBVoltage | - | number | No | Point B Voltage |
+| content.quCurvePointCReactivePower | - | number | No | Point C Reactive Power |
+| content.quCurvePointCVoltage | - | number | No | Point C Voltage |
+| content.quCurvePointDReactivePower | - | number | No | Point D Reactive Power |
+| content.quCurvePointDVoltage | - | number | No | Point D Voltage |
+| content.remoteOnOffEnable | - | integer | No | Remote ON/OFF, 0：Disable， 1：Enable |
+| content.remoteOutputOnOffControl | - | integer | No | AC Output ON/OFF, 0：off, 1: on |
+| content.underFrequencyStage1TripTime | - | number | No | UF Stage1 Trip Time |
+| content.underFrequencyStage1TripValue | - | number | No | UF Stage1 Trip Value |
+| content.underFrequencyStage2TripTime | - | number | No | UF Stage2 Trip Time |
+| content.underFrequencyStage2TripValue | - | number | No | UF Stage2 Trip Value |
+| content.underVoltageStage1TripTime | - | number | No | UV Stage1 Trip Time |
+| content.underVoltageStage1TripValue | - | number | No | UV Stage1 Trip Value |
+| content.underVoltageStage2TripTime | - | number | No | UV Stage2 Trip Time |
+| content.underVoltageStage2TripValue | - | number | No | UV Stage2 Trip Value |
+| content.zeroExportAdjustmentPower | - | integer | No | Zero Export Power |
+| content.zeroExportFunction | - | integer | No | Zero Export Mode，1: To load, 2: To CT |
+| content | - | object | Yes | setting content |
+| deviceSn | - | string | Yes | Device serial number |
+| content.ecoRule5 | - | object | Yes | Economic Mode Rule 5 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.ecoRule6 | - | object | Yes | Economic Mode Rule 6 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.ecoRule7 | - | object | Yes | Economic Mode Rule 7 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.ecoRule8 | - | object | Yes | Economic Mode Rule 8 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.ecoRule9 | - | object | Yes | Economic Mode Rule 9 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
+| content.ecoRule10 | - | object | Yes | Economic Mode Rule 10 Object, refer to content.ecoRule (Economic Mode Rule 1 Object) |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -2385,7 +2385,7 @@ More device support see: Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -2403,7 +2403,7 @@ More device support see: Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | 998 | string | - |
 | message | The token has expired, please log in again | string | - |
@@ -2429,25 +2429,25 @@ More device support see: Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Remote Control Setting Attachment
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-08-16 08:12:28
+> Created at: 2024-08-16 08:12:28
 
-> 更新时间: 2025-03-13 14:27:46
+> Updated at: 2025-03-13 14:27:46
 
 ### T-REX
 
@@ -3556,27 +3556,27 @@ More device support see: Remote Control Setting Attachment**
 
 ## Query Remote Control Setting value
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-08-21 03:02:53
+> Updated at: 2024-08-21 03:02:53
 
 **The application server can call this interface to remotely query parameters of devices (inverters, etc.) through the Fsolar platform.
 Default support T-REX-6KLP1G01、T-REX-10KHP3G01、T-REX-5KLP1G01、T-REX-10KLP3G01. 
 More device support see: Query Remote Control Setting Attachment**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/cmd/deviceSetting/{deviceSn}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -3584,31 +3584,31 @@ More device support see: Query Remote Control Setting Attachment**
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | deviceSn |
+| deviceSn | - | string | Yes | deviceSn |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| deviceSn | - | string | 是 | 设备SN |
+| deviceSn | - | string | Yes | DeviceSN |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -3784,7 +3784,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -3967,25 +3967,25 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Query Remote Control Setting Attachment
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-08-16 09:52:31
+> Created at: 2024-08-16 09:52:31
 
-> 更新时间: 2025-03-14 08:58:38
+> Updated at: 2025-03-14 08:58:38
 
 ### T-REX
 
@@ -5368,61 +5368,61 @@ More device support see: Query Remote Control Setting Attachment**
 
 # Economic Model Strategy Template Management
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-06-26 14:34:33
+> Updated at: 2024-06-26 14:34:33
 
 **The economic model strategy template is a mandatory field when creating economic model tasks. The economic mode strategy template actually applies to the economic mode rules on the machine, and the common template is extracted to facilitate batch setting of devices**
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Add Economic Model Strategy Template
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-07-22 09:46:06
+> Updated at: 2024-07-22 09:46:06
 
 **The application server can call this interface to add economic mode strategy templates through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoStrategyTemplate/save
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -5430,15 +5430,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -5498,61 +5498,61 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| strategy1 | - | object | 是 | strategy1 |
-| strategy1.backupReserve | - | string | 否 | backupReserve |
-| strategy1.daysOfEffectiveWeek | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy1.power | 0 | number | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
-| strategy1.soc | 0 | number | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy1.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy1.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy1.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy1.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy1.strategy | 0 | number | 是 | strategy : 0=Disable，1=Charge,2=Discharge |
-| strategy2 | - | object | 否 | strategy2 |
-| strategy2.backupReserve | - | string | 否 | backupReserve |
-| strategy2.daysOfEffectiveWeek | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy2.power | 0 | number | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
-| strategy2.soc | 0 | number | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy2.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy2.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy2.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy2.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy2.strategy | 0 | number | 是 | strategy : 0=Disable，1=Charge,2=Discharge |
-| strategy3 | - | object | 否 | strategy3 |
-| strategy3.backupReserve | - | string | 否 | backupReserve |
-| strategy3.daysOfEffectiveWeek | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy3.power | 0 | number | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
-| strategy3.soc | 0 | number | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy3.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy3.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy3.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy3.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy3.strategy | 0 | number | 是 | strategy : 0=Disable，1=Charge,2=Discharge |
-| strategy4 | - | object | 否 | strategy4 |
-| strategy4.backupReserve | - | string | 否 | backup Reserve |
-| strategy4.daysOfEffectiveWeek | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy4.power | 0 | number | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
-| strategy4.soc | 0 | number | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy4.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy4.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy4.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy4.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy4.strategy | 0 | number | 是 | strategy : 0=Disable，1=Charge,2=Discharge |
-| templateName | - | object | 否 | template Name |
-| strategy5 | - | object | 否 | strategy5 , refer to strategy1 |
-| strategy6 | - | object | 否 | strategy6 , refer to strategy1 |
-| strategy7 | - | object | 否 | strategy7 , refer to strategy1 |
-| strategy8 | - | object | 否 | strategy8 , refer to strategy1 |
-| strategy9 | - | object | 否 | strategy9 , refer to strategy1 |
-| strategy10 | - | object | 否 | strategy10 , refer to strategy1 |
+| strategy1 | - | object | Yes | strategy1 |
+| strategy1.backupReserve | - | string | No | backupReserve |
+| strategy1.daysOfEffectiveWeek | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy1.power | 0 | number | No | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
+| strategy1.soc | 0 | number | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy1.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy1.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy1.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy1.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy1.strategy | 0 | number | Yes | strategy : 0=Disable，1=Charge,2=Discharge |
+| strategy2 | - | object | No | strategy2 |
+| strategy2.backupReserve | - | string | No | backupReserve |
+| strategy2.daysOfEffectiveWeek | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy2.power | 0 | number | No | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
+| strategy2.soc | 0 | number | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy2.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy2.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy2.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy2.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy2.strategy | 0 | number | Yes | strategy : 0=Disable，1=Charge,2=Discharge |
+| strategy3 | - | object | No | strategy3 |
+| strategy3.backupReserve | - | string | No | backupReserve |
+| strategy3.daysOfEffectiveWeek | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy3.power | 0 | number | No | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
+| strategy3.soc | 0 | number | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy3.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy3.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy3.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy3.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy3.strategy | 0 | number | Yes | strategy : 0=Disable，1=Charge,2=Discharge |
+| strategy4 | - | object | No | strategy4 |
+| strategy4.backupReserve | - | string | No | backup Reserve |
+| strategy4.daysOfEffectiveWeek | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy4.power | 0 | number | No | Battery charging or discharging power,Unit：W，The range of values is 0~100% inverter rated power |
+| strategy4.soc | 0 | number | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy4.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy4.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy4.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy4.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy4.strategy | 0 | number | Yes | strategy : 0=Disable，1=Charge,2=Discharge |
+| templateName | - | object | No | template Name |
+| strategy5 | - | object | No | strategy5 , refer to strategy1 |
+| strategy6 | - | object | No | strategy6 , refer to strategy1 |
+| strategy7 | - | object | No | strategy7 , refer to strategy1 |
+| strategy8 | - | object | No | strategy8 , refer to strategy1 |
+| strategy9 | - | object | No | strategy9 , refer to strategy1 |
+| strategy10 | - | object | No | strategy10 , refer to strategy1 |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -5567,7 +5567,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -5583,37 +5583,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Pagination query economic mode strategy template
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-07-22 09:50:14
+> Updated at: 2024-07-22 09:50:14
 
 **The application server can call this interface to page query the economic mode strategy template through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoStrategyTemplate/list
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -5621,15 +5621,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -5641,18 +5641,18 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | integer | 否 | id |
-| pageNum | 1 | integer | 是 | Page numbers, starting from 1 |
-| pageSize | 10 | integer | 是 | Number of entries per page, maximum of 300 |
-| templateName | - | string | 否 | Template Name |
+| id | - | integer | No | id |
+| pageNum | 1 | integer | Yes | Page numbers, starting from 1 |
+| pageSize | 10 | integer | Yes | Number of entries per page, maximum of 300 |
+| templateName | - | string | No | Template Name |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -5727,7 +5727,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | data | - | object | Additional data |
 | total | - | integer | Total number of records |
@@ -5788,25 +5788,25 @@ More device support see: Query Remote Control Setting Attachment**
 * Created(201)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * token expire(200)
@@ -5819,37 +5819,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Update Economic Model Strategy Template
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-07-22 09:59:41
+> Updated at: 2024-07-22 09:59:41
 
 **The application server can call this interface to modify the economic mode policy template through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoStrategyTemplate/update
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -5857,15 +5857,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -5926,62 +5926,62 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | integer | 是 | template id |
-| strategy1.backupReserve | - | number | 否 | backupReserve |
-| strategy1.daysOfEffectiveWeek.0 | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy1.power | - | integer | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| strategy1.soc | - | integer | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy1.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy1.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy1.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy1.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy1.strategy | - | integer | 是 | strategy: 0=Disable，1=Charge,2=Discharge |
-| strategy1 | - | object | 否 | - |
-| strategy2.backupReserve | - | number | 否 | backupReserve |
-| strategy2.daysOfEffectiveWeek.0 | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy2.power | - | integer | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| strategy2.soc | - | integer | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy2.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy2.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy2.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy2.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy2.strategy | - | integer | 是 | strategy: 0=Disable，1=Charge,2=Discharge |
-| strategy2 | - | object | 否 | - |
-| strategy3.backupReserve | - | number | 否 | backupReserve |
-| strategy3.daysOfEffectiveWeek.0 | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy3.power | - | integer | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| strategy3.soc | - | integer | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy3.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy3.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy3.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy3.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy3.strategy | - | integer | 是 | strategy: 0=Disable，1=Charge,2=Discharge |
-| strategy3 | - | object | 否 | - |
-| strategy4.backupReserve | - | number | 否 | backupReserve |
-| strategy4.daysOfEffectiveWeek.0 | - | array | 否 | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
-| strategy4.power | - | integer | 否 | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
-| strategy4.soc | - | integer | 否 | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
-| strategy4.startDay | - | string | 否 | Starting date, Format: mm:dd |
-| strategy4.startTime | - | string | 否 | Starting time, Format: HH:ss |
-| strategy4.stopDay | - | string | 否 | Stop date, Format: mm:dd |
-| strategy4.stopTime | - | string | 否 | Stop time, Format: HH:ss |
-| strategy4.strategy | - | integer | 是 | strategy: 0=Disable，1=Charge,2=Discharge |
-| strategy4 | - | object | 否 | - |
-| templateName | - | string | 否 | template name |
-| strategy5 | - | string | 否 | strategy5 , refer to strategy1 |
-| strategy6 | - | string | 否 | strategy6 , refer to strategy1 |
-| strategy7 | - | string | 否 | strategy7 , refer to strategy1 |
-| strategy8 | - | string | 否 | strategy8 , refer to strategy1 |
-| strategy9 | - | string | 否 | strategy9 , refer to strategy1 |
-| strategy10 | - | string | 否 | strategy10 , refer to strategy1 |
+| id | - | integer | Yes | template id |
+| strategy1.backupReserve | - | number | No | backupReserve |
+| strategy1.daysOfEffectiveWeek.0 | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy1.power | - | integer | No | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| strategy1.soc | - | integer | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy1.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy1.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy1.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy1.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy1.strategy | - | integer | Yes | strategy: 0=Disable，1=Charge,2=Discharge |
+| strategy1 | - | object | No | - |
+| strategy2.backupReserve | - | number | No | backupReserve |
+| strategy2.daysOfEffectiveWeek.0 | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy2.power | - | integer | No | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| strategy2.soc | - | integer | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy2.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy2.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy2.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy2.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy2.strategy | - | integer | Yes | strategy: 0=Disable，1=Charge,2=Discharge |
+| strategy2 | - | object | No | - |
+| strategy3.backupReserve | - | number | No | backupReserve |
+| strategy3.daysOfEffectiveWeek.0 | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy3.power | - | integer | No | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| strategy3.soc | - | integer | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy3.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy3.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy3.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy3.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy3.strategy | - | integer | Yes | strategy: 0=Disable，1=Charge,2=Discharge |
+| strategy3 | - | object | No | - |
+| strategy4.backupReserve | - | number | No | backupReserve |
+| strategy4.daysOfEffectiveWeek.0 | - | array | No | Days Of Effective Week,Valuable：MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY，Multiple Choice |
+| strategy4.power | - | integer | No | Battery charging or discharging power,Unit：W，The range of values is 0~inverter rated power |
+| strategy4.soc | - | integer | No | Battery charging or discharging soc，Unit：%，The range of values is 0~100% |
+| strategy4.startDay | - | string | No | Starting date, Format: mm:dd |
+| strategy4.startTime | - | string | No | Starting time, Format: HH:ss |
+| strategy4.stopDay | - | string | No | Stop date, Format: mm:dd |
+| strategy4.stopTime | - | string | No | Stop time, Format: HH:ss |
+| strategy4.strategy | - | integer | Yes | strategy: 0=Disable，1=Charge,2=Discharge |
+| strategy4 | - | object | No | - |
+| templateName | - | string | No | template name |
+| strategy5 | - | string | No | strategy5 , refer to strategy1 |
+| strategy6 | - | string | No | strategy6 , refer to strategy1 |
+| strategy7 | - | string | No | strategy7 , refer to strategy1 |
+| strategy8 | - | string | No | strategy8 , refer to strategy1 |
+| strategy9 | - | string | No | strategy9 , refer to strategy1 |
+| strategy10 | - | string | No | strategy10 , refer to strategy1 |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -5993,7 +5993,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6002,64 +6002,64 @@ More device support see: Query Remote Control Setting Attachment**
 * Created(201)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * token expire(200)
 
 ```javascript
-暂无数据
+No data
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Query detail
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-07-22 09:58:58
+> Updated at: 2024-07-22 09:58:58
 
 **The application server can call this interface to query the details of the economic mode strategy template through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoStrategyTemplate/detail/{id}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -6067,31 +6067,31 @@ More device support see: Query Remote Control Setting Attachment**
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | 123 | integer | 是 | 模板id |
+| id | 123 | integer | Yes | Templateid |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | string | 是 | template id |
+| id | - | string | Yes | template id |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6161,7 +6161,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6220,19 +6220,19 @@ More device support see: Query Remote Control Setting Attachment**
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * token expire(200)
@@ -6245,37 +6245,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Delete Economic Model Strategy Template
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-24 08:54:36
+> Created at: 2024-06-24 08:54:36
 
-> 更新时间: 2024-06-26 15:35:09
+> Updated at: 2024-06-26 15:35:09
 
 **The application server can call this interface to delete the economic mode policy template through the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoStrategyTemplate/delete/{id}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -6283,31 +6283,31 @@ More device support see: Query Remote Control Setting Attachment**
 
 > form-data
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | 123 | integer | 是 | template id |
+| id | 123 | integer | Yes | template id |
 
-**请求Body参数**
+**Request Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | string | 是 | template id |
+| id | - | string | Yes | template id |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6319,7 +6319,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6328,19 +6328,19 @@ More device support see: Query Remote Control Setting Attachment**
 * Unauthorized(401)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Forbidden(403)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * Not Found(404)
 
 ```javascript
-暂无数据
+No data
 ```
 
 * token expire(200)
@@ -6353,73 +6353,73 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 # Economic Model Task Management
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:12:13
+> Updated at: 2024-06-27 03:12:13
 
 **Economic mode task management is mainly aimed at scenarios where multiple devices are set in the same economic mode in batches, which can enable dealers to conveniently control the equipment.**
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Add Economic Mode Task
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:16:51
+> Updated at: 2024-06-27 03:16:51
 
 **The application server can call this interface to add economy mode tasks on the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/save
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -6427,15 +6427,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -6450,18 +6450,18 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| targetList.deviceId | 020505004821130001 | integer | 是 | Device ID，Required, will be returned when adding devices |
-| taskName | batch west region setting | string | 是 | Task Nmae |
-| taskType | device | string | 是 | Task Type：device |
-| templateId | 123 | integer | 是 | Template ID |
+| targetList.deviceId | 020505004821130001 | integer | Yes | Device ID，Required, will be returned when adding devices |
+| taskName | batch west region setting | string | Yes | Task Nmae |
+| taskType | device | string | Yes | Task Type：device |
+| templateId | 123 | integer | Yes | Template ID |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6473,7 +6473,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6489,37 +6489,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Modify Economic Mode Task
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:21:42
+> Updated at: 2024-06-27 03:21:42
 
 **The application server can call this interface to modify economic mode tasks on the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/update
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -6527,15 +6527,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -6551,19 +6551,19 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | 1 | integer | 是 | Task Id |
-| targetList.deviceId | 2 | integer | 是 | Device ID |
-| taskName | testTask | string | 是 | Task Nmae |
-| taskType | device | string | 是 | Task Type，Default device |
-| templateId | - | integer | 是 | Template ID |
+| id | 1 | integer | Yes | Task Id |
+| targetList.deviceId | 2 | integer | Yes | Device ID |
+| taskName | testTask | string | Yes | Task Nmae |
+| taskType | device | string | Yes | Task Type，Default device |
+| templateId | - | integer | Yes | Template ID |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6575,7 +6575,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6591,37 +6591,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Paging economic mode query task
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:30:15
+> Updated at: 2024-06-27 03:30:15
 
 **The application server can call this interface to page query economic mode tasks on the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/list
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -6629,15 +6629,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -6650,19 +6650,19 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| pageNum | 1 | integer | 是 | Page numbers, starting from 1 |
-| pageSize | 10 | integer | 是 | Number of entries per page, maximum of 300 |
-| taskName | - | string | 否 | Task Nmae |
-| taskType | - | string | 否 | Task Type，Default device |
-| templateId | - | integer | 否 | Template ID |
+| pageNum | 1 | integer | Yes | Page numbers, starting from 1 |
+| pageSize | 10 | integer | Yes | Number of entries per page, maximum of 300 |
+| taskName | - | string | No | Task Nmae |
+| taskType | - | string | No | Task Type，Default device |
+| templateId | - | integer | No | Template ID |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6704,7 +6704,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | data | - | object | Data |
 | total | - | integer | Total number of records |
@@ -6741,37 +6741,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Delete Economic Mode Task
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:31:53
+> Updated at: 2024-06-27 03:31:53
 
 **The application server can call this interface to delete economic mode tasks on the Fsolar platform.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/delete/{id}
 
-**请求方式**
+**Request Method**
 
 > GET
 
@@ -6779,25 +6779,25 @@ More device support see: Query Remote Control Setting Attachment**
 
 > none
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**路径变量**
+**Path Variables**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | integer | 是 | id |
+| id | - | integer | Yes | id |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6809,7 +6809,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | code |
 | message | - | string | message |
@@ -6825,37 +6825,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/x-www-form-urlencoded | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/x-www-form-urlencoded | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Running Economic Mode Tasks
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:35:32
+> Updated at: 2024-06-27 03:35:32
 
 **The application server can call this interface to run economy mode tasks through the Fsolar platform. The task of running the economic mode is actually to set the economic mode parameters corresponding to the associated template to the machine. The task will be completed within two minutes. The status during operation can be queried through the "Query Economic Mode Task Runtime Details" API**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/run
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -6863,15 +6863,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -6881,17 +6881,17 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| runTaskRecordId | 1213 | integer | 否 | Run Task Record ID，runType=1 Required for failed resend |
-| runType | 1 | integer | 是 | Run type: 0=default type, 1=failed resend |
-| taskId | 23 | integer | 是 | Task Id |
+| runTaskRecordId | 1213 | integer | No | Run Task Record ID，runType=1 Required for failed resend |
+| runType | 1 | integer | Yes | Run type: 0=default type, 1=failed resend |
+| taskId | 23 | integer | Yes | Task Id |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -6927,7 +6927,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Response code |
 | message | - | string | Response message |
@@ -6962,37 +6962,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Query economic mode task runtime details
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:36:26
+> Updated at: 2024-06-27 03:36:26
 
-**应用服务器可调用此接口查看经济模式任务运行时的情况。**
+**The application server can call this interface to view the runtime status of economic mode tasks。**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/getRunningDetail
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -7000,15 +7000,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -7017,16 +7017,16 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| runTaskRecordId | 123 | integer | 否 | The task record ID is required to view the completed running result. When calling the "Run Economy Mode Task", the task record ID will be returned |
-| taskId | 1234 | integer | 否 | Task Id |
+| runTaskRecordId | 123 | integer | No | The task record ID is required to view the completed running result. When calling the "Run Economy Mode Task", the task record ID will be returned |
+| taskId | 1234 | integer | No | Task Id |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -7062,7 +7062,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Response code |
 | message | - | string | Response message |
@@ -7075,7 +7075,7 @@ More device support see: Query Remote Control Setting Attachment**
 | data.detailListVOList.id | - | integer | Detail id |
 | data.detailListVOList.taskId | - | integer | Task id |
 | data.failCount | - | integer | Number of failures |
-| data.id | - | integer | 任务id |
+| data.id | - | integer | Taskid |
 | data.modifyTime | - | string | Modification time |
 | data.runTaskRecordId | - | integer | Task Record Id |
 | data.runType | - | integer | Run type: 0=default type, 1=failed resend |
@@ -7097,37 +7097,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Query economic mode task details
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:38:22
+> Updated at: 2024-06-27 03:38:22
 
 **Query economic mode task details**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTask/getDetail
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -7135,15 +7135,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -7151,15 +7151,15 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| taskId | - | integer | 否 | Task ID |
+| taskId | - | integer | No | Task ID |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -7178,7 +7178,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Response code |
 | message | - | string | Response message |
@@ -7197,73 +7197,73 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 # Economic mode task operation record
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: typhoon
+> Updated by: typhoon
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:10:44
+> Updated at: 2024-06-27 03:10:44
 
 **Economic mode task operation record**
 
-**目录Header参数**
+**Directory Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Query参数**
+**Directory Query Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录Body参数**
+**Directory Body Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| 暂无参数 |
+| No parameters |
 
-**目录认证信息**
+**Directory Authentication Info**
 
-> 继承父级
+> Inherit from parent
 
 **Query**
 
 ## Pagination query of economic mode task operation record table data
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:59:58
+> Updated at: 2024-06-27 03:59:58
 
 **The application server can call this interface to view the running records of economic mode tasks in a paginated manner**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTaskRunRecord/list
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -7271,15 +7271,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -7293,20 +7293,20 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| pageNum | 1 | integer | 是 | Page number, starting from 1 |
-| pageSize | 10 | integer | 是 | Number of entries per page, maximum of 1000 |
-| runType | - | integer | 否 | Operation type: 0=normal operation, 1=failed resend |
-| taskId | - | integer | 否 | Task Id |
-| taskName | - | integer | 否 | Task name |
-| taskStatus | - | integer | 否 | Running status: 0=running, 1=done |
+| pageNum | 1 | integer | Yes | Page number, starting from 1 |
+| pageSize | 10 | integer | Yes | Number of entries per page, maximum of 1000 |
+| runType | - | integer | No | Operation type: 0=normal operation, 1=failed resend |
+| taskId | - | integer | No | Task Id |
+| taskName | - | integer | No | Task name |
+| taskStatus | - | integer | No | Running status: 0=running, 1=done |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -7335,7 +7335,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | data | - | object | Response code |
 | total | - | integer | Total number of records |
@@ -7364,37 +7364,37 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
 
 ## Obtain detailed data from the economic mode task operation record table
 
-> 创建人: Timesup
+> Created by: Timesup
 
-> 更新人: Timesup
+> Updated by: Timesup
 
-> 创建时间: 2024-06-22 04:19:50
+> Created at: 2024-06-22 04:19:50
 
-> 更新时间: 2024-06-27 03:41:28
+> Updated at: 2024-06-27 03:41:28
 
 **The application server can call this interface to view the details of the running records of economic mode tasks.**
 
-**接口状态**
+**Interface Status**
 
-> 已完成
+> Completed
 
-**接口URL**
+**Interface URL**
 
 > /openApi/ecoTaskRunRecord/getDetail
 
-**请求方式**
+**Request Method**
 
 > POST
 
@@ -7402,15 +7402,15 @@ More device support see: Query Remote Control Setting Attachment**
 
 > json
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
-**请求Body参数**
+**Request Body Parameters**
 
 ```javascript
 {
@@ -7419,15 +7419,15 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| id | - | integer | 否 | Task ID |
+| id | - | integer | No | Task ID |
 
-**认证方式**
+**Authentication Method**
 
-> 继承父级
+> Inherit from parent
 
-**响应示例**
+**Response Example**
 
 * OK(200)
 
@@ -7463,7 +7463,7 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-| 参数名 | 示例值 | 参数类型 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Description |
 | --- | --- | ---- | ---- |
 | code | - | integer | Response code |
 | message | - | string | Response message |
@@ -7494,12 +7494,12 @@ More device support see: Query Remote Control Setting Attachment**
 }
 ```
 
-**请求Header参数**
+**Request Header Parameters**
 
-| 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
+| Parameter Name | Example Value | Parameter Type | Required | Description |
 | --- | --- | ---- | ---- | ---- |
-| Content-Type | application/json | string | 是 | - |
-| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | 是 | User token, which can be obtained from authentication and refreshing tokens. |
-| Lang | en_US | string | 是 | Language, currently supports English en_US. |
+| Content-Type | application/json | string | Yes | - |
+| Authorization | Bearer_eyJhbGciOiJIUzI1NiJ9.eyJkZW1vVXNlciI6ZmFsc2UsInN1YiI6IueuoeeQhuWRmCIsImF1ZCI6Ik56TTNORFF4TkRrd01UVTFPREUwTkE9PSIsIm5iZiI6MTcxMTY3NjY4NiwiaXNzIjoiRkxTLVNPTEFSLVNFUlZFUiIsImlkIjo3Mzc0NDE0OTAxNTU4MTQ0LCJleHAiOjE3MTQyNjg2ODYsImlhdCI6MTcxMTY3NjY4Nn0._l5VIYevtyv2Xc66S9w6fqmkECBFvLZPJYqjU07pObE | string | Yes | User token, which can be obtained from authentication and refreshing tokens. |
+| Lang | en_US | string | Yes | Language, currently supports English en_US. |
 
 **Query**
