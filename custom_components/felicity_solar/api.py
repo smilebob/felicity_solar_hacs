@@ -47,6 +47,10 @@ class FelicitySolarAPI:
     API_URL_REFRESH_TOKEN = "https://shine-api.felicitysolar.com/openApi/sec/refreshToken"
     API_URL_DEVICE_BASIC = "https://shine-api.felicitysolar.com/openApi/data/deviceDataBasic/"
     API_URL_DEVICE_WARN = "https://shine-api.felicitysolar.com/openApi/data/deviceDataWarn/"
+    API_URL_DEVICE_SETTING = "https://shine-api.felicitysolar.com/openApi/cmd/deviceSetting"
+    API_URL_DEVICE_SETTING_QUERY = "https://shine-api.felicitysolar.com/openApi/cmd/deviceSetting/"
+    API_URL_DEVICE_ENERGY = "https://shine-api.felicitysolar.com/openApi/data/deviceDataEnergy"
+    API_URL_DEVICE_HISTORY = "https://shine-api.felicitysolar.com/openApi/data/deviceDataHistory/"
 
     def __init__(self, email: str, password: str, session: aiohttp.ClientSession):
         self.email = email
@@ -158,6 +162,165 @@ class FelicitySolarAPI:
         except Exception as err:
             _LOGGER.warning("Failed to fetch warnings for device %s: %s", device_sn, err)
         return []
+
+    async def get_device_settings(self, device_sn: str) -> dict:
+        """Fetch remote control settings for an inverter device from OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.debug("Fetching settings for device %s", device_sn)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/x-www-form-urlencoded",
+            "lang": "en_US",
+        }
+        url = f"{self.API_URL_DEVICE_SETTING_QUERY}{device_sn}"
+
+        try:
+            async with self.session.get(url, headers=headers) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
+                        _LOGGER.debug("Settings retrieved for %s: %s", device_sn, data["data"])
+                        return data["data"]
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during settings fetch for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.get_device_settings(device_sn)
+                    else:
+                        _LOGGER.debug("Settings query returned code %s for %s: %s", code, device_sn, data.get("message"))
+        except Exception as err:
+            _LOGGER.warning("Failed to fetch settings for device %s: %s", device_sn, err)
+        return {}
+
+    async def set_device_setting(self, device_sn: str, content: dict) -> bool:
+        """Send remote control settings for an inverter device to OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.info("Sending setting command for device %s: %s", device_sn, content)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/json",
+            "lang": "en_US",
+        }
+        payload = {
+            "deviceSn": device_sn,
+            "content": content,
+        }
+
+        try:
+            async with self.session.post(self.API_URL_DEVICE_SETTING, headers=headers, json=payload) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0):
+                        _LOGGER.info("Setting command succeeded for %s: %s", device_sn, data.get("data"))
+                        return True
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during setting command for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.set_device_setting(device_sn, content)
+                    elif code == 1006051:
+                        _LOGGER.error("Failed to send command to device %s (code 1006051) — device may be offline or unreachable", device_sn)
+                    elif code == 2001528:
+                        _LOGGER.error("Insufficient permissions to set parameters on device %s (code 2001528)", device_sn)
+                    else:
+                        _LOGGER.error("Setting command failed for %s (code %s): %s", device_sn, code, data.get("message"))
+                else:
+                    _LOGGER.error("HTTP error %s when setting parameters on %s", response.status, device_sn)
+        except Exception as err:
+            _LOGGER.error("Exception when sending setting command to device %s: %s", device_sn, err)
+        return False
+
+    async def get_device_energy_data(
+        self,
+        device_sn: str,
+        time_dimension: str = "day",
+        date_str: str | None = None,
+        page_num: int = 1,
+        page_size: int = 10,
+    ) -> dict:
+        """Fetch historical aggregated energy data (day/month/year/total) from OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.debug("Fetching energy data for device %s (dim=%s)", device_sn, time_dimension)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/x-www-form-urlencoded",
+            "lang": "en_US",
+        }
+        params = {
+            "deviceSn": device_sn,
+            "timeDimension": time_dimension,
+            "pageNum": str(page_num),
+            "pageSize": str(page_size),
+        }
+        if date_str:
+            params["dateStr"] = date_str
+
+        try:
+            async with self.session.get(self.API_URL_DEVICE_ENERGY, headers=headers, params=params) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
+                        return data["data"]
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during energy data fetch for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.get_device_energy_data(
+                            device_sn, time_dimension, date_str, page_num, page_size
+                        )
+                    else:
+                        _LOGGER.debug("Energy data query returned code %s for %s: %s", code, device_sn, data.get("message"))
+        except Exception as err:
+            _LOGGER.warning("Failed to fetch energy data for device %s: %s", device_sn, err)
+        return {}
+
+    async def get_device_history_data(
+        self,
+        device_sn: str,
+        date_str: str | None = None,
+        page_num: int = 1,
+        page_size: int = 10,
+    ) -> dict:
+        """Fetch historical real-time snapshot records for a device from OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.debug("Fetching history data for device %s", device_sn)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/x-www-form-urlencoded",
+            "lang": "en_US",
+        }
+        url = f"{self.API_URL_DEVICE_HISTORY}{device_sn}"
+        params = {
+            "pageNum": str(page_num),
+            "pageSize": str(page_size),
+        }
+        if date_str:
+            params["dateStr"] = date_str
+
+        try:
+            async with self.session.get(url, headers=headers, params=params) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
+                        return data["data"]
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during history data fetch for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.get_device_history_data(device_sn, date_str, page_num, page_size)
+                    else:
+                        _LOGGER.debug("History data query returned code %s for %s: %s", code, device_sn, data.get("message"))
+        except Exception as err:
+            _LOGGER.warning("Failed to fetch history data for device %s: %s", device_sn, err)
+        return {}
 
     async def get_device_snapshot(self, device_sn: str) -> dict:
         await self._ensure_authenticated()

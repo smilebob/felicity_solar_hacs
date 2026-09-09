@@ -1,0 +1,140 @@
+set_device_setting:
+  name: Set Device Setting
+  description: Send arbitrary parameter configurations to a Felicity Solar inverter via the OpenAPI.
+  fields:
+    device_sn:
+      name: Device Serial Number
+      description: The serial number of the inverter.
+      required: true
+      example: "020505004822242582"
+      selector:
+        text:
+    params:
+      name: Parameters
+      description: Key-value map of parameters to apply (e.g. operatedMode, batteryMaxChargedCurrent).
+      required: true
+      example: '{"operatedMode": 0, "batteryMaxChargedCurrent": 100}'
+      selector:
+        object:
+
+set_eco_rule:
+  name: Set ECO / Time of Use Rule
+  description: Configure a Time-of-Use / Economic Mode charging or discharging rule on the inverter.
+  fields:
+    device_sn:
+      name: Device Serial Number
+      description: The serial number of the inverter.
+      required: true
+      example: "020505004822242582"
+      selector:
+        text:
+    rule_index:
+      name: Rule Index
+      description: The ECO rule slot number (1 to 6).
+      required: true
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 6
+          step: 1
+    rule_mode:
+      name: Rule Mode
+      description: 0 for Disable, 1 for Grid Charge, 2 for Discharge to Grid, 3 for AC Couple.
+      required: true
+      default: 1
+      selector:
+        select:
+          options:
+            - label: Disable
+              value: 0
+            - label: Grid Charge
+              value: 1
+            - label: Discharge to Grid
+              value: 2
+            - label: AC Couple
+              value: 3
+    start_time:
+      name: Start Time
+      description: Schedule start time in HH:mm format.
+      required: true
+      example: "22:00"
+      selector:
+        text:
+    stop_time:
+      name: Stop Time
+      description: Schedule stop time in HH:mm format.
+      required: true
+      example: "06:00"
+      selector:
+        text:
+    power:
+      name: Target Power (W)
+      description: Charging or discharging power limit in Watts.
+      required: false
+      example: 3000
+      selector:
+        number:
+          min: 0
+          max: 15000
+          step: 100
+    soc:
+      name: Target SOC (%)
+      description: Target battery State of Charge percentage.
+      required: false
+      example: 80
+      selector:
+        number:
+          min: 0
+          max: 100
+          step: 1
+
+query_energy_data:
+  name: Query Historical Energy Data
+  description: Query aggregated energy production/consumption records from the OpenAPI.
+  fields:
+    device_sn:
+      name: Device Serial Number
+      description: The serial number of the inverter.
+      required: true
+      example: "020505004822242582"
+      selector:
+        text:
+    time_dimension:
+      name: Time Dimension
+      description: Dimension to query (day, month, year, total).
+      required: true
+      default: "day"
+      selector:
+        select:
+          options:
+            - "day"
+            - "month"
+            - "year"
+            - "total"
+    date_str:
+      name: Date
+      description: Target date filter in YYYY-MM-DD format (optional).
+      required: false
+      example: "2026-09-09"
+      selector:
+        text:
+
+query_history_data:
+  name: Query Real-time History Data
+  description: Query historical telemetry snapshots from the OpenAPI.
+  fields:
+    device_sn:
+      name: Device Serial Number
+      description: The serial number of the inverter.
+      required: true
+      example: "020505004822242582"
+      selector:
+        text:
+    date_str:
+      name: Date
+      description: Target date filter in YYYY-MM-DD format (optional).
+      required: false
+      example: "2026-09-09"
+      selector:
+        text:

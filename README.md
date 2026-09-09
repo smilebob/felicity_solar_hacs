@@ -21,6 +21,15 @@ A comprehensive custom integration for Home Assistant to monitor your Felicity S
   - **PV Total Power** smart calculation (automatically sums active strings if total power is missing).
 - **Rated Power Sensor (kW):** Automatically normalized in kilowatts (`kW`) with auto-scaling and fallback regex parsing from model name.
 - **Inverter Work Mode Sensor:** Real-time human-readable operating states (`Power On`, `Standby`, `Bypass`, `Off-Grid`, `Fault`, `Line Mode`, `PV Charge`, `Gen Mode`, `Turn Off`).
+- **Complete Remote Control & Parameter Tuning (100% OpenAPI Coverage):**
+  - **Selector Entities (`select`):** `Work Mode` (General, Backup, Eco, Gen), `Energy Priority` (Battery First, Load First), `Zero Export Mode` (To Load, To CT), `AC Output Frequency` (50Hz, 60Hz), and `Battery Model Type` (User Defined, Lithium, LPBF, LPBA).
+  - **Numeric Setpoints (`number`):** Battery max charge current (1–200 A), max discharge current (5–200 A), On-Grid discharge depth SOC (10–100%), Off-Grid discharge depth SOC (0–100%), charge voltage (48–60V), float voltage (48–60V), grid charge current limit, generator charge current limit, generator auto start/exit SOC, and zero-export adjustment power.
+  - **Inverter Switches (`switch`):** `Grid Charge`, `Inverter Buzzer`, `LCD Backlight`, `Inverter Remote Standby`, `AC Output Relay`, `Anti-Islanding Protection`, `Grid Peak Shaving`, `Time of Use (TOU)`, `Generator Charge`, and `Overload Auto-Reset`.
+- **Home Assistant Custom Services:**
+  - `felicity_solar.set_device_setting`: Apply arbitrary parameter payloads via OpenAPI.
+  - `felicity_solar.set_eco_rule`: Configure Time-of-Use / ECO mode schedules (rules 1 to 6) with start/stop times, power, and target SOC.
+  - `felicity_solar.query_energy_data`: Fetch historical aggregated day/month/year/total production and consumption.
+  - `felicity_solar.query_history_data`: Query real-time historical snapshot records.
 - **3-Phase & Grid Telemetry:** Monophase and 3-Phase (L1, L2, L3) voltages and powers for both Grid and Backup Loads.
 - **External CT Clamp & Generator:** Monitors external CT power (`ctPower`), home load (`meterPower`), and generator metrics (`genPower`, `genFrequency`).
 - **Active Alarms & Diagnostics:** Real-time active warning counter and latest diagnostic message from `/openApi/data/deviceDataWarn/`.

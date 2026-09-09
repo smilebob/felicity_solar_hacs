@@ -134,6 +134,7 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                             }
                         }
                     else:
+                        settings = await self.api.get_device_settings(device_sn)
                         raw_model = snapshot.get("deviceModel") or snapshot.get("model") or snapshot.get("productTypeEnum") or "Solar Inverter"
                         model_display = str(raw_model).replace("_", " ").title()
                         if "Felicity" not in model_display:
@@ -170,6 +171,7 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                             "serialNumber": device_sn,
                             "firmwareVersion": firmware_version,
                             "collectorSn": basic_info.get("collectorSn"),
+                            "settings": settings,
                             "data": {
                                 "acInputVoltage": _safe_float(snapshot.get("acRInVolt")),
                                 "acInputFrequency": _safe_float(snapshot.get("acRInFreq")),
