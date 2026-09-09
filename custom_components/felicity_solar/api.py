@@ -44,6 +44,9 @@ class FelicitySolarAPI:
     API_URL_DEVICE_LIST = "https://shine-api.felicitysolar.com/device/list_device_all_type"
     API_URL_DEVICE_SNAPSHOT = "https://shine-api.felicitysolar.com/device/get_device_snapshot"
     API_URL_USER_LOGIN = "https://shine-api.felicitysolar.com/userlogin"
+    API_URL_REFRESH_TOKEN = "https://shine-api.felicitysolar.com/openApi/sec/refreshToken"
+    API_URL_DEVICE_BASIC = "https://shine-api.felicitysolar.com/openApi/data/deviceDataBasic/"
+    API_URL_DEVICE_WARN = "https://shine-api.felicitysolar.com/openApi/data/deviceDataWarn/"
 
     def __init__(self, email: str, password: str, session: aiohttp.ClientSession):
         self.email = email
@@ -52,6 +55,7 @@ class FelicitySolarAPI:
 
         self.bearer_token: str | None = None
         self.token_expiration: datetime | None = None
+        self.refresh_token: str | None = None
         self.devices_serial_numbers: list[str] = []
 
     async def initialize(self) -> None:
@@ -59,14 +63,10 @@ class FelicitySolarAPI:
         await self._load_from_file()
 
         if not self._is_logged_in():
-            if self.bearer_token and self.token_expiration:
-                _LOGGER.warning(
-                    "Token expired at %s, re-authenticating",
-                    self.token_expiration.strftime("%Y-%m-%d %H:%M:%S")
-                )
-            else:
-                _LOGGER.info("No valid token found, authenticating with Felicity Solar")
-            await self._login()
+            refreshed = await self._refresh_token()
+            if not refreshed:
+                _LOGGER.info("Authenticating with Felicity Solar")
+                await self._login()
         else:
             _LOGGER.info(
                 "Token is valid, expires at %s",
@@ -83,18 +83,84 @@ class FelicitySolarAPI:
     async def refresh_devices(self) -> None:
         _LOGGER.info("Refreshing device list for %s", self.email)
         if not self._is_logged_in():
-            _LOGGER.info("Token expired or missing, re-authenticating for device refresh")
-            await self._login()
+            refreshed = await self._refresh_token()
+            if not refreshed:
+                await self._login()
         await self._load_devices_serial_numbers()
         _LOGGER.info("Device refresh complete, %d device(s) found", len(self.devices_serial_numbers))
 
     def get_devices_serial_numbers(self) -> list[str]:
         return self.devices_serial_numbers
 
-    async def get_device_snapshot(self, device_sn: str) -> dict:
+    async def _ensure_authenticated(self) -> None:
         if not self._is_logged_in():
-            _LOGGER.warning("Token expired before snapshot request for %s, re-authenticating", device_sn)
-            await self._login()
+            refreshed = await self._refresh_token()
+            if not refreshed:
+                await self._login()
+
+    async def get_device_basic_info(self, device_sn: str) -> dict:
+        """Fetch basic device info (firmware version, collector SN, status) from OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.debug("Fetching basic device info for %s", device_sn)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/x-www-form-urlencoded",
+            "lang": "en_US",
+        }
+        url = f"{self.API_URL_DEVICE_BASIC}{device_sn}"
+
+        try:
+            async with self.session.get(url, headers=headers) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
+                        _LOGGER.debug("Basic info retrieved for %s: %s", device_sn, data["data"])
+                        return data["data"]
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during basic info fetch for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.get_device_basic_info(device_sn)
+        except Exception as err:
+            _LOGGER.warning("Failed to fetch basic info for device %s: %s", device_sn, err)
+        return {}
+
+    async def get_device_warnings(self, device_sn: str) -> list[dict]:
+        """Fetch active alarms and warnings for a device from OpenAPI."""
+        await self._ensure_authenticated()
+
+        _LOGGER.debug("Fetching warnings for device %s", device_sn)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.bearer_token,
+            "content-type": "application/x-www-form-urlencoded",
+            "lang": "en_US",
+        }
+        url = f"{self.API_URL_DEVICE_WARN}{device_sn}"
+
+        try:
+            async with self.session.get(url, headers=headers) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data:
+                        raw_warns = data["data"]
+                        if isinstance(raw_warns, list):
+                            return raw_warns
+                        elif isinstance(raw_warns, dict):
+                            return [raw_warns]
+                    elif code in (999, 998):
+                        _LOGGER.warning("Token expired during warning fetch for %s, re-authenticating", device_sn)
+                        await self._login()
+                        return await self.get_device_warnings(device_sn)
+        except Exception as err:
+            _LOGGER.warning("Failed to fetch warnings for device %s: %s", device_sn, err)
+        return []
+
+    async def get_device_snapshot(self, device_sn: str) -> dict:
+        await self._ensure_authenticated()
 
         _LOGGER.debug("Fetching snapshot for device %s", device_sn)
         today_date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -112,6 +178,12 @@ class FelicitySolarAPI:
         async with self.session.post(self.API_URL_DEVICE_SNAPSHOT, headers=headers, json=payload) as response:
             response.raise_for_status()
             data = await response.json()
+
+            code = data.get("code")
+            if code in (999, 998):
+                _LOGGER.warning("Token expired during snapshot fetch for %s, re-authenticating", device_sn)
+                await self._login()
+                return await self.get_device_snapshot(device_sn)
 
             if "data" not in data:
                 _LOGGER.error("Snapshot response missing 'data' field for %s: %s", device_sn, data)
@@ -170,7 +242,11 @@ class FelicitySolarAPI:
             _LOGGER.info("No saved token found for %s in token file", self.email)
             return
 
-        self.bearer_token = found["bearer"]
+        self.bearer_token = found.get("bearer")
+        self.refresh_token = found.get("refreshToken")
+        exp_val = found.get("exp")
+        if exp_val:
+            self.token_expiration = datetime.fromtimestamp(exp_val / 1000.0)
         _LOGGER.info("Loaded bearer token from file for %s", self.email)
 
     async def _save_to_file(self) -> None:
@@ -183,23 +259,54 @@ class FelicitySolarAPI:
             (item for item in data if item["email"] == self.email), None)
         exp_timestamp = int(self.token_expiration.timestamp() * 1000)
 
-        if found and found.get("exp", 0) > int(datetime.now().timestamp() * 1000):
-            _LOGGER.debug("Token file already up-to-date for %s", self.email)
-            return
-        elif found:
-            found["bearer"] = self.bearer_token
-            found["exp"] = exp_timestamp
+        token_entry = {
+            "email": self.email,
+            "bearer": self.bearer_token,
+            "refreshToken": self.refresh_token,
+            "exp": exp_timestamp
+        }
+
+        if found:
+            found.update(token_entry)
             _LOGGER.info("Updated existing token in file for %s", self.email)
         else:
-            new_entry = {
-                "email": self.email,
-                "bearer": self.bearer_token,
-                "exp": exp_timestamp
-            }
-            data.append(new_entry)
+            data.append(token_entry)
             _LOGGER.info("Saved new token to file for %s", self.email)
 
         await asyncio.to_thread(self._write_token_file_sync, data)
+
+    async def _refresh_token(self) -> bool:
+        if not self.refresh_token:
+            return False
+        _LOGGER.info("Attempting to refresh access token for %s", self.email)
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json",
+        }
+        payload = {"refreshToken": self.refresh_token}
+        try:
+            async with self.session.post(self.API_URL_REFRESH_TOKEN, headers=headers, json=payload) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    code = data.get("code")
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
+                        token_data = data["data"]
+                        new_token = token_data.get("token")
+                        new_refresh = token_data.get("refreshToken")
+                        if new_token:
+                            clean_token = new_token.replace("Bearer_", "")
+                            decrypted_token = jwt.decode(clean_token, options={"verify_signature": False})
+                            self.token_expiration = datetime.fromtimestamp(decrypted_token["exp"])
+                            self.bearer_token = new_token
+                            if new_refresh:
+                                self.refresh_token = new_refresh
+                            _LOGGER.info("Access token successfully refreshed for %s", self.email)
+                            await self._save_to_file()
+                            return True
+                    _LOGGER.warning("Token refresh returned code %s: %s", code, data.get("message"))
+        except Exception as err:
+            _LOGGER.warning("Token refresh request failed for %s: %s", self.email, err)
+        return False
 
     async def _load_devices_serial_numbers(self) -> None:
         _LOGGER.debug("Fetching device list from API")
@@ -244,7 +351,18 @@ class FelicitySolarAPI:
         async with self.session.post(self.API_URL_USER_LOGIN, headers=headers, json=payload) as response:
             response.raise_for_status()
             data = await response.json()
-            bearer = data.get("data", {}).get("token")
+
+            code = data.get("code")
+            if code == 1002006:
+                _LOGGER.error("Login failed — Incorrect password for %s", self.email)
+                raise ValueError("Wrong password (code 1002006).")
+            elif code == 1002001:
+                _LOGGER.error("Login failed — Account not activated for %s", self.email)
+                raise ValueError("Account not activated (code 1002001).")
+
+            res_data = data.get("data", {})
+            bearer = res_data.get("token") if isinstance(res_data, dict) else None
+            refresh = res_data.get("refreshToken") if isinstance(res_data, dict) else None
 
             if not bearer:
                 _LOGGER.error("Login failed — no token in response: %s", data)
@@ -261,6 +379,9 @@ class FelicitySolarAPI:
             self.token_expiration = datetime.fromtimestamp(
                 decrypted_token["exp"])
             self.bearer_token = bearer
+            if refresh:
+                self.refresh_token = refresh
+
             _LOGGER.info(
                 "Login successful for %s, token expires at %s",
                 self.email,

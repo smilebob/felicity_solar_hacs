@@ -131,6 +131,8 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    SensorEntityDescription(key="warnCount", name="Active Warning Count", icon="mdi:alert-circle-outline"),
+    SensorEntityDescription(key="warnMsg", name="Last Warning Message", icon="mdi:alert-decagram"),
 )
 
 
@@ -144,12 +146,19 @@ class FelicityBatterySensor(CoordinatorEntity, SensorEntity):
         self.entity_description = description
         self.device_sn = device_sn
         self._attr_unique_id = f"{device_sn}_{description.key}"
-        self._attr_device_info = {
+        device_entry = coordinator.data.get(device_sn, {}) if coordinator and coordinator.data else {}
+        firmware_version = device_entry.get("firmwareVersion")
+
+        device_info = {
             "identifiers": {("felicity_solar", device_sn)},
             "name": f"Felicity Battery {device_sn}",
             "manufacturer": "Felicity Solar",
             "model": "Lithium Battery Pack",
         }
+        if firmware_version:
+            device_info["sw_version"] = str(firmware_version)
+
+        self._attr_device_info = device_info
 
     @property
     def native_value(self):

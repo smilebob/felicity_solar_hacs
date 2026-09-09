@@ -26,6 +26,19 @@ def _safe_int(value, default=0):
         return default
 
 
+WORK_MODE_MAP = {
+    0: "Power On",
+    1: "Standby",
+    2: "Bypass",
+    3: "Off-Grid",
+    4: "Fault",
+    5: "Line Mode",
+    6: "PV Charge",
+    7: "Gen Mode",
+    8: "Turn Off",
+}
+
+
 class FelicitySolarCoordinator(DataUpdateCoordinator):
     """Coordinator to fetch data from Felicity Solar."""
 
@@ -58,14 +71,18 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                 _LOGGER.warning("No devices found — check your Felicity Solar account or credentials")
                 return devices_data
 
-            _LOGGER.info("Fetching snapshots for %d device(s)", len(serial_numbers))
-
             for device_sn in serial_numbers:
                 try:
                     snapshot = await self.api.get_device_snapshot(device_sn)
-                    device_type = snapshot.get("productTypeEnum")
+                    basic_info = await self.api.get_device_basic_info(device_sn)
+                    warnings = await self.api.get_device_warnings(device_sn)
 
-                    _LOGGER.info("Snapshot received for device %s with productTypeEnum='%s'", device_sn, device_type)
+                    device_type = snapshot.get("productTypeEnum")
+                    firmware_version = basic_info.get("firmwareVersion") or snapshot.get("firmwareVersion")
+                    warn_count = len(warnings)
+                    last_warn_msg = str(warnings[0].get("warnMsg") or warnings[0].get("name") or warnings[0].get("msg", "Normal")) if warnings else "Normal"
+
+                    _LOGGER.info("Snapshot received for device %s (productTypeEnum='%s', firmware='%s', warnings=%d)", device_sn, device_type, firmware_version, warn_count)
 
                     is_battery = (
                         device_type == DeviceTypeEnum.LITHIUM_BATTERY_PACK
@@ -86,6 +103,8 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
                             "serialNumber": device_sn,
+                            "firmwareVersion": firmware_version,
+                            "collectorSn": basic_info.get("collectorSn"),
                             "data": {
                                 "voltage": _safe_float(snapshot.get("battVolt")),
                                 "current": _safe_float(snapshot.get("battCurr")),
@@ -110,6 +129,8 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "cellTemp4": _safe_float(snapshot.get("cellTemp4")),
                                 "chargeLimitVoltage": _safe_float(snapshot.get("BMSLCVolt")),
                                 "dischargeLimitVoltage": _safe_float(snapshot.get("BMSLDVolt")),
+                                "warnCount": warn_count,
+                                "lastWarnMsg": last_warn_msg,
                             }
                         }
                     else:
@@ -130,11 +151,25 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                             if match:
                                 raw_rated = float(match.group(1))
 
+                        # Handle PV Power calculation (raw API or sum of dual/quad MPPT)
+                        pv1_power = _safe_float(snapshot.get("pv1Power") or snapshot.get("pvPower1"))
+                        pv2_power = _safe_float(snapshot.get("pv2Power") or snapshot.get("pvPower2"))
+                        pv3_power = _safe_float(snapshot.get("pv3Power") or snapshot.get("pvPower3"))
+                        pv4_power = _safe_float(snapshot.get("pv4Power") or snapshot.get("pvPower4"))
+                        raw_pv_power = _safe_float(snapshot.get("pvPower"))
+                        raw_pv_total_power = _safe_float(snapshot.get("pvTotalPower"))
+
+                        total_pv_power = raw_pv_total_power or raw_pv_power
+                        if total_pv_power == 0 and (pv1_power > 0 or pv2_power > 0 or pv3_power > 0 or pv4_power > 0):
+                            total_pv_power = pv1_power + pv2_power + pv3_power + pv4_power
+
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.HIGH_FREQUENCY_INVERTER,
                             "productTypeEnum": device_type,
                             "modelName": model_display,
                             "serialNumber": device_sn,
+                            "firmwareVersion": firmware_version,
+                            "collectorSn": basic_info.get("collectorSn"),
                             "data": {
                                 "acInputVoltage": _safe_float(snapshot.get("acRInVolt")),
                                 "acInputFrequency": _safe_float(snapshot.get("acRInFreq")),
@@ -146,14 +181,34 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "loadPercentage": _safe_float(snapshot.get("loadPercent")),
                                 "pvVoltage": _safe_float(snapshot.get("pvVolt")),
                                 "pvInputCurrent": _safe_float(snapshot.get("pvInCurr")),
-                                "pvPower": _safe_float(snapshot.get("pvPower")),
-                                "pvTotalPower": _safe_float(snapshot.get("pvTotalPower")),
+                                "pvPower": raw_pv_power or total_pv_power,
+                                "pvTotalPower": total_pv_power,
                                 "pv1Voltage": _safe_float(snapshot.get("pv1Volt") or snapshot.get("pvVolt1") or snapshot.get("pvVolt")),
                                 "pv1Current": _safe_float(snapshot.get("pv1InCurr") or snapshot.get("pvInCurr1") or snapshot.get("pvInCurr")),
-                                "pv1Power": _safe_float(snapshot.get("pv1Power") or snapshot.get("pvPower1") or snapshot.get("pvPower")),
+                                "pv1Power": pv1_power or raw_pv_power,
                                 "pv2Voltage": _safe_float(snapshot.get("pv2Volt") or snapshot.get("pvVolt2")),
                                 "pv2Current": _safe_float(snapshot.get("pv2InCurr") or snapshot.get("pvInCurr2")),
-                                "pv2Power": _safe_float(snapshot.get("pv2Power") or snapshot.get("pvPower2")),
+                                "pv2Power": pv2_power,
+                                "pv3Voltage": _safe_float(snapshot.get("pv3Volt") or snapshot.get("pvVolt3")),
+                                "pv3Current": _safe_float(snapshot.get("pv3InCurr") or snapshot.get("pvInCurr3")),
+                                "pv3Power": pv3_power,
+                                "pv4Voltage": _safe_float(snapshot.get("pv4Volt") or snapshot.get("pvVolt4")),
+                                "pv4Current": _safe_float(snapshot.get("pv4InCurr") or snapshot.get("pvInCurr4")),
+                                "pv4Power": pv4_power,
+                                "acGridPowerL1": _safe_float(snapshot.get("acRInPower")),
+                                "acGridPowerL2": _safe_float(snapshot.get("acSInPower")),
+                                "acGridPowerL3": _safe_float(snapshot.get("acTInPower")),
+                                "acGridVoltageL2": _safe_float(snapshot.get("acSInVolt")),
+                                "acGridVoltageL3": _safe_float(snapshot.get("acTInVolt")),
+                                "acTotalGridPower": _safe_float(snapshot.get("acTtlInpower") or snapshot.get("acRInPower")),
+                                "acBackupPowerL1": _safe_float(snapshot.get("acROutPower")),
+                                "acBackupPowerL2": _safe_float(snapshot.get("acSOutPower")),
+                                "acBackupPowerL3": _safe_float(snapshot.get("acTOutPower")),
+                                "ctPower": _safe_float(snapshot.get("ctPower")),
+                                "meterPower": _safe_float(snapshot.get("meterPower")),
+                                "genPower": _safe_float(snapshot.get("genTotalPower") or snapshot.get("genPower")),
+                                "genVoltage": _safe_float(snapshot.get("genVoltage")),
+                                "genFrequency": _safe_float(snapshot.get("genFrequency")),
                                 "batteryVoltage": _safe_float(snapshot.get("emsVoltage") or snapshot.get("battVolt")),
                                 "batteryCurrent": _safe_float(snapshot.get("emsCurrent") or snapshot.get("battCurr")),
                                 "batteryPower": _safe_float(snapshot.get("emsPower")),
@@ -166,6 +221,12 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "energyLoadTotal": _safe_float(snapshot.get("eLoadTotal")),
                                 "totalEnergy": _safe_float(snapshot.get("totalEnergy")),
                                 "ratedPower": raw_rated,
+                                "workMode": WORK_MODE_MAP.get(
+                                    _safe_int(snapshot.get("workMode") if snapshot.get("workMode") is not None else snapshot.get("workModel"), -1),
+                                    "Unknown"
+                                ),
+                                "warnCount": warn_count,
+                                "lastWarnMsg": last_warn_msg,
                             }
                         }
 
