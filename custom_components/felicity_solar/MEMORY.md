@@ -16,7 +16,7 @@ Contains the Home Assistant integration code: Felicity Shine REST API client, Da
 | [`config_flow.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/config_flow.py) | UI Configuration Flow | Email, password, update interval setup |
 | [`sensor.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/sensor.py) | Sensor Platform | Dynamic sensor entity factory |
 | [`sensors_inverter.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/sensors_inverter.py) | Inverter Sensors | Dynamic model, rated power, quad MPPT, 3-phase, CT clamp, warnings |
-| [`sensors_battery.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/sensors_battery.py) | Battery Sensors | Voltage, current, SOC, SOH, cell temps (1-4), cell min/max mV, BMS limits |
+| [`sensors_battery.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/sensors_battery.py) | Battery Sensors | Voltage, current, SOC, SOH, cell temps (1-4), cell min/max mV, dV Cells, BMS limits |
 | [`select.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/select.py) | Select Controls (5) | `Work Mode`, `Energy Priority`, `Zero Export Mode`, `AC Output Freq`, `Battery Model` |
 | [`number.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/number.py) | Number Controls (11) | Charge/discharge currents, discharge depth SOC, charge/float volts, generator limits |
 | [`switch.py`](file:///home/pierre/Projets/felicity_solar_hacs/custom_components/felicity_solar/switch.py) | Switch Controls (10) | `Grid Charge`, `Buzzer`, `LCD Backlight`, `Remote Standby`, `AC Output Relay`, etc. |

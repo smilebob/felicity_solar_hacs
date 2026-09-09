@@ -108,10 +108,9 @@ class FelicitySolarAPI:
 
         _LOGGER.debug("Fetching basic device info for %s", device_sn)
         headers = {
-            "accept": "application/json, text/plain, */*",
-            "authorization": self.bearer_token,
-            "content-type": "application/x-www-form-urlencoded",
-            "lang": "en_US",
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": self.bearer_token,
+            "Lang": "en_US",
         }
         url = f"{self.API_URL_DEVICE_BASIC}{device_sn}"
 
@@ -127,6 +126,11 @@ class FelicitySolarAPI:
                         _LOGGER.warning("Token expired during basic info fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_basic_info(device_sn)
+                    else:
+                        _LOGGER.warning("Basic info query returned code %s for %s: %s", code, device_sn, data.get("message"))
+                else:
+                    body = await response.text()
+                    _LOGGER.warning("Basic info query for %s returned HTTP %s: %s", device_sn, response.status, body)
         except Exception as err:
             _LOGGER.warning("Failed to fetch basic info for device %s: %s", device_sn, err)
         return {}
@@ -137,10 +141,9 @@ class FelicitySolarAPI:
 
         _LOGGER.debug("Fetching warnings for device %s", device_sn)
         headers = {
-            "accept": "application/json, text/plain, */*",
-            "authorization": self.bearer_token,
-            "content-type": "application/x-www-form-urlencoded",
-            "lang": "en_US",
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": self.bearer_token,
+            "Lang": "en_US",
         }
         url = f"{self.API_URL_DEVICE_WARN}{device_sn}"
 
@@ -159,6 +162,11 @@ class FelicitySolarAPI:
                         _LOGGER.warning("Token expired during warning fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_warnings(device_sn)
+                    else:
+                        _LOGGER.warning("Warning query returned code %s for %s: %s", code, device_sn, data.get("message"))
+                else:
+                    body = await response.text()
+                    _LOGGER.warning("Warning query for %s returned HTTP %s: %s", device_sn, response.status, body)
         except Exception as err:
             _LOGGER.warning("Failed to fetch warnings for device %s: %s", device_sn, err)
         return []
@@ -167,29 +175,63 @@ class FelicitySolarAPI:
         """Fetch remote control settings for an inverter device from OpenAPI."""
         await self._ensure_authenticated()
 
-        _LOGGER.debug("Fetching settings for device %s", device_sn)
+        _LOGGER.info("Fetching remote settings for inverter %s", device_sn)
         headers = {
-            "accept": "application/json, text/plain, */*",
-            "authorization": self.bearer_token,
-            "content-type": "application/x-www-form-urlencoded",
-            "lang": "en_US",
+            "Accept": "application/json, text/plain, */*",
+            "Authorization": self.bearer_token,
+            "Lang": "en_US",
         }
         url = f"{self.API_URL_DEVICE_SETTING_QUERY}{device_sn}"
+        params = {"deviceSn": device_sn}
 
         try:
-            async with self.session.get(url, headers=headers) as response:
+            async with self.session.get(url, headers=headers, params=params) as response:
                 if response.status == 200:
                     data = await response.json()
                     code = data.get("code")
-                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict):
-                        _LOGGER.debug("Settings retrieved for %s: %s", device_sn, data["data"])
+                    if code in (200, 0) and "data" in data and isinstance(data["data"], dict) and data["data"]:
+                        _LOGGER.info("Settings successfully retrieved for %s (%d parameter(s))", device_sn, len(data["data"]))
                         return data["data"]
                     elif code in (999, 998):
                         _LOGGER.warning("Token expired during settings fetch for %s, re-authenticating", device_sn)
                         await self._login()
                         return await self.get_device_settings(device_sn)
+                    elif code == 2001528:
+                        _LOGGER.warning(
+                            "Settings query for %s failed with code 2001528 (Insufficient permissions): "
+                            "Felicity Cloud account %s does not have remote control / installer privileges on this device.",
+                            device_sn, self.email
+                        )
+                    elif code == 1006051:
+                        _LOGGER.warning(
+                            "Settings query for %s failed with code 1006051 (Failed to send command): "
+                            "Inverter or datalogger is unreachable or did not respond in time.",
+                            device_sn
+                        )
                     else:
-                        _LOGGER.debug("Settings query returned code %s for %s: %s", code, device_sn, data.get("message"))
+                        _LOGGER.warning(
+                            "Settings query returned code %s for %s: %s (data: %s)",
+                            code, device_sn, data.get("message"), data.get("data")
+                        )
+                elif response.status == 404:
+                    # Fallback attempt without path variable, using query parameter only
+                    alt_url = self.API_URL_DEVICE_SETTING
+                    _LOGGER.info("Path endpoint returned 404, attempting fallback to %s for %s", alt_url, device_sn)
+                    async with self.session.get(alt_url, headers=headers, params=params) as alt_resp:
+                        if alt_resp.status == 200:
+                            alt_data = await alt_resp.json()
+                            alt_code = alt_data.get("code")
+                            if alt_code in (200, 0) and "data" in alt_data and isinstance(alt_data["data"], dict) and alt_data["data"]:
+                                _LOGGER.info("Settings retrieved via fallback query for %s (%d parameter(s))", device_sn, len(alt_data["data"]))
+                                return alt_data["data"]
+                            else:
+                                _LOGGER.warning("Fallback settings query returned code %s for %s: %s", alt_code, device_sn, alt_data.get("message"))
+                        else:
+                            alt_body = await alt_resp.text()
+                            _LOGGER.warning("Fallback settings query returned HTTP %s for %s: %s", alt_resp.status, device_sn, alt_body)
+                else:
+                    body = await response.text()
+                    _LOGGER.warning("Settings query for %s returned HTTP %s: %s", device_sn, response.status, body)
         except Exception as err:
             _LOGGER.warning("Failed to fetch settings for device %s: %s", device_sn, err)
         return {}

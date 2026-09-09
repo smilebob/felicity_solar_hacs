@@ -33,6 +33,7 @@
   - **3-Phase Grid & Backup Telemetry**: L1, L2, L3 voltages and powers (`acGridPowerL1..3`, `acBackupPowerL1..3`).
   - **External CT Clamp & Generator**: `ctPower`, `meterPower`, `genPower`, `genVoltage`, `genFrequency`.
   - **Alarm & Fault Sensors (`/openApi/data/deviceDataWarn/{deviceSn}`)**: `warnCount` ("Active Warning Count") and `lastWarnMsg` ("Last Warning Message").
+  - **Battery Cell Telemetry**: `maxCellVoltage`, `minCellVoltage`, and `dvCells` ("dV Cells" voltage delta).
 - [x] **Phase 3 100% OpenAPI Remote Control & Services Complete**:
   - **`select` Platform (5 entities)**: `operatedMode`, `energyPriority`, `zeroExportFunction`, `acOutputRatedFrequency`, `batteryModel`.
   - **`number` Platform (11 entities)**: `batteryMaxChargedCurrent`, `batteryMaxDischargeCurrent`, `batteryOnGridDischargeDepthSoc`, `batteryOffGridDischargeDepthSoc`, `batteryChargedVoltage`, `batteryFloatingChargedVoltage`, `gridChargeCurrent`, `genChargeCurrent`, `genAutoStartChargeSoc`, `genAutoExitChargeSoc`, `zeroExportAdjustmentPower`.

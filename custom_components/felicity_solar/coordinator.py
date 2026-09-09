@@ -100,6 +100,10 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         else:
                             charging_state = "Unknown"
 
+                        max_cell_v = _safe_float(snapshot.get("maxVoltage2bms"))
+                        min_cell_v = _safe_float(snapshot.get("minVoltage2bms"))
+                        dv_cells = round(abs(max_cell_v - min_cell_v), 3) if (max_cell_v > 0 and min_cell_v > 0) else 0.0
+
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
                             "serialNumber": device_sn,
@@ -119,8 +123,9 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "tempMin": _safe_float(snapshot.get("tempMin")),
                                 "remainingEnergy": _safe_float(snapshot.get("remainingBatteryEnergy1")),
                                 "capacity": _safe_float(snapshot.get("battCapacity")),
-                                "maxCellVoltage": _safe_float(snapshot.get("maxVoltage2bms")),
-                                "minCellVoltage": _safe_float(snapshot.get("minVoltage2bms")),
+                                "maxCellVoltage": max_cell_v,
+                                "minCellVoltage": min_cell_v,
+                                "dvCells": dv_cells,
                                 "emsSocAvg": _safe_int(snapshot.get("emsSocAvg")),
                                 "wifiSignal": _safe_int(snapshot.get("wifiSignal")),
                                 "cellTemp1": _safe_float(snapshot.get("cellTemp1")),
@@ -135,6 +140,19 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         }
                     else:
                         settings = await self.api.get_device_settings(device_sn)
+                        previous_settings = self.data.get(device_sn, {}).get("settings", {}) if self.data else {}
+                        if not settings and previous_settings:
+                            _LOGGER.info(
+                                "Preserving %d cached settings for inverter %s after empty query",
+                                len(previous_settings),
+                                device_sn,
+                            )
+                            settings = previous_settings
+                        elif not settings:
+                            _LOGGER.warning(
+                                "Inverter %s settings are empty — remote control entities (select, number, switch) will show 'unknown'",
+                                device_sn,
+                            )
                         raw_model = snapshot.get("deviceModel") or snapshot.get("model") or snapshot.get("productTypeEnum") or "Solar Inverter"
                         model_display = str(raw_model).replace("_", " ").title()
                         if "Felicity" not in model_display:

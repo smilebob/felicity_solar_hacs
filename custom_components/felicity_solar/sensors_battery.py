@@ -84,6 +84,13 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
+        key="dvCells", name="dV Cells",
+        native_unit_of_measurement=UnitOfElectricPotential.MILLIVOLT,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:battery-alert",
+    ),
+    SensorEntityDescription(
         key="emsSocAvg", name="EMS Average SOC",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
