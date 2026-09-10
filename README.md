@@ -33,16 +33,26 @@ A comprehensive custom integration for Home Assistant to monitor your Felicity S
 - **3-Phase & Grid Telemetry:** Monophase and 3-Phase (L1, L2, L3) voltages and powers for both Grid and Backup Loads.
 - **External CT Clamp & Generator:** Monitors external CT power (`ctPower`), home load (`meterPower`), and generator metrics (`genPower`, `genFrequency`).
 - **Active Alarms & Diagnostics:** Real-time active warning counter and latest diagnostic message from `/openApi/data/deviceDataWarn/`.
-- **Extended Lithium Battery Pack Telemetry (PR #1):**
+- **Extended Lithium Battery Pack Telemetry:**
   - Voltage, Current, SOC, SOH, and BMS Power.
   - Charging state (`Charging`, `Discharging`, `Idle`, `Unknown`).
-  - Cell temperatures (4 individual cell sensors, min & max temperatures).
-  - Individual cell voltages (min and max cell millivolts).
-  - Charge & discharge voltage limits, capacity (Ah), remaining energy (kWh), and WiFi signal strength (dBm).
+  - Cell temperatures (4 individual cell sensors, min & max temperatures with probe number IDs).
+  - Individual cell voltages (cells 1 to 16 in mV, min & max millivolts, cell index identifiers) with auto-normalization for V/mV and dynamic availability (cell 16 unavailable on 15S packs instead of displaying 0).
+  - Cell voltage balancing delta (`dV Cells` in mV).
+  - BMS Dynamic Current Limits (`chargeLimitCurrent` & `dischargeLimitCurrent` in A).
+  - Charge & discharge voltage limits, capacity (Ah), remaining energy (kWh), WiFi signal strength (dBm), cell count (15S/16S), battery chemistry/type, and connected inverter serial number.
+- **Smart Load & Generator Telemetry:**
+  - Dedicated Smart Load port power, voltage, current, frequency, and daily/total energies (disabled by default, enable with 1 click).
+  - Generator energy counters (`energyGenToday`, `energyGenTotal`) and multi-phase powers (L2, L3).
 - **Hardened Authentication & Session Management:**
   - Automated **Refresh Token** (`/openApi/sec/refreshToken`) renewal to prevent unnecessary RSA scraping.
   - Granular API error code handling (`999`/`998` auto-reconnect, `1002006` wrong password, `1002001` inactive account).
-- **100% Home Assistant Energy Dashboard Ready:** Features `total_increasing` energy sensors (`energyPvToday`, `totalEnergy`) ready to plug directly into the Energy Dashboard.
+- **100% Home Assistant Energy Dashboard Ready:**
+  - Grid Feed-In / Solar Export (`energyGridFeedToday`, `energyGridFeedTotal`).
+  - Grid Import / Consumption (`energyGridImportToday`, `energyGridImportTotal`).
+  - Battery Daily & Total Energy (`energyBatteryChargeToday`, `energyBatteryChargeTotal`, `energyBatteryDischargeToday`, `energyBatteryDischargeTotal`).
+  - Solar PV Production (`energyPvToday`, `energyPvTotal`) and Total System Energy (`totalEnergy`).
+  - All counters configured with `state_class: total_increasing` and `device_class: energy` for instant integration into the HA Energy Dashboard.
 
 ---
 
@@ -93,4 +103,10 @@ This integration was originally conceived, designed, and created by **Matheus Ta
 - **[Pierre / @smilebob](https://github.com/smilebob)** (Smilebob Edition): Maintenance, design, architectural extensions, and testing.
 - **Google Antigravity**: Agentic AI pair programmer that vibe coded the major extensions, diagnostics, OpenAPI refactoring, and sensors of this edition.
 - **[Fábio Matavelli / @fabiomatavelli](https://github.com/fabiomatavelli)**: Additional lithium battery telemetry enhancements (PR #1).
+
+### 📚 Community References & Reverse-Engineering Insights
+Special thanks to community projects and resources that provided crucial insights during the reverse-engineering and telemetry expansion:
+- **[viprosite/vue-element-admin-simple](https://github.com/viprosite/vue-element-admin-simple)**: Essential reference for the frontend dashboard components (`actualIVGM.vue`, `actualBattery.vue`, `actualHigh.vue`), which uncovered the exact internal server field names for BMS cell lists (`bmsVoltageList`), Smart Load telemetry, and CamelCase energy meters (`eBatCharTotal`, `eBatDisCharTotal`).
+- **[johanmeijer/grott](https://github.com/johanmeijer/grott)**: Open-source reference for solar inverter telemetry mapping standards and cumulative battery counters.
+- **Felicity Solar OpenAPI Specification**: Protocol reference for REST endpoints, token lifecycle, and parameter controls.
 

@@ -84,11 +84,31 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
+        key="maxCellVoltageNum", name="Max Cell Voltage Number",
+        icon="mdi:battery-arrow-up",
+    ),
+    SensorEntityDescription(
+        key="minCellVoltageNum", name="Min Cell Voltage Number",
+        icon="mdi:battery-arrow-down",
+    ),
+    SensorEntityDescription(
         key="dvCells", name="dV Cells",
         native_unit_of_measurement=UnitOfElectricPotential.MILLIVOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:battery-alert",
+    ),
+    # Individual Cell Voltages (1 to 16)
+    *(
+        SensorEntityDescription(
+            key=f"cellVolt{i}",
+            name=f"Cell {i} Voltage",
+            native_unit_of_measurement=UnitOfElectricPotential.MILLIVOLT,
+            device_class=SensorDeviceClass.VOLTAGE,
+            state_class=SensorStateClass.MEASUREMENT,
+            icon="mdi:battery-outline",
+        )
+        for i in range(1, 17)
     ),
     SensorEntityDescription(
         key="emsSocAvg", name="EMS Average SOC",
@@ -138,6 +158,43 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    SensorEntityDescription(
+        key="chargeLimitCurrent", name="Charge Limit Current",
+        native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:battery-arrow-up",
+    ),
+    SensorEntityDescription(
+        key="dischargeLimitCurrent", name="Discharge Limit Current",
+        native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:battery-arrow-down",
+    ),
+    SensorEntityDescription(
+        key="cellCount", name="Cell Count",
+        icon="mdi:battery-heart-variant",
+    ),
+    SensorEntityDescription(
+        key="maxCellTempNum", name="Max Temp Probe Number",
+        icon="mdi:thermometer-chevron-up",
+        entity_registry_enabled_default=False,
+    ),
+    SensorEntityDescription(
+        key="minCellTempNum", name="Min Temp Probe Number",
+        icon="mdi:thermometer-chevron-down",
+        entity_registry_enabled_default=False,
+    ),
+    SensorEntityDescription(
+        key="batteryType", name="Battery Type",
+        icon="mdi:information-outline",
+    ),
+    SensorEntityDescription(
+        key="connectedInverterSn", name="Connected Inverter SN",
+        icon="mdi:barcode",
+        entity_registry_enabled_default=False,
+    ),
     SensorEntityDescription(key="warnCount", name="Active Warning Count", icon="mdi:alert-circle-outline"),
     SensorEntityDescription(key="warnMsg", name="Last Warning Message", icon="mdi:alert-decagram"),
 )
@@ -172,3 +229,13 @@ class FelicityBatterySensor(CoordinatorEntity, SensorEntity):
         device_data = self.coordinator.data.get(
             self.device_sn, {}).get("data", {})
         return device_data.get(self.entity_description.key)
+
+    @property
+    def available(self) -> bool:
+        """Return True if entity is available."""
+        if not super().available:
+            return False
+        device_data = self.coordinator.data.get(self.device_sn, {}).get("data", {})
+        if self.entity_description.key.startswith("cellVolt") and device_data.get(self.entity_description.key) is None:
+            return False
+        return True

@@ -13,7 +13,7 @@ _LOGGER = logging.getLogger(__name__)
 def _safe_float(value, default=0.0):
     """Convert value to float, returning default if value is None or invalid."""
     try:
-        return float(value) if value is not None else default
+        return float(value) if value is not None and value != "" else default
     except (ValueError, TypeError):
         return default
 
@@ -21,9 +21,24 @@ def _safe_float(value, default=0.0):
 def _safe_int(value, default=0):
     """Convert value to int, returning default if value is None or invalid."""
     try:
-        return int(value) if value is not None else default
+        return int(value) if value is not None and value != "" else default
     except (ValueError, TypeError):
         return default
+
+
+def _parse_cell_voltage(value):
+    """Safely parse cell voltage to millivolts (mV).
+
+    - If value is in Volts (e.g. 3.325 < 100), convert to mV (3325.0).
+    - If value is already in mV (e.g. 3325 >= 100), keep as mV (3325.0).
+    - If value is None, 0, or invalid, return None (avoids displaying false 0 mV).
+    """
+    v = _safe_float(value, default=None)
+    if v is None or v <= 0:
+        return None
+    if v < 100:
+        return round(v * 1000.0, 1)
+    return round(v, 1)
 
 
 WORK_MODE_MAP = {
@@ -100,9 +115,32 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         else:
                             charging_state = "Unknown"
 
-                        max_cell_v = _safe_float(snapshot.get("maxVoltage2bms"))
-                        min_cell_v = _safe_float(snapshot.get("minVoltage2bms"))
-                        dv_cells = round(abs(max_cell_v - min_cell_v), 3) if (max_cell_v > 0 and min_cell_v > 0) else 0.0
+                        max_cell_v = _parse_cell_voltage(snapshot.get("maxVoltage2bms"))
+                        min_cell_v = _parse_cell_voltage(snapshot.get("minVoltage2bms"))
+
+                        # Parse individual cell voltages (1 to 16)
+                        bms_voltage_list = snapshot.get("bmsVoltageList") or []
+                        cell_voltages = {}
+                        for i in range(1, 17):
+                            raw_v = snapshot.get(f"cellVolt{i}")
+                            if (raw_v is None or raw_v == "" or raw_v == 0 or raw_v == "0") and isinstance(bms_voltage_list, list) and len(bms_voltage_list) >= i:
+                                raw_v = bms_voltage_list[i - 1]
+                            cell_voltages[f"cellVolt{i}"] = _parse_cell_voltage(raw_v)
+
+                        # Fallback for max/min cell voltage from individual cells if not provided directly
+                        valid_cells = [v for v in cell_voltages.values() if v is not None]
+                        if max_cell_v is None and valid_cells:
+                            max_cell_v = max(valid_cells)
+                        if min_cell_v is None and valid_cells:
+                            min_cell_v = min(valid_cells)
+
+                        if max_cell_v is not None and min_cell_v is not None:
+                            dv_cells = round(abs(max_cell_v - min_cell_v), 1)
+                        else:
+                            dv_cells = None
+
+                        max_cell_num = _safe_int(snapshot.get("maxVoltageNum2bms"), default=None)
+                        min_cell_num = _safe_int(snapshot.get("minVoltageNum2bms"), default=None)
 
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
@@ -125,15 +163,25 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "capacity": _safe_float(snapshot.get("battCapacity")),
                                 "maxCellVoltage": max_cell_v,
                                 "minCellVoltage": min_cell_v,
+                                "maxCellVoltageNum": max_cell_num,
+                                "minCellVoltageNum": min_cell_num,
                                 "dvCells": dv_cells,
+                                **cell_voltages,
                                 "emsSocAvg": _safe_int(snapshot.get("emsSocAvg")),
                                 "wifiSignal": _safe_int(snapshot.get("wifiSignal")),
-                                "cellTemp1": _safe_float(snapshot.get("cellTemp1")),
-                                "cellTemp2": _safe_float(snapshot.get("cellTemp2")),
-                                "cellTemp3": _safe_float(snapshot.get("cellTemp3")),
-                                "cellTemp4": _safe_float(snapshot.get("cellTemp4")),
+                                "cellTemp1": _safe_float(snapshot.get("cellTemp1"), default=None),
+                                "cellTemp2": _safe_float(snapshot.get("cellTemp2"), default=None),
+                                "cellTemp3": _safe_float(snapshot.get("cellTemp3"), default=None),
+                                "cellTemp4": _safe_float(snapshot.get("cellTemp4"), default=None),
                                 "chargeLimitVoltage": _safe_float(snapshot.get("BMSLCVolt")),
                                 "dischargeLimitVoltage": _safe_float(snapshot.get("BMSLDVolt")),
+                                "chargeLimitCurrent": _safe_float(snapshot.get("BMSLCCurr"), default=None),
+                                "dischargeLimitCurrent": _safe_float(snapshot.get("BMSLDCurr"), default=None),
+                                "cellCount": _safe_int(snapshot.get("cellNumber"), default=None),
+                                "maxCellTempNum": _safe_int(snapshot.get("maxCellTempNum"), default=None),
+                                "minCellTempNum": _safe_int(snapshot.get("minBattTempNum"), default=None),
+                                "batteryType": str(snapshot.get("batTyStr")) if snapshot.get("batTyStr") else None,
+                                "connectedInverterSn": str(snapshot.get("invSn")) if snapshot.get("invSn") else None,
                                 "warnCount": warn_count,
                                 "lastWarnMsg": last_warn_msg,
                             }
@@ -280,11 +328,58 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "devTempMin": _safe_float(snapshot.get("devTempMin")),
                                 "energyPvToday": _safe_float(snapshot.get("ePvToday") or snapshot.get("epvToday")),
                                 "energyPvTotal": _safe_float(snapshot.get("ePvTotal")),
+                                "energyPvMonth": _safe_float(snapshot.get("ePvMonth")),
+                                "energyPvYear": _safe_float(snapshot.get("ePvYear")),
                                 "energyLoadToday": _safe_float(snapshot.get("eLoadToday")),
                                 "energyLoadTotal": _safe_float(snapshot.get("eLoadTotal")),
-                                "energyBatteryChargeTotal": _safe_float(snapshot.get("ebatCharTotal")),
-                                "energyBatteryDischargeTotal": _safe_float(snapshot.get("ebatDischarTotal")),
+                                "energyLoadMonth": _safe_float(snapshot.get("eLoadMonth")),
+                                "energyLoadYear": _safe_float(snapshot.get("eLoadYear")),
+                                "energyGridFeedToday": _safe_float(snapshot.get("eGridFeedToday") or snapshot.get("egridFeedToday")),
+                                "energyGridFeedTotal": _safe_float(snapshot.get("eGridFeedTotal") or snapshot.get("egridFeedTotal")),
+                                "energyGridFeedMonth": _safe_float(snapshot.get("eGridFeedMonth") or snapshot.get("egridFeedMonth")),
+                                "energyGridFeedYear": _safe_float(snapshot.get("eGridFeedYear") or snapshot.get("egridFeedYear")),
+                                "energyGridImportToday": _safe_float(snapshot.get("eToday") or snapshot.get("etoday")),
+                                "energyGridImportTotal": _safe_float(snapshot.get("eTotal") or snapshot.get("etotal")),
+                                "energyGridImportMonth": _safe_float(snapshot.get("eMonth") or snapshot.get("emonth")),
+                                "energyGridImportYear": _safe_float(snapshot.get("eYear") or snapshot.get("eyear")),
+                                "energyBatteryChargeToday": _safe_float(
+                                    snapshot.get("eBatCharToday") or snapshot.get("ebatCharToday") or snapshot.get("bat1CharToday")
+                                ),
+                                "energyBatteryChargeMonth": _safe_float(
+                                    snapshot.get("eBatCharMonth") or snapshot.get("ebatCharMonth") or snapshot.get("bat1CharMonth")
+                                ),
+                                "energyBatteryChargeYear": _safe_float(
+                                    snapshot.get("eBatCharYear") or snapshot.get("ebatCharYear") or snapshot.get("bat1CharYear")
+                                ),
+                                "energyBatteryChargeTotal": _safe_float(
+                                    snapshot.get("eBatCharTotal") or snapshot.get("ebatCharTotal") or snapshot.get("bat1CharTotal")
+                                ),
+                                "energyBatteryDischargeToday": _safe_float(
+                                    snapshot.get("eBatDisCharToday") or snapshot.get("ebatDischarToday") or snapshot.get("ebatDisCharToday") or snapshot.get("bat1DisCharToday")
+                                ),
+                                "energyBatteryDischargeMonth": _safe_float(
+                                    snapshot.get("eBatDisCharMonth") or snapshot.get("ebatDischarMonth") or snapshot.get("ebatDisCharMonth") or snapshot.get("bat1DisCharMonth")
+                                ),
+                                "energyBatteryDischargeYear": _safe_float(
+                                    snapshot.get("eBatDisCharYear") or snapshot.get("ebatDischarYear") or snapshot.get("ebatDisCharYear") or snapshot.get("bat1DisCharYear")
+                                ),
+                                "energyBatteryDischargeTotal": _safe_float(
+                                    snapshot.get("eBatDisCharTotal") or snapshot.get("ebatDischarTotal") or snapshot.get("ebatDisCharTotal") or snapshot.get("bat1DisCharTotal")
+                                ),
                                 "totalEnergy": _safe_float(snapshot.get("totalEnergy")),
+                                "smartLoadPower": _safe_float(snapshot.get("smartTotalPower") or snapshot.get("smartLoadPower")),
+                                "smartLoadVoltage": _safe_float(snapshot.get("smartLoadVolt")),
+                                "smartLoadCurrent": _safe_float(snapshot.get("smartLoadCurr")),
+                                "smartLoadFrequency": _safe_float(snapshot.get("smartLoadFreq")),
+                                "smartLoadEnergyToday": _safe_float(snapshot.get("smartLoadToday")),
+                                "smartLoadEnergyTotal": _safe_float(snapshot.get("smartLoadTotal")),
+                                "energyGenToday": _safe_float(snapshot.get("genToday")),
+                                "energyGenTotal": _safe_float(snapshot.get("genTotal")),
+                                "genPowerL2": _safe_float(snapshot.get("genPower2")),
+                                "genPowerL3": _safe_float(snapshot.get("genPower3")),
+                                "meterLinkStatus": str(snapshot.get("electricityMeterLinkStr")) if snapshot.get("electricityMeterLinkStr") else None,
+                                "totalEmsCapacity": _safe_float(snapshot.get("totalEmsCapacity")),
+                                "workModeStr": snapshot.get("workModeStr") or snapshot.get("operMStr"),
                                 "ratedPower": raw_rated,
                                 "workMode": WORK_MODE_MAP.get(
                                     _safe_int(snapshot.get("workMode") if snapshot.get("workMode") is not None else snapshot.get("workModel"), -1),

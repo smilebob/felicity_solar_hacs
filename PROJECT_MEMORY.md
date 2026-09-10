@@ -33,7 +33,7 @@
   - **3-Phase Grid & Backup Telemetry**: L1, L2, L3 voltages and powers (`acGridPowerL1..3`, `acBackupPowerL1..3`).
   - **External CT Clamp & Generator**: `ctPower`, `meterPower`, `genPower`, `genVoltage`, `genFrequency`.
   - **Alarm & Fault Sensors (`/openApi/data/deviceDataWarn/{deviceSn}`)**: `warnCount` ("Active Warning Count") and `lastWarnMsg` ("Last Warning Message").
-  - **Battery Cell Telemetry**: `maxCellVoltage`, `minCellVoltage`, and `dvCells` ("dV Cells" voltage delta).
+  - **Battery Cell Telemetry**: Individual cell voltages 1 to 16 (`cellVolt1`–`cellVolt16`), `maxCellVoltage`, `minCellVoltage`, min/max cell number indices (`minCellVoltageNum`, `maxCellVoltageNum`), and `dvCells` ("dV Cells" delta voltage in mV). Automatic normalization from V/mV and dual-source extraction (`cellVolt{i}` / `bmsVoltageList`).
 - [x] **Phase 3 100% OpenAPI Remote Control & Services Complete**:
   - **`select` Platform (5 entities)**: `operatedMode`, `energyPriority`, `zeroExportFunction`, `acOutputRatedFrequency`, `batteryModel`.
   - **`number` Platform (11 entities)**: `batteryMaxChargedCurrent`, `batteryMaxDischargeCurrent`, `batteryOnGridDischargeDepthSoc`, `batteryOffGridDischargeDepthSoc`, `batteryChargedVoltage`, `batteryFloatingChargedVoltage`, `gridChargeCurrent`, `genChargeCurrent`, `genAutoStartChargeSoc`, `genAutoExitChargeSoc`, `zeroExportAdjustmentPower`.
@@ -47,6 +47,13 @@
   - **Configurable Polling Interval**: UI Options Flow (10-600s, default 120s) with immediate first query upon HA boot.
   - **Graceful Permission Degradation**: Code 2001528 handling to prevent log spam and skip unpermitted controls for standard accounts.
   - **README Attribution**: Updated to acknowledge vibe coding by Google Antigravity.
+- [x] **Phase 5 Full Telemetry & Battery Cell Optimization (Option B)**:
+  - **Individual Battery Cell Voltages (1-16)**: `cellVolt1` through `cellVolt16` in mV with automatic V/mV normalization and dynamic availability check (cell 16 unavailable for 15S packs instead of 0).
+  - **BMS Current Limits & Metadata**: `chargeLimitCurrent` (`BMSLCCurr`), `dischargeLimitCurrent` (`BMSLDCurr`), `cellCount` (`cellNumber`), probe indices (`maxCellTempNum`, `minCellTempNum`), `batteryType` (`batTyStr`), and `connectedInverterSn` (`invSn`).
+  - **Complete HA Energy Dashboard Integration**: Grid feed-in energy (`energyGridFeedToday`, `energyGridFeedTotal`), Grid import energy (`energyGridImportToday`, `energyGridImportTotal`), daily battery energy (`energyBatteryChargeToday`, `energyBatteryDischargeToday`), and multi-case cumulative energy (`eBatCharTotal` / `ebatCharTotal` / `bat1CharTotal`, `eBatDisCharTotal` / `ebatDischarTotal` / `bat1DisCharTotal`) with `TOTAL_INCREASING`.
+  - **Smart Load Port Telemetry**: `smartLoadPower`, `smartLoadVoltage`, `smartLoadCurrent`, `smartLoadFrequency`, `smartLoadEnergyToday`, `smartLoadEnergyTotal` (disabled by default).
+  - **Generator & Periodic Aggregates**: Generator energies (`energyGenToday`, `energyGenTotal`, `genPowerL2`, `genPowerL3`), periodic monthly/yearly metrics (`energyPvMonth`, `energyPvYear`, `energyLoadMonth`, `energyLoadYear`, `energyGridFeedMonth`, `energyGridFeedYear`, etc.).
+  - **Inverter Diagnostics**: `meterLinkStatus`, `totalEmsCapacity` (Ah), and `workModeStr`.
 - [x] Publication and hosting on GitHub public repository `https://github.com/smilebob/felicity_solar_hacs`.
 
 ---
