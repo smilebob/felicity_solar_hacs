@@ -61,10 +61,18 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
+        key="ratedEnergy", name="Rated Energy",
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        device_class=SensorDeviceClass.ENERGY_STORAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:battery-heart-variant",
+    ),
+    SensorEntityDescription(
         key="remainingEnergy", name="Remaining Energy",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY_STORAGE,
         state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:battery-charging-high",
     ),
     SensorEntityDescription(
         key="capacity", name="Capacity",

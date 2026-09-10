@@ -119,6 +119,83 @@ def _get_cell_raw_value(snapshot: dict, cell_idx: int, voltage_list: list):
     return None
 
 
+def _calculate_battery_remaining_energy(
+    snapshot: dict,
+    batt_soc: int | None,
+    batt_volt: float | None,
+    batt_capacity: float | None,
+    rated_energy_kwh: float | None,
+) -> float | None:
+    """Safely determine or calculate battery remaining energy in kWh.
+
+    Precedence:
+    1. Direct API keys for remaining energy (remainingBatteryEnergy, remainEnergy, eBatRemain, etc.)
+    2. Direct API keys for remaining capacity in Ah (remainCap, etc.) multiplied by voltage
+    3. Derived from ratedEnergy (kWh) and SOC: ratedEnergy * (SOC / 100)
+    4. Derived from battCapacity (Ah), battVolt (V) and SOC: (Ah * V / 1000) * (SOC / 100)
+    5. Returns None if undetermined (avoids displaying false 0 kWh).
+    """
+    # 1. Direct API keys for remaining energy
+    direct_energy_keys = (
+        "remainingBatteryEnergy1",
+        "remainingBatteryEnergy",
+        "remainBatteryEnergy1",
+        "remainBatteryEnergy",
+        "remainingEnergy",
+        "remainEnergy",
+        "eBatRemain",
+        "ebatRemain",
+        "surplusEnergy",
+        "surplusBatteryEnergy",
+        "restEnergy",
+        "bmsRemainEnergy",
+        "batRemainEnergy",
+        "remainingPower",
+    )
+    for k in direct_energy_keys:
+        if k in snapshot:
+            val = _safe_float(snapshot[k], default=None)
+            if val is not None and val > 0:
+                # If value is in Wh (> 100), convert to kWh
+                return round(val / 1000.0, 2) if val > 100 else round(val, 2)
+
+    # 2. Direct API keys for remaining capacity in Ah
+    direct_cap_keys = (
+        "remainCap",
+        "remainingCapacity",
+        "remainCapacity",
+        "surplusCapacity",
+        "surplusCap",
+        "restCap",
+        "bmsRemainCapacity",
+        "bmsRemainingCapacity",
+        "restCapacity",
+    )
+    for k in direct_cap_keys:
+        if k in snapshot:
+            cap_val = _safe_float(snapshot[k], default=None)
+            if cap_val is not None and cap_val > 0 and batt_volt is not None and batt_volt > 0:
+                return round((cap_val * batt_volt) / 1000.0, 2)
+
+    # 3. Derive from ratedEnergy and SOC
+    if rated_energy_kwh is not None and rated_energy_kwh > 0 and batt_soc is not None and batt_soc >= 0:
+        return round(rated_energy_kwh * (batt_soc / 100.0), 2)
+
+    # 4. Derive from battCapacity (Ah), battVolt (V) and SOC
+    if (
+        batt_capacity is not None
+        and batt_capacity > 0
+        and batt_volt is not None
+        and batt_volt > 0
+        and batt_soc is not None
+        and batt_soc >= 0
+    ):
+        nominal_kwh = (batt_capacity * batt_volt) / 1000.0
+        return round(nominal_kwh * (batt_soc / 100.0), 2)
+
+    return None
+
+
 WORK_MODE_MAP = {
     0: "Power On",
     1: "Standby",
@@ -243,25 +320,56 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 battery_cell_telemetry,
                             )
 
+                        batt_volt = _safe_float(snapshot.get("battVolt"), default=None)
+                        batt_curr = _safe_float(snapshot.get("battCurr"), default=None)
+                        batt_soc = _safe_int(snapshot.get("battSoc"), default=None)
+                        batt_soh = _safe_int(snapshot.get("battSoh"), default=None)
+                        batt_capacity = _safe_float(snapshot.get("battCapacity"), default=None)
+
+                        # Derive and normalize rated energy in kWh
+                        raw_rated_energy = _safe_float(snapshot.get("ratedEnergy"), default=None)
+                        if raw_rated_energy is not None and raw_rated_energy > 100:
+                            rated_energy_kwh = round(raw_rated_energy / 1000.0, 2)
+                        elif raw_rated_energy is not None and raw_rated_energy > 0:
+                            rated_energy_kwh = round(raw_rated_energy, 2)
+                        elif batt_capacity is not None and batt_capacity > 0 and batt_volt is not None and batt_volt > 0:
+                            rated_energy_kwh = round((batt_capacity * batt_volt) / 1000.0, 2)
+                        else:
+                            rated_energy_kwh = None
+
+                        remaining_energy = _calculate_battery_remaining_energy(
+                            snapshot, batt_soc, batt_volt, batt_capacity, rated_energy_kwh
+                        )
+
+                        _LOGGER.debug(
+                            "Battery %s energy telemetry: remaining=%s kWh, rated=%s kWh, capacity=%s Ah, volt=%s V, soc=%s%%",
+                            device_sn,
+                            remaining_energy,
+                            rated_energy_kwh,
+                            batt_capacity,
+                            batt_volt,
+                            batt_soc,
+                        )
+
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
                             "serialNumber": device_sn,
                             "firmwareVersion": firmware_version,
                             "collectorSn": basic_info.get("collectorSn"),
                             "data": {
-                                "voltage": _safe_float(snapshot.get("battVolt")),
-                                "current": _safe_float(snapshot.get("battCurr")),
-                                "soc": _safe_int(snapshot.get("battSoc")),
-                                "soh": _safe_int(snapshot.get("battSoh")),
-                                "ratedEnergy": _safe_float(snapshot.get("ratedEnergy")),
+                                "voltage": batt_volt if batt_volt is not None else 0.0,
+                                "current": batt_curr if batt_curr is not None else 0.0,
+                                "soc": batt_soc if batt_soc is not None else 0,
+                                "soh": batt_soh if batt_soh is not None else 0,
+                                "ratedEnergy": rated_energy_kwh,
                                 "energyUnit": str(snapshot.get("energyUnit", "")),
                                 "nameplateRatedPower": str(snapshot.get("nameplateRatedPower", "")),
                                 "power": _safe_float(snapshot.get("bmsPower")),
                                 "chargingState": charging_state,
                                 "tempMax": _safe_float(snapshot.get("tempMax")),
                                 "tempMin": _safe_float(snapshot.get("tempMin")),
-                                "remainingEnergy": _safe_float(snapshot.get("remainingBatteryEnergy1")),
-                                "capacity": _safe_float(snapshot.get("battCapacity")),
+                                "remainingEnergy": remaining_energy,
+                                "capacity": batt_capacity if batt_capacity is not None else 0.0,
                                 "maxCellVoltage": max_cell_v,
                                 "minCellVoltage": min_cell_v,
                                 "maxCellVoltageNum": max_cell_num,
