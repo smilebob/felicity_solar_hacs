@@ -235,7 +235,16 @@ class FelicityBatterySensor(CoordinatorEntity, SensorEntity):
         """Return True if entity is available."""
         if not super().available:
             return False
-        device_data = self.coordinator.data.get(self.device_sn, {}).get("data", {})
-        if self.entity_description.key.startswith("cellVolt") and device_data.get(self.entity_description.key) is None:
-            return False
+        # For individual cell voltages: only mark unavailable if physical cell count is known
+        # and cell index exceeds cellCount (e.g. cell 16 on a 15S battery pack).
+        if self.entity_description.key.startswith("cellVolt"):
+            device_data = self.coordinator.data.get(self.device_sn, {}).get("data", {})
+            cell_count = device_data.get("cellCount")
+            try:
+                cell_idx = int(self.entity_description.key.replace("cellVolt", ""))
+                if cell_count is not None and cell_count > 0 and cell_idx > cell_count:
+                    if device_data.get(self.entity_description.key) is None:
+                        return False
+            except ValueError:
+                pass
         return True

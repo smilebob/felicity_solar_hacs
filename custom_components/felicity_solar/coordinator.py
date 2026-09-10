@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 from datetime import timedelta
@@ -29,16 +30,93 @@ def _safe_int(value, default=0):
 def _parse_cell_voltage(value):
     """Safely parse cell voltage to millivolts (mV).
 
+    - Strips units like 'V', 'mV', whitespace, and replaces ',' with '.'.
     - If value is in Volts (e.g. 3.325 < 100), convert to mV (3325.0).
     - If value is already in mV (e.g. 3325 >= 100), keep as mV (3325.0).
     - If value is None, 0, or invalid, return None (avoids displaying false 0 mV).
     """
-    v = _safe_float(value, default=None)
+    if value is None:
+        return None
+    if isinstance(value, str):
+        clean_str = re.sub(r"(?i)\s*(?:mv|v)\s*$", "", value.strip()).replace(",", ".").strip()
+        v = _safe_float(clean_str, default=None)
+    else:
+        v = _safe_float(value, default=None)
+
     if v is None or v <= 0:
         return None
     if v < 100:
         return round(v * 1000.0, 1)
     return round(v, 1)
+
+
+def _extract_voltage_list(snapshot: dict) -> list:
+    """Extract list of cell voltages from possible list fields in snapshot."""
+    for key in (
+        "bmsVoltageList",
+        "cellVoltList",
+        "cellVoltageList",
+        "voltageList",
+        "cellVoltages",
+        "cellList",
+        "cells",
+    ):
+        val = snapshot.get(key)
+        if not val:
+            continue
+        if isinstance(val, list):
+            return val
+        if isinstance(val, str):
+            val_str = val.strip()
+            if val_str.startswith("[") and val_str.endswith("]"):
+                try:
+                    parsed = json.loads(val_str)
+                    if isinstance(parsed, list):
+                        return parsed
+                except Exception:
+                    pass
+            for sep in (",", ";"):
+                if sep in val_str:
+                    items = [x.strip() for x in val_str.split(sep) if x.strip()]
+                    if items:
+                        return items
+    return []
+
+
+def _get_cell_raw_value(snapshot: dict, cell_idx: int, voltage_list: list):
+    """Retrieve raw cell voltage value from snapshot dictionary or voltage list."""
+    candidate_keys = (
+        f"cellVolt{cell_idx}",
+        f"cellVolt{cell_idx:02d}",
+        f"cellvolt{cell_idx}",
+        f"cellvolt{cell_idx:02d}",
+        f"cellVoltage{cell_idx}",
+        f"cellVoltage{cell_idx:02d}",
+        f"cellvoltage{cell_idx}",
+        f"cellvoltage{cell_idx:02d}",
+        f"cell_volt_{cell_idx}",
+        f"cell_volt{cell_idx}",
+        f"bmsVolt{cell_idx}",
+        f"bmsVolt{cell_idx:02d}",
+        f"bms_volt_{cell_idx}",
+        f"volt{cell_idx}",
+        f"volt{cell_idx:02d}",
+        f"cell{cell_idx}",
+        f"cell{cell_idx:02d}",
+    )
+    for k in candidate_keys:
+        if k in snapshot:
+            v = snapshot[k]
+            if v is not None and v != "" and v != 0 and v != "0":
+                return v
+
+    # Fallback to voltage list if key was missing or 0/None
+    if len(voltage_list) >= cell_idx:
+        v = voltage_list[cell_idx - 1]
+        if v is not None and v != "" and v != 0 and v != "0":
+            return v
+
+    return None
 
 
 WORK_MODE_MAP = {
@@ -118,13 +196,11 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                         max_cell_v = _parse_cell_voltage(snapshot.get("maxVoltage2bms"))
                         min_cell_v = _parse_cell_voltage(snapshot.get("minVoltage2bms"))
 
-                        # Parse individual cell voltages (1 to 16)
-                        bms_voltage_list = snapshot.get("bmsVoltageList") or []
+                        # Parse individual cell voltages (1 to 16) with multi-key and list decoders
+                        voltage_list = _extract_voltage_list(snapshot)
                         cell_voltages = {}
                         for i in range(1, 17):
-                            raw_v = snapshot.get(f"cellVolt{i}")
-                            if (raw_v is None or raw_v == "" or raw_v == 0 or raw_v == "0") and isinstance(bms_voltage_list, list) and len(bms_voltage_list) >= i:
-                                raw_v = bms_voltage_list[i - 1]
+                            raw_v = _get_cell_raw_value(snapshot, i, voltage_list)
                             cell_voltages[f"cellVolt{i}"] = _parse_cell_voltage(raw_v)
 
                         # Fallback for max/min cell voltage from individual cells if not provided directly
@@ -141,6 +217,31 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
 
                         max_cell_num = _safe_int(snapshot.get("maxVoltageNum2bms"), default=None)
                         min_cell_num = _safe_int(snapshot.get("minVoltageNum2bms"), default=None)
+
+                        # Diagnostics logging for battery cell telemetry
+                        battery_cell_telemetry = {
+                            k: v for k, v in snapshot.items()
+                            if any(term in k.lower() for term in ("volt", "cell", "bms"))
+                        }
+                        _LOGGER.debug(
+                            "Battery %s raw cell/voltage/BMS telemetry: %s",
+                            device_sn,
+                            battery_cell_telemetry,
+                        )
+                        _LOGGER.info(
+                            "Battery %s parsed %d/16 cell voltages (min=%.1f mV, max=%.1f mV, dV=%.1f mV)",
+                            device_sn,
+                            len(valid_cells),
+                            min_cell_v if min_cell_v is not None else 0.0,
+                            max_cell_v if max_cell_v is not None else 0.0,
+                            dv_cells if dv_cells is not None else 0.0,
+                        )
+                        if not valid_cells:
+                            _LOGGER.warning(
+                                "Battery %s could not parse any individual cell voltages. Raw keys: %s",
+                                device_sn,
+                                battery_cell_telemetry,
+                            )
 
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
