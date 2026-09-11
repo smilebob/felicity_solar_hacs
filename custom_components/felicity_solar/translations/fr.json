@@ -1,0 +1,41 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion à Felicity Solar",
+        "description": "Entrez vos identifiants du cloud Felicity Solar Shine.",
+        "data": {
+          "email": "Adresse e-mail",
+          "password": "Mot de passe"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Réauthentification Felicity Solar",
+        "description": "Veuillez saisir le nouveau mot de passe pour {email}.",
+        "data": {
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Adresse e-mail ou mot de passe invalide. Veuillez vérifier vos identifiants.",
+      "cannot_connect": "Échec de connexion aux serveurs Felicity Solar.",
+      "unknown": "Une erreur inattendue est survenue. Veuillez consulter les journaux Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Ce compte Felicity Solar est déjà configuré.",
+      "reauth_successful": "La réauthentification a réussi."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options Felicity Solar",
+        "description": "Configurez l'intervalle d'actualisation de la télémétrie.",
+        "data": {
+          "update_interval": "Intervalle d'actualisation (secondes)"
+        }
+      }
+    }
+  }
+}

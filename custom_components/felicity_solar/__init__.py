@@ -184,8 +184,20 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
-        _LOGGER.info("Felicity Solar integration unloaded successfully")
+        hass.data[DOMAIN].pop(entry.entry_id, None)
+        if not hass.data[DOMAIN]:
+            for service in (
+                SERVICE_SET_SETTING,
+                SERVICE_SET_ECO_RULE,
+                SERVICE_QUERY_ENERGY,
+                SERVICE_QUERY_HISTORY,
+            ):
+                if hass.services.has_service(DOMAIN, service):
+                    hass.services.async_remove(DOMAIN, service)
+            hass.data.pop(DOMAIN, None)
+            _LOGGER.info("All Felicity Solar instances unloaded; services removed")
+        else:
+            _LOGGER.info("Felicity Solar integration entry unloaded successfully")
     else:
         _LOGGER.warning("Failed to unload Felicity Solar integration")
     return unload_ok

@@ -1,0 +1,41 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Felicity Solar",
+        "description": "Enter your Felicity Solar Shine cloud credentials.",
+        "data": {
+          "email": "Email Address",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate with Felicity Solar",
+        "description": "Please enter the updated password for {email}.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password. Please check your credentials.",
+      "cannot_connect": "Failed to connect to Felicity Solar cloud servers.",
+      "unknown": "Unexpected error occurred. Please check Home Assistant logs."
+    },
+    "abort": {
+      "already_configured": "This Felicity Solar account is already configured.",
+      "reauth_successful": "Reauthentication was successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Felicity Solar Options",
+        "description": "Configure the polling interval for telemetry updates.",
+        "data": {
+          "update_interval": "Telemetry Update Interval (seconds)"
+        }
+      }
+    }
+  }
+}

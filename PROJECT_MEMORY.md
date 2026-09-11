@@ -48,13 +48,19 @@
   - **Graceful Permission Degradation**: Code 2001528 handling to prevent log spam and skip unpermitted controls for standard accounts.
   - **README Attribution**: Updated to acknowledge vibe coding by Google Antigravity.
 - [x] **Phase 5 Full Telemetry & Battery Cell Optimization (Option B)**:
-  - **Individual Battery Cell Voltages (1-16)**: `cellVolt1` through `cellVolt16` in mV with automatic V/mV normalization, string unit stripping (`V`/`mV`), JSON/CSV list decoders, multi-key aliases (`cellVolt01`, `cellVoltage01`, etc.), and refined availability check (entities stay available unless cell index exceeds physical `cellCount` on 15S packs). Added diagnostic logging (`_LOGGER.info` / `_LOGGER.debug`) of battery snapshot keys.
+  - **Individual Battery Cell Voltages (1-16) & Log Throttling**: `cellVolt1` through `cellVolt16` in mV with automatic V/mV normalization, string unit stripping (`V`/`mV`), JSON/CSV list decoders, and multi-key aliases (`cellVolt01`, etc.). Throttled unsupported cell telemetry logs (emits a single informative `_LOGGER.info` per battery and keeps detailed raw telemetry at `_LOGGER.debug`, eliminating repeated warning spam). Clean entity availability (`available=False` when individual cells are not streamed by the BMS/cloud).
+  - **Cell Count Sanitization**: Automatically differentiates parallel pack address (`cellNumber` < 8) from series cell count on 48V/51.2V packs (defaults to 16S).
   - **Battery Remaining Energy & Rated Energy**: Multi-key fallback cascade for `remainingEnergy` (checks direct keys in kWh/Wh, remaining capacity Ah $\times$ V, ratedEnergy $\times$ SOC, and battCapacity $\times$ battVolt $\times$ SOC), eliminating false 0 values and exposing new sensor `ratedEnergy` ("Rated Energy" in kWh).
   - **BMS Current Limits & Metadata**: `chargeLimitCurrent` (`BMSLCCurr`), `dischargeLimitCurrent` (`BMSLDCurr`), `cellCount` (`cellNumber`), probe indices (`maxCellTempNum`, `minCellTempNum`), `batteryType` (`batTyStr`), and `connectedInverterSn` (`invSn`).
   - **Complete HA Energy Dashboard Integration**: Grid feed-in energy (`energyGridFeedToday`, `energyGridFeedTotal`), Grid import energy (`energyGridImportToday`, `energyGridImportTotal`), daily battery energy (`energyBatteryChargeToday`, `energyBatteryDischargeToday`), and multi-case cumulative energy (`eBatCharTotal` / `ebatCharTotal` / `bat1CharTotal`, `eBatDisCharTotal` / `ebatDischarTotal` / `bat1DisCharTotal`) with `TOTAL_INCREASING`.
   - **Smart Load Port Telemetry**: `smartLoadPower`, `smartLoadVoltage`, `smartLoadCurrent`, `smartLoadFrequency`, `smartLoadEnergyToday`, `smartLoadEnergyTotal` (disabled by default).
   - **Generator & Periodic Aggregates**: Generator energies (`energyGenToday`, `energyGenTotal`, `genPowerL2`, `genPowerL3`), periodic monthly/yearly metrics (`energyPvMonth`, `energyPvYear`, `energyLoadMonth`, `energyLoadYear`, `energyGridFeedMonth`, `energyGridFeedYear`, etc.).
-  - **Inverter Diagnostics**: `meterLinkStatus`, `totalEmsCapacity` (Ah), and `workModeStr`.
+- [x] **Phase 6 Version 1.1.3 Quality & Polish Complete**:
+  - **Manifest Alignment**: Bumped `manifest.json` to `1.1.3` to match Git tags and HACS versioning.
+  - **Internationalization & Translations**: Added `strings.json`, `translations/en.json`, and `translations/fr.json` for polished ConfigFlow, OptionsFlow, and error messages.
+  - **Battery BMS Status Sensor**: Added `bmsCommunicationStatus` ("BMS Communication Status") entity on battery packs to report "Connected" / "Disconnected" state.
+  - **Clean Service Teardown**: Updated `async_unload_entry` in `__init__.py` to safely deregister services when the last domain instance is unloaded.
+  - **Automated Unit Testing**: Created `tests/test_battery.py` validating cell voltage parsing, 16S derivation, sensor availability, log throttling, and BMS status.
 - [x] Publication and hosting on GitHub public repository `https://github.com/smilebob/felicity_solar_hacs`.
 
 ---

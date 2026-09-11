@@ -1,7 +1,7 @@
 {
   "domain": "felicity_solar",
   "name": "Felicity Solar (Smilebob Edition)",
-  "version": "1.0.2",
+  "version": "1.1.3",
   "documentation": "https://github.com/smilebob/felicity_solar_hacs",
   "issue_tracker": "https://github.com/smilebob/felicity_solar_hacs/issues",
   "dependencies": [],

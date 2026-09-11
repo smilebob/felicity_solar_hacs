@@ -203,6 +203,10 @@ BATTERY_DESCRIPTIONS: tuple[SensorEntityDescription, ...] = (
         icon="mdi:barcode",
         entity_registry_enabled_default=False,
     ),
+    SensorEntityDescription(
+        key="bmsCommunicationStatus", name="BMS Communication Status",
+        icon="mdi:lan-connect",
+    ),
     SensorEntityDescription(key="warnCount", name="Active Warning Count", icon="mdi:alert-circle-outline"),
     SensorEntityDescription(key="warnMsg", name="Last Warning Message", icon="mdi:alert-decagram"),
 )
@@ -243,16 +247,10 @@ class FelicityBatterySensor(CoordinatorEntity, SensorEntity):
         """Return True if entity is available."""
         if not super().available:
             return False
-        # For individual cell voltages: only mark unavailable if physical cell count is known
-        # and cell index exceeds cellCount (e.g. cell 16 on a 15S battery pack).
+        # For individual cell voltages: mark unavailable if the cell voltage is not reported
+        # by the BMS/cloud API, avoiding 'unknown' clutter for unstreamed cells.
         if self.entity_description.key.startswith("cellVolt"):
             device_data = self.coordinator.data.get(self.device_sn, {}).get("data", {})
-            cell_count = device_data.get("cellCount")
-            try:
-                cell_idx = int(self.entity_description.key.replace("cellVolt", ""))
-                if cell_count is not None and cell_count > 0 and cell_idx > cell_count:
-                    if device_data.get(self.entity_description.key) is None:
-                        return False
-            except ValueError:
-                pass
+            if device_data.get(self.entity_description.key) is None:
+                return False
         return True

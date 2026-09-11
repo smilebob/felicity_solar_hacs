@@ -225,6 +225,7 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
             password=password,
             session=self._session
         )
+        self._unsupported_cells_logged: set[str] = set()
 
     async def _async_update_data(self) -> dict[str, dict]:
         """Fetch data from API for all devices."""
@@ -305,17 +306,25 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                             device_sn,
                             battery_cell_telemetry,
                         )
-                        _LOGGER.info(
-                            "Battery %s parsed %d/16 cell voltages (min=%.1f mV, max=%.1f mV, dV=%.1f mV)",
-                            device_sn,
-                            len(valid_cells),
-                            min_cell_v if min_cell_v is not None else 0.0,
-                            max_cell_v if max_cell_v is not None else 0.0,
-                            dv_cells if dv_cells is not None else 0.0,
-                        )
-                        if not valid_cells:
-                            _LOGGER.warning(
-                                "Battery %s could not parse any individual cell voltages. Raw keys: %s",
+                        if valid_cells:
+                            _LOGGER.info(
+                                "Battery %s parsed %d/16 cell voltages (min=%.1f mV, max=%.1f mV, dV=%.1f mV)",
+                                device_sn,
+                                len(valid_cells),
+                                min_cell_v if min_cell_v is not None else 0.0,
+                                max_cell_v if max_cell_v is not None else 0.0,
+                                dv_cells if dv_cells is not None else 0.0,
+                            )
+                            self._unsupported_cells_logged.discard(device_sn)
+                        else:
+                            if device_sn not in self._unsupported_cells_logged:
+                                self._unsupported_cells_logged.add(device_sn)
+                                _LOGGER.info(
+                                    "Battery %s does not report individual cell voltages via cloud API (min/max cell telemetry and dV remain active)",
+                                    device_sn,
+                                )
+                            _LOGGER.debug(
+                                "Battery %s individual cell voltages not available. Raw telemetry: %s",
                                 device_sn,
                                 battery_cell_telemetry,
                             )
@@ -350,6 +359,30 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                             batt_volt,
                             batt_soc,
                         )
+
+                        # Derive physical cell count safely (cellNumber in API is often pack address e.g. 3)
+                        raw_cell_num = _safe_int(snapshot.get("cellNumber"), default=None)
+                        if raw_cell_num is not None and (raw_cell_num < 8 or (max_cell_num is not None and raw_cell_num < max_cell_num)):
+                            rate_volt = _safe_float(snapshot.get("rateVolt"), default=None)
+                            if (batt_volt is not None and batt_volt > 40) or (rate_volt is not None and rate_volt >= 48):
+                                cell_count = 16
+                            elif max_cell_num is not None and max_cell_num > 0:
+                                cell_count = max(16, max_cell_num)
+                            else:
+                                cell_count = None
+                        else:
+                            cell_count = raw_cell_num
+
+                        # BMS Communication Status for Battery
+                        bms_status_str = snapshot.get("bmsFlagStr")
+                        if not bms_status_str or bms_status_str == "-":
+                            bms_flag_val = snapshot.get("bmsFlag")
+                            if bms_flag_val is True or bms_flag_val == "true" or bms_flag_val == 1:
+                                bms_status_str = "Connected"
+                            elif bms_flag_val is False or bms_flag_val == "false" or bms_flag_val == 0:
+                                bms_status_str = "Disconnected"
+                            else:
+                                bms_status_str = None
 
                         devices_data[device_sn] = {
                             "type": DeviceTypeEnum.LITHIUM_BATTERY_PACK,
@@ -386,11 +419,12 @@ class FelicitySolarCoordinator(DataUpdateCoordinator):
                                 "dischargeLimitVoltage": _safe_float(snapshot.get("BMSLDVolt")),
                                 "chargeLimitCurrent": _safe_float(snapshot.get("BMSLCCurr"), default=None),
                                 "dischargeLimitCurrent": _safe_float(snapshot.get("BMSLDCurr"), default=None),
-                                "cellCount": _safe_int(snapshot.get("cellNumber"), default=None),
+                                "cellCount": cell_count,
                                 "maxCellTempNum": _safe_int(snapshot.get("maxCellTempNum"), default=None),
                                 "minCellTempNum": _safe_int(snapshot.get("minBattTempNum"), default=None),
                                 "batteryType": str(snapshot.get("batTyStr")) if snapshot.get("batTyStr") else None,
                                 "connectedInverterSn": str(snapshot.get("invSn")) if snapshot.get("invSn") else None,
+                                "bmsCommunicationStatus": bms_status_str,
                                 "warnCount": warn_count,
                                 "lastWarnMsg": last_warn_msg,
                             }
