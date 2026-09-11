@@ -1,0 +1,40 @@
+name: Validate & Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python-tests:
+    name: Python Lint & Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Syntax Compilation Check
+        run: |
+          python3 -m py_compile custom_components/felicity_solar/*.py
+
+      - name: Run Unit Tests
+        run: |
+          python3 -m unittest discover -s tests -v
+
+  hacs-validation:
+    name: HACS Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: HACS Action
+        uses: hacs/action@main
+        with:
+          category: integration

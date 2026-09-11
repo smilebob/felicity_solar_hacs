@@ -60,7 +60,9 @@
   - **Internationalization & Translations**: Added `strings.json`, `translations/en.json`, and `translations/fr.json` for polished ConfigFlow, OptionsFlow, and error messages.
   - **Battery BMS Status Sensor**: Added `bmsCommunicationStatus` ("BMS Communication Status") entity on battery packs to report "Connected" / "Disconnected" state.
   - **Clean Service Teardown**: Updated `async_unload_entry` in `__init__.py` to safely deregister services when the last domain instance is unloaded.
-  - **Automated Unit Testing**: Created `tests/test_battery.py` validating cell voltage parsing, 16S derivation, sensor availability, log throttling, and BMS status.
+  - **Re-Authentication Flow**: Added `async_step_reauth` and `async_step_reauth_confirm` in `config_flow.py` for seamless password rotation without re-installing.
+  - **CI / GitHub Actions (`.github/workflows/validate.yml`)**: Automated pipeline checking Python 3.12 syntax, unittests, and HACS compliance.
+  - **SEO & Search Visibility Optimization**: Comprehensively overhauled `README.md` targeting queries for "Felicity Solar", "FelicitySolar", "FSolar", "FelicityESS", "Shine API", and "Home Assistant Energy Dashboard".
 - [x] Publication and hosting on GitHub public repository `https://github.com/smilebob/felicity_solar_hacs`.
 
 ---

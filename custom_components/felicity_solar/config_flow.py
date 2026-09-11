@@ -63,6 +63,51 @@ class FelicitySolarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors
         )
 
+    async def async_step_reauth(self, entry_data=None):
+        """Perform reauth upon an authentication error."""
+        self._reauth_entry = self.hass.config_entries.async_get_entry(self.context.get("entry_id"))
+        return await self.async_step_reauth_confirm()
+
+    async def async_step_reauth_confirm(self, user_input=None):
+        """Dialog that informs the user that reauth is required."""
+        errors = {}
+        if not hasattr(self, "_reauth_entry") or self._reauth_entry is None:
+            self._reauth_entry = self.hass.config_entries.async_get_entry(self.context.get("entry_id"))
+
+        email = self._reauth_entry.data.get(CONF_EMAIL, "") if self._reauth_entry else ""
+
+        if user_input is not None and self._reauth_entry:
+            new_password = user_input[CONF_PASSWORD]
+            try:
+                session = create_felicity_client_session(self.hass)
+                api = FelicitySolarAPI(email, new_password, session)
+                await api.initialize()
+
+                self.hass.config_entries.async_update_entry(
+                    self._reauth_entry,
+                    data={
+                        **self._reauth_entry.data,
+                        CONF_PASSWORD: new_password,
+                    },
+                )
+                await self.hass.config_entries.async_reload(self._reauth_entry.entry_id)
+                return self.async_abort(reason="reauth_successful")
+            except Exception as err:
+                _LOGGER.error("Re-authentication failed for %s: %s", email, err)
+                errors["base"] = "invalid_auth"
+
+        return self.async_show_form(
+            step_id="reauth_confirm",
+            data_schema=vol.Schema({
+                vol.Required(CONF_PASSWORD): selector.TextSelector(
+                    selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
+                ),
+            }),
+            description_placeholders={"email": email},
+            errors=errors,
+        )
+
+
 
 class FelicitySolarOptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options flow for Felicity Solar."""
